@@ -1,5 +1,7 @@
 import * as React from 'react';
+import { useEffect, useState } from 'react';
 import { getProviders, getSession, signIn } from "next-auth/react"
+import { useRouter } from 'next/router'
 
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -14,6 +16,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import URLS from '@/URLS';
 
 function Copyright(props: any) {
   return (
@@ -31,19 +34,46 @@ function Copyright(props: any) {
 const theme = createTheme();
 
 export default function SignIn() {
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [loginError, setLoginError] = useState('')
+  const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
+
+  useEffect(() => {
+    // Getting the error details from URL
+    if (router.query.error) {
+      setLoginError(router.query.error) // Shown below the input field in my example
+      setEmail(router.query.email) // To prefill the email after redirect
+    }
+  }, [router])
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    const email = data.get('email'); 
-    const password = data.get('password');
+    setIsLoading(true);
 
-    console.log({
-      email: email,
-      password: password,
-    });
     signIn("email-login", {
       email: email, password: password,
-  }) // .then()
+      // callbackUrl: `${window.location.origin}/`
+      redirect: false 
+      }).then(res => {
+        console.log(res);
+
+        if (res && res.ok && res.status === 200)
+          router.push(URLS.LANDING);
+        else {
+          setIsLoading(false);
+          const error = JSON.parse(res.error);
+          console.log(error)
+          setEmail(error.email);
+
+          if (error.errors.nonFieldErrors) {
+            setLoginError(error.errors.nonFieldErrors[0].message);
+          } else {
+            setLoginError("Something went wrong");
+          }
+        }
+      })
   };
 
   return (
@@ -74,6 +104,9 @@ export default function SignIn() {
               name="email"
               autoComplete="email"
               autoFocus
+              value={email} 
+              onChange={(e) => setEmail(e.target.value)} 
+              // className={loginError ? styles.errorInput : ''}
             />
             <TextField
               margin="normal"
@@ -84,16 +117,22 @@ export default function SignIn() {
               type="password"
               id="password"
               autoComplete="current-password"
+              value={password} 
+              onChange={(e) => setPassword(e.target.value)}
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
             />
+            <span 
+            // className={styles.error}
+            >{loginError}</span>
             <Button
               type="submit"
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
+              disabled={isLoading}
             >
               Sign In
             </Button>
@@ -117,22 +156,18 @@ export default function SignIn() {
   );
 }
 
-// SignIn.getInitialProps = async(context) => {
-//   const {req, res } = context;
-//   const session = await getSession({req});
-
-//   console.log("In SignIn()", session);
-
-//   if (session && res && session.access_token) {
-//     res.writeHead(302, {
-//       Location: "/",
-//     });
-//     res.end()
-//     return;
-//   }
-
-//   return {
-//     session: undefined,
-//     providers: await getProviders()
-//   }
-// }
+export async function getServerSideProps(context) {
+  const { req } = context;
+  const session = await getSession({ req });
+  const providers = await getProviders()
+  if (session) {
+      return {
+          redirect: { destination: "/" },
+      };
+  }
+  return {
+      props: {
+          providers,
+      },
+  }
+}

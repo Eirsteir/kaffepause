@@ -32,9 +32,10 @@ export default NextAuth({
             });
 
             if (!tokenAuth.success || !tokenAuth.user)
-                return null; //Promise.reject(res.errors);
+                throw new Error(JSON.stringify({errors: tokenAuth.errors, email: credentials?.email, ok: false}));
 
           return {
+            success: true,
             accessToken: tokenAuth.token, 
             refresToken: tokenAuth.refresh_token
           };
@@ -52,12 +53,10 @@ export default NextAuth({
           token.accessToken = user?.accessToken;
         }
 
-        console.log("In jwt(): ", token);
         return token;
       },
       async session({ session, token }) {
         if (token && token.account.accessToken) {
-            session.accessToken = token.account.accessToken;
             
             const context = {
                 headers: {
@@ -70,17 +69,14 @@ export default NextAuth({
                 context: context
             });
 
-            console.log("in session()", me);
             session.user = me;
         }
-
-        // session.user = getUserFromTheAPIServer(session.accessToken)
-
 
         return { ...session };
       },
     },
     pages: {
         signIn: URLS.SIGNIN,
+        error: URLS.SIGNIN
     }
 });

@@ -13,7 +13,7 @@ export default function Home() {
 
   if (status === "authenticated") {
     return <p>Signed in as {session?.user?.name}</p>
-  }
+  } 
 
   return (
     <>
