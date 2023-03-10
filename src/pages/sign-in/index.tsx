@@ -1,4 +1,6 @@
 import * as React from 'react';
+import { getProviders, getSession, signIn } from "next-auth/react"
+
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -32,10 +34,16 @@ export default function SignIn() {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
+    const email = data.get('email'); 
+    const password = data.get('password');
+
     console.log({
-      email: data.get('email'),
-      password: data.get('password'),
+      email: email,
+      password: password,
     });
+    signIn("email-login", {
+      email: email, password: password,
+  }) // .then()
   };
 
   return (
@@ -108,3 +116,23 @@ export default function SignIn() {
     </ThemeProvider>
   );
 }
+
+// SignIn.getInitialProps = async(context) => {
+//   const {req, res } = context;
+//   const session = await getSession({req});
+
+//   console.log("In SignIn()", session);
+
+//   if (session && res && session.access_token) {
+//     res.writeHead(302, {
+//       Location: "/",
+//     });
+//     res.end()
+//     return;
+//   }
+
+//   return {
+//     session: undefined,
+//     providers: await getProviders()
+//   }
+// }

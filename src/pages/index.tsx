@@ -1,10 +1,20 @@
 import Head from 'next/head'
+import { useSession } from "next-auth/react"
+
 import styles from '@/styles/Home.module.css'
 import Link from '@/components/navigation/Link'
 import URLS from '@/URLS'
 
 
 export default function Home() {
+  const { data: session, status } = useSession()
+  console.log(session);
+  console.log(status);
+
+  if (status === "authenticated") {
+    return <p>Signed in as {session?.user?.name}</p>
+  }
+
   return (
     <>
       <Head>
