@@ -1,8 +1,10 @@
 import '@/styles/globals.css'
 import { SessionProvider } from 'next-auth/react'
 import type { AppProps } from 'next/app'
+import { ThemeProvider } from "@mui/material/styles";
 
 import { ApolloProviderWrapper } from '../apollo-client-setup';
+import { theme } from '@/theme';
 
 
 export default function App({
@@ -12,7 +14,9 @@ export default function App({
   return (
     <ApolloProviderWrapper>
       <SessionProvider session={session}>
-        <Component {...pageProps} />
+        <ThemeProvider theme={theme}>
+          <Component {...pageProps} />
+        </ThemeProvider>
       </SessionProvider>
     </ApolloProviderWrapper>
   )

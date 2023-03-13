@@ -4,21 +4,20 @@ import { signOut, useSession } from "next-auth/react"
 import styles from '@/styles/Home.module.css'
 import Link from '@/components/navigation/Link'
 import URLS from '@/URLS'
+import { Box, Button, Typography } from '@mui/material'
+import Navigation from '@/components/navigation/Navigation'
+import { useHasMounted } from '@/hooks/utils'
+import { useIsAuthenticated } from '@/hooks/User'
+import Home from '@/components/Home'
 
 
-export default function Home() {
-  const { data: session, status } = useSession()
-  console.log(session);
-  console.log(status);
-
-  if (status === "authenticated") {
-    return (
-      <>
-      <p>Signed in as {session?.user?.name}</p>
-      <button onClick={() => signOut()}>Sign out</button>
-      </>
-    )
-  } 
+export default function Landing() {
+  const { session, status, user, isAuthenticated } = useIsAuthenticated();
+    
+  const hasMounted = useHasMounted();
+  if (!hasMounted) {
+    return null;
+  }
 
   return (
     <>
@@ -30,14 +29,17 @@ export default function Home() {
       </Head>
       <main className={styles.main}>
 
-        <div className={styles.center}>
-          KAFFE
-        </div>
-
-        <div className={styles.grid}>
-          <Link href={URLS.SIGNIN}>Login</Link>
-          <Link href={URLS.SIGNUP}>Sign up</Link>
-        </div>
+        <Navigation />
+      
+        {isAuthenticated ? (
+          <Home user={user!} />
+        ) : (
+          <Box>
+            <Typography variant="h1" component="div" sx={{ flexGrow: 1 }}>
+                KAFFE
+            </Typography>
+          </Box>
+        )}
       </main>
     </>
   )
