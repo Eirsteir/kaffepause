@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState, useEffect } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -12,6 +13,14 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { useMutation } from '@apollo/client';
+
+
+import SIGNUP_MUTATION from '../../graphql/signup.mutation';
+import { signIn } from 'next-auth/react';
+import { useRouter } from 'next/router';
+import URLS from '@/URLS';
+
 
 function Copyright(props: any) {
   return (
@@ -29,14 +38,73 @@ function Copyright(props: any) {
 const theme = createTheme();
 
 export default function SignUp() {
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [signUpError, setSignUpError] = useState('');
+  const router = useRouter();
+
+  useEffect(() => {
+    // Getting the error details from URL
+    if (router.query.error) {
+      setSignUpError(router.query.error) // Shown below the input field in my example
+      setEmail(router.query.email) // To prefill the email after redirect
+      setFirstName(router.query.firstName)
+      setLastName(router.query.lastName)
+    }
+  }, [router])
+
+  const [register, { loading, error, reset }] = useMutation(SIGNUP_MUTATION, {
+    variables: {
+      name: firstName + ' ' + lastName, 
+      email: email,
+      username: firstName + ' ' + lastName,  // TODO 
+      preferredLocationUuid: null, //"1fe910a8-5574-435a-8378-24885d1c0bbe", 
+      password1: password,
+      password2: password // workaround
+    },
+    onCompleted: ({ register }) => handleSignUpCompleted(register),
+    onError: err => {
+      console.log(err)
+      setSignUpError("Noe gikk galt, prøv igjen senere"); 
+    }   
+  });
+  
+  const handleSignUpCompleted = (register: any) => {
+    console.log(register)
+    if (register.success) {
+        signIn("email-login", {
+          isNewUser: true,
+          token: register.token,
+          refreshToken: register.refreshToken,
+          redirect: false 
+          }).then(res => {    
+            if (res && res.ok && res.status === 200)
+              router.push(URLS.LANDING);
+            else {
+              const error = JSON.parse(res.error);
+              console.log(error)
+              setEmail(error.email);
+    
+              if (error.errors.nonFieldErrors) {
+                setSignUpError(error.errors.nonFieldErrors[0].message);
+              } else {
+                setSignUpError("Something went wrong");
+              }
+            }
+          }) 
+      } else {
+        // TODO: handle errors
+        // setSignUpError(register.errors)
+        alert("Noe gikk galt", register.errors);
+      }
   };
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    register()
+  }
 
   return (
     <ThemeProvider theme={theme}>
@@ -56,7 +124,7 @@ export default function SignUp() {
           <Typography component="h1" variant="h5">
             Sign up
           </Typography>
-          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+          <Box component="form" noValidate onSubmit={onSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
                 <TextField
@@ -67,6 +135,8 @@ export default function SignUp() {
                   id="firstName"
                   label="First Name"
                   autoFocus
+                  value={firstName} 
+                  onChange={(e) => setFirstName(e.target.value)} 
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -77,6 +147,8 @@ export default function SignUp() {
                   label="Last Name"
                   name="lastName"
                   autoComplete="family-name"
+                  value={lastName} 
+                  onChange={(e) => setLastName(e.target.value)} 
                 />
               </Grid>
               <Grid item xs={12}>
@@ -87,6 +159,8 @@ export default function SignUp() {
                   label="Email Address"
                   name="email"
                   autoComplete="email"
+                  value={email} 
+                  onChange={(e) => setEmail(e.target.value)} 
                 />
               </Grid>
               <Grid item xs={12}>
@@ -98,6 +172,8 @@ export default function SignUp() {
                   type="password"
                   id="password"
                   autoComplete="new-password"
+                  value={password} 
+                  onChange={(e) => setPassword(e.target.value)} 
                 />
               </Grid>
               <Grid item xs={12}>
@@ -107,17 +183,24 @@ export default function SignUp() {
                 />
               </Grid>
             </Grid>
+            <span 
+            // className={styles.error}
+            >{error?.message}</span>
+            <span 
+            // className={styles.error}
+            >{signUpError}</span>
             <Button
               type="submit"
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
+              disabled={loading || !email || !firstName || !lastName || !password}
             >
               Sign Up
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link href={URLS.SIGNIN} variant="body2">
                   Already have an account? Sign in
                 </Link>
               </Grid>

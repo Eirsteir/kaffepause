@@ -57,14 +57,11 @@ export default function SignIn() {
       // callbackUrl: `${window.location.origin}/`
       redirect: false 
       }).then(res => {
-        console.log(res);
-
         if (res && res.ok && res.status === 200)
           router.push(URLS.LANDING);
         else {
           setIsLoading(false);
           const error = JSON.parse(res.error);
-          console.log(error)
           setEmail(error.email);
 
           if (error.errors.nonFieldErrors) {
@@ -143,7 +140,7 @@ export default function SignIn() {
                 </Link>
               </Grid>
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link href={URLS.SIGNUP} variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>

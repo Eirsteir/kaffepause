@@ -23,6 +23,14 @@ export default NextAuth({
         },
         secret: process.env.NEXTAUTH_SECRET,
         async authorize(credentials, req) {
+            console.log(credentials);
+            if (credentials.isNewUser) {
+                return {
+                    success: true,
+                    accessToken: credentials.token, 
+                    refresToken: credentials.refreshToken
+                  };
+            }
             const { data: { tokenAuth } } = await apolloClient.mutate({
                 mutation: SIGNIN_MUTATION,
                 variables: {
@@ -77,6 +85,6 @@ export default NextAuth({
     },
     pages: {
         signIn: URLS.SIGNIN,
-        error: URLS.SIGNIN
+        // error: URLS.SIGNIN
     }
 });

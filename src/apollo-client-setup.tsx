@@ -11,36 +11,24 @@ import { getToken } from 'next-auth/jwt';
 
 
 const httpLink = createHttpLink({
-  uri: process.env.API_URL,
+  uri: process.env.NEXT_PUBLIC_API_URL
 });
 
 const authLink = setContext(async (_, { headers }) => {
   const { token } = await fetch('http://localhost:3000/api/auth/token').then(res => res.json())
-  console.log("APOLLO SETUP: ", token);
+
   return {
     headers: {
-      authorization: token ? `JWT ${token}`: '',
+      authorization: token ? `JWT ${token}`: null,
       ...headers,
     }
   }
 });
-// const authLink = new ApolloLink((operation, forward) => {
-//   const { token } = await fetch('http://localhost:3000/api/auth/token').then(res => res.json())
-
-//   operation.setContext({
-//     headers: {
-//       authorization: token ? `JWT ${token}`: '',
-//       ...operation.getContext().headers,
-//     },
-//   });
-// 
-//   return forward(operation);
-// });
 
 const logLink = new ApolloLink((operation, forward) => {
-  console.info('request', operation.getContext());
+  console.debug('request', operation.getContext());
   return forward(operation).map((result) => {
-      console.info('response', operation.getContext());
+      console.debug('response', operation.getContext());
       return result;
   });
 });

@@ -10,10 +10,10 @@ export default function App({
   pageProps: { session, ...pageProps }
 }: AppProps) {
   return (
-    <SessionProvider session={session}>
-      <ApolloProviderWrapper>
+    <ApolloProviderWrapper>
+      <SessionProvider session={session}>
         <Component {...pageProps} />
-      </ApolloProviderWrapper>
-    </SessionProvider>
+      </SessionProvider>
+    </ApolloProviderWrapper>
   )
 }

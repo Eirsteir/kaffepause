@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import { useSession } from "next-auth/react"
+import { signOut, useSession } from "next-auth/react"
 
 import styles from '@/styles/Home.module.css'
 import Link from '@/components/navigation/Link'
@@ -12,7 +12,12 @@ export default function Home() {
   console.log(status);
 
   if (status === "authenticated") {
-    return <p>Signed in as {session?.user?.name}</p>
+    return (
+      <>
+      <p>Signed in as {session?.user?.name}</p>
+      <button onClick={() => signOut()}>Sign out</button>
+      </>
+    )
   } 
 
   return (
