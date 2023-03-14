@@ -1,5 +1,6 @@
 import { ThemeOptions, createTheme } from '@mui/material/styles';
 import "@fontsource/raleway"
+import "@fontsource/raleway/900.css";
 
 const themeOptions: ThemeOptions = {
   palette: {
@@ -14,7 +15,7 @@ const themeOptions: ThemeOptions = {
   typography: {
     fontFamily: 'Raleway, sans-serif',
     h1: {
-      fontWeight: 900,
+      fontWeight: 800,
     },
     h2: {
       fontWeight: 700,
