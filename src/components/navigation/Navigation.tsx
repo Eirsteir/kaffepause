@@ -22,14 +22,17 @@ export default function Navigation() {
     }
 
     return (
-        <Box sx={{ flexGrow: 1 }}>
+        <Box sx={{ flexGrow: 1, borderBottom: '1px solid #DDD', marginBottom: '1rem', background: 'transparent' }}>
           <AppBar position="static" elevation={0}>
             <Toolbar>
-              <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+              <Typography variant="h6" component="a" href={URLS.LANDING} sx={{ flexGrow: 1 }}>
+                kaffe
               </Typography>
+
+
                 <Link href={URLS.SIGNIN}>
                     <Button color="secondary" disableElevation>
-                    Login
+                        Login
                     </Button>
                 </Link>
                 <Link href={URLS.SIGNUP}>

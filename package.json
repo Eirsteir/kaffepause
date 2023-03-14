@@ -12,6 +12,7 @@
     "@apollo/client": "^3.7.10",
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
+    "@fontsource/raleway": "^4.5.12",
     "@mui/icons-material": "^5.11.11",
     "@mui/material": "^5.11.12",
     "@types/node": "18.14.6",

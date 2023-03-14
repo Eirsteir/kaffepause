@@ -12,7 +12,7 @@ export default function Home({ user }: IProps) {
     return (
         <>
             <Box sx={{ flexGrow: 1 }}>
-                <Typography variant="h4" component="div" sx={{ flexGrow: 1 }}>
+                <Typography variant="h4" color='secondary' component="div" sx={{ flexGrow: 1 }}>
                     Welcome
                 </Typography>
             </Box>
