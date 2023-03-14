@@ -27,12 +27,16 @@ export default function LandingPage() {
       <main className={styles.main}>
 
         <Navigation />
-      
-        {isAuthenticated ? (
-          <Home user={user!} />
-        ) : (
-          <Landing />
-        )}
+
+        <div className={styles.mainContainer}>
+
+          {isAuthenticated ? (
+            <Home user={user!} />
+            ) : (
+              <Landing />
+          )}
+          
+        </div>
       </main>
     </>
   )

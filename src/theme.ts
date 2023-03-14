@@ -26,6 +26,9 @@ const themeOptions: ThemeOptions = {
     h4: {
       fontWeight: 600
     },
+    h5: {
+      fontWeight: 600
+    },
     button: {
       fontWeigth: 700,
     }

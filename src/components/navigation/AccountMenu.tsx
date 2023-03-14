@@ -3,12 +3,10 @@ import Box from '@mui/material/Box';
 import Avatar from '@mui/material/Avatar';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import ListItemIcon from '@mui/material/ListItemIcon';
+import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
-import Settings from '@mui/icons-material/Settings';
-import Logout from '@mui/icons-material/Logout';
 import MenuIcon from '@mui/icons-material/Menu';
 
 import { signOut } from 'next-auth/react';
@@ -18,7 +16,7 @@ interface IProps {
 }
 
 export default function AccountMenu({ name }: IProps) {
-    const initials = name.split(' ').map(n => n[0]);
+    const initials = name.split(' ').map(n => n[0]); // TODO: user image
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
     
@@ -60,6 +58,7 @@ export default function AccountMenu({ name }: IProps) {
                 PaperProps={{
                     elevation: 0,
                     sx: {
+                    width: 200,
                     overflow: 'visible',
                     filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
                     mt: 1.5,
@@ -87,23 +86,20 @@ export default function AccountMenu({ name }: IProps) {
                 anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
             >
             <MenuItem onClick={handleClose}>
-                <Avatar /> Profile
-            </MenuItem>
-            <MenuItem onClick={handleClose}>
-                <Avatar /> My account
+                <Typography variant='subtitle2'>
+                   Account    
+                </Typography>
             </MenuItem>
             <Divider />
             <MenuItem onClick={handleClose}>
-                <ListItemIcon>
-                <Settings fontSize="small" />
-                </ListItemIcon>
-                Settings
+                <Typography variant='subtitle2'>
+                    Help    
+                </Typography>
             </MenuItem>
             <MenuItem onClick={onSignOut}>
-                <ListItemIcon>
-                <Logout fontSize="small" />
-                </ListItemIcon>
-                Logout
+                <Typography variant='subtitle2'>
+                    Log Out
+                </Typography>
             </MenuItem>
             </Menu>
         </React.Fragment>

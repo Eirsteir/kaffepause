@@ -2,5 +2,9 @@
   min-height: 100vh;
   min-width: 100vw;
   background-color: #9DC0BC;
+}
+
+
+.mainContainer {
   padding: 1rem;
 }
