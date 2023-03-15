@@ -1,9 +1,14 @@
-import React from 'react';
+import React, { useState } from "react";
+import dayjs from 'dayjs';
 
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
+import Pagination from '@mui/material/Pagination';
 
-import moment from 'moment';
+import usePagination from '@/hooks/Pagination';
+
+
+type TimeSlot = string; 
 
 interface TimeSlotPickerProps {
   selectedTime: string;
@@ -13,9 +18,9 @@ interface TimeSlotPickerProps {
 const generateTimeSlots = (): string[] => {
   const interval = 15;
   const times: string[] = [];
-  const now = moment();
-  const start = moment().startOf('hour').add(15, 'minutes');
-  const end = moment().endOf('day');
+  const now = dayjs();
+  const start = dayjs().startOf('hour').add(15, 'minutes');
+  const end = dayjs().endOf('day');
 
   while (start.isBefore(end)) {
     if (start.isAfter(now)) {
@@ -33,24 +38,38 @@ const TimeSlotPicker: React.FC<TimeSlotPickerProps> = ({
   onTimeSlotSelected,
 }) => {
   const timeSlots = generateTimeSlots();
-  
+  const [page, setPage] = useState<number>(1);
+  const PER_PAGE = 12;
+
+  const count = Math.ceil(timeSlots.length / PER_PAGE);
+  const _DATA = usePagination(timeSlots, PER_PAGE);
+
+  const handleChange = (e, page: number) => {
+    setPage(page);
+    _DATA.jump(page);
+  };
+
   return (
     <Grid container spacing={2}>
-      {timeSlots.map((timeSlot) => (
+      {_DATA.currentData().map((timeSlot: TimeSlot) => (
         <Grid item key={timeSlot} xs={6} sm={3}>
           <Button
-            // variant="h6"
-            // component="button"
+            variant={selectedTime === timeSlot ? 'contained' : 'outlined'}
+            color="secondary" 
+            disableElevation
             onClick={() => onTimeSlotSelected(timeSlot)}
-            sx={{
-              backgroundColor:
-                selectedTime === timeSlot ? 'lightblue' : 'white',
-            }}
           >
             {timeSlot}
           </Button>
         </Grid>
       ))}
+      <Pagination
+        count={count}
+        // size="large"
+        page={page}
+        shape="rounded"
+        onChange={handleChange}
+      />
     </Grid>
   );
 };
