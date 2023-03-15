@@ -86,6 +86,22 @@ export default function AccountMenu({ name }: IProps) {
                 anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
             >
             <MenuItem onClick={handleClose}>
+                <Typography variant='subtitle2' sx={{ fontWeight: 700 }}>
+                   Break Preferences    
+                </Typography>
+            </MenuItem>
+            <MenuItem onClick={handleClose}>
+                <Typography variant='subtitle2' sx={{ fontWeight: 700 }}>
+                   Schedules    
+                </Typography>
+            </MenuItem>
+            <Divider />
+            <MenuItem onClick={handleClose}>
+                <Typography variant='subtitle2'>
+                   Profile    
+                </Typography>
+            </MenuItem>
+            <MenuItem onClick={handleClose}>
                 <Typography variant='subtitle2'>
                    Account    
                 </Typography>

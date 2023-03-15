@@ -1,4 +1,4 @@
-import { Button } from '@mui/material'
+import Button from '@mui/material/Button'
 
 import { useIsAuthenticated } from "@/hooks/User";
 import { useHasMounted } from "@/hooks/utils";

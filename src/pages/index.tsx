@@ -16,6 +16,8 @@ export default function LandingPage() {
     return null;
   }
 
+  console.log(status);
+
   return (
     <>
       <Head>
@@ -29,12 +31,16 @@ export default function LandingPage() {
         <Navigation />
 
         <div className={styles.mainContainer}>
-
-          {isAuthenticated ? (
-            <Home user={user!} />
-            ) : (
-              <Landing />
-          )}
+          
+          { status !== 'loading' && (  // TODO: find better solution
+            isAuthenticated ? (
+              <Home user={user!} />
+              ) : (
+                <Landing />
+            )
+          )
+          }
+          
           
         </div>
       </main>

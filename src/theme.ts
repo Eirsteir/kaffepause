@@ -14,6 +14,9 @@ const themeOptions: ThemeOptions = {
   },
   typography: {
     fontFamily: 'Raleway, sans-serif',
+    allVariants: {
+      color: '#264653',
+    },
     h1: {
       fontWeight: 800,
     },

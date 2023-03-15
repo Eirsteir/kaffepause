@@ -26,9 +26,9 @@ const authLink = setContext(async (_, { headers }) => {
 });
 
 const logLink = new ApolloLink((operation, forward) => {
-  console.debug('request', operation.getContext());
+  // console.debug('request', operation.getContext());
   return forward(operation).map((result) => {
-      console.debug('response', operation.getContext());
+      // console.debug('response', operation.getContext());
       return result;
   });
 });

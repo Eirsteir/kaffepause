@@ -1,5 +1,3 @@
-import { AppBar, Box, Button, Toolbar, Typography } from '@mui/material'
-
 import { IUser } from '../../types/User';
 import AccountMenu from './AccountMenu';
 import BaseNavigation from './BaseNavigation';

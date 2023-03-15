@@ -1,7 +1,9 @@
-import { AppBar, Box, Button, Toolbar, Typography } from '@mui/material'
+import AppBar from '@mui/material/AppBar'
+import Box from '@mui/material/Box'
+import Toolbar from '@mui/material/Toolbar'
+import Typography from '@mui/material/Typography'
 
 
-import Link from './Link';
 import URLS from '@/URLS';
 
 type Props = {
