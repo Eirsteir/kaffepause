@@ -1,33 +1,47 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import dayjs from 'dayjs';
 
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import Pagination from '@mui/material/Pagination';
+import Typography from "@mui/material/Typography";
 
 import usePagination from '@/hooks/Pagination';
 
 
-type TimeSlot = string; 
+type TimeSlot = {
+  time: dayjs.Dayjs;
+  formatted: string;
+}; 
 
 interface TimeSlotPickerProps {
   selectedTime: string;
   onTimeSlotSelected: (time: string) => void;
 }
 
-const generateTimeSlots = (): string[] => {
+const generateTimeSlots = (): TimeSlot[] => {
   const interval = 15;
-  const times: string[] = [];
+  const times: TimeSlot[] = [];
   const now = dayjs();
-  const start = dayjs().startOf('hour').add(15, 'minutes');
+  let start = dayjs().startOf('hour').add(15, 'minutes');
   const end = dayjs().endOf('day');
 
-  while (start.isBefore(end)) {
-    if (start.isAfter(now)) {
-      times.push(start.format('HH:mm'));
-      start.add(interval, 'minutes');
-    }
+  const day_start = dayjs().startOf('day').hour(7); // 7 am
+  const day_end = dayjs().startOf('day').hour(22) // 10 pm
+  
+  while (start.isBefore(end) || start.isSame(end)) {
+    console.log(start);
+    start = start.add(interval, 'minutes');
+    times.push({ time: start, formatted: start.format('HH:mm') });
   }
+
+  // while (start.isBefore(end)) {
+    // if (start.isAfter(now)) {
+    //   console.log(start);
+    //   times.push(start.format('HH:mm'));
+    //   start.add(interval, 'minutes');
+    // }
+  // }
 
   return times;
 };
@@ -37,7 +51,7 @@ const TimeSlotPicker: React.FC<TimeSlotPickerProps> = ({
   selectedTime,
   onTimeSlotSelected,
 }) => {
-  const timeSlots = generateTimeSlots();
+  const timeSlots = useMemo(() => generateTimeSlots(), [generateTimeSlots]);
   const [page, setPage] = useState<number>(1);
   const PER_PAGE = 12;
 
@@ -51,6 +65,7 @@ const TimeSlotPicker: React.FC<TimeSlotPickerProps> = ({
 
   return (
     <Grid container spacing={2}>
+
       {_DATA.currentData().map((timeSlot: TimeSlot) => (
         <Grid item key={timeSlot} xs={6} sm={3}>
           <Button
@@ -59,10 +74,11 @@ const TimeSlotPicker: React.FC<TimeSlotPickerProps> = ({
             disableElevation
             onClick={() => onTimeSlotSelected(timeSlot)}
           >
-            {timeSlot}
+              {timeSlot.formatted}
           </Button>
         </Grid>
       ))}
+
       <Pagination
         count={count}
         // size="large"
