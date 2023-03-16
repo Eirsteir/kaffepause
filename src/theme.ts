@@ -5,12 +5,24 @@ import "@fontsource/raleway/900.css";
 const themeOptions: ThemeOptions = {
   palette: {
     mode: 'light',
-    primary: {
-      main: '#9DC0BC',
+    background: {
+      default: '#9DC0BC',
     },
-    secondary: {
+    primary: {
       main: '#264653',
     },
+    secondary: {
+      main: '#e9c46aff',
+    },
+  },
+  components: {
+    MuiAppBar: {
+      styleOverrides: {
+        colorPrimary: {
+          backgroundColor: '#9DC0BC'
+        }
+      }
+    }
   },
   typography: {
     fontFamily: 'Raleway, sans-serif',

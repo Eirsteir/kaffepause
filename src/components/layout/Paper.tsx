@@ -11,9 +11,8 @@ export default function Paper({
     return (
         <MaterialPaper
             variant='outlined'
-            elevation={0}
-
-            sx={{ background: 'transparent', border: '1px solid #DDD'}}
+            // elevation={0}
+            sx={{ background: 'transparent', display: 'inline-block', padding: '1rem' }}
         >
         {children}
       </MaterialPaper>

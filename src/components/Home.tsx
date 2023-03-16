@@ -13,12 +13,12 @@ export default function Home({ user }: IProps) {
 
     return (
         <>
-            <Box sx={{ flexGrow: 1, padding: '2rem' }}>
-                <Typography variant="h4" color='secondary' component="div" sx={{ flexGrow: 1 }}>
-                    Time for a break?
+            <Box sx={{ flexGrow: 1, paddingLeft: '2rem' }}>
+                <Typography variant="h4" component="div" sx={{ flexGrow: 1 }} mb={2}>
+                    Tid for en pause?
                 </Typography>
 
-                <BreakPlanner /> 
+                <BreakPlanner user={user} /> 
             </Box>
         </>
     );

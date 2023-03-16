@@ -16,10 +16,13 @@ const httpLink = createHttpLink({
 
 const authLink = setContext(async (_, { headers }) => {
   const { token } = await fetch('http://localhost:3000/api/auth/token').then(res => res.json())
-
+  const accessToken = token?.accessToken;
+  console.log(token)
+  console.log(accessToken)
+    
   return {
     headers: {
-      authorization: token ? `JWT ${token}`: null,
+      authorization: accessToken ? `JWT ${accessToken}`: null,
       ...headers,
     }
   }

@@ -10,13 +10,14 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuIcon from '@mui/icons-material/Menu';
 
 import { signOut } from 'next-auth/react';
+import { getInitialsFromName } from '@/utils';
 
 interface IProps {
     name: string;
 }
 
 export default function AccountMenu({ name }: IProps) {
-    const initials = name.split(' ').map(n => n[0]); // TODO: user image
+    const initials = getInitialsFromName(name); // TODO: user image
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
     

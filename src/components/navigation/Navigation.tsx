@@ -25,12 +25,12 @@ export default function Navigation() {
     return (
       <BaseNavigation>
         <Link href={URLS.SIGNIN}>
-            <Button color="secondary" disableElevation>
+            <Button disableElevation>
                 Login
             </Button>
         </Link>
         <Link href={URLS.SIGNUP}>
-            <Button color="secondary" disableElevation>
+            <Button disableElevation>
             Sign up
             </Button>
         </Link> 

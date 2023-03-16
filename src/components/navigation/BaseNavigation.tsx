@@ -15,7 +15,7 @@ export default function BaseNavigation({ children }: Props) {
         <Box sx={{ flexGrow: 1, padding: '.5rem', borderBottom: '1px solid #DDD', marginBottom: '1rem', background: 'transparent' }}>
           <AppBar position="static" elevation={0}>
             <Toolbar>
-              <Typography variant="h5" component="a" color='secondary' href={URLS.LANDING} sx={{ flexGrow: 1 }}>
+              <Typography variant="h5" component="a" href={URLS.LANDING} sx={{ flexGrow: 1 }}>
                 kaffe
               </Typography>
 

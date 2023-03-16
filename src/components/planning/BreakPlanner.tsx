@@ -1,52 +1,19 @@
 import { useState } from "react";
-import Container from "@mui/material/Container";
+import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 
 import Paper from "../layout/Paper";
+import BreakPlannerCard from './BreakPlannerCard';
 import TimeSlotPicker from './TimeSlotPicker';
+import { TimeSlot } from "@/types/Time";
 
 
-export default function BreakPlanner() {
-    const [selectedTime, setSelectedTime] = useState('');
+export default function BreakPlanner({ user }) {
 
-    const handleTimeSlotSelected = (time: string) => {
-        console.log(time);
-      setSelectedTime(time);
-    };
 
     return (
         <>
-            <Paper>
-                <Container maxWidth="sm"
-                    // display='flex'
-                    // justifyContent='center'
-                    // alignItems='center'
-                    // flexDirection='column'
-                    // sx={{ maxWidth: '40%'}}
-                >
-                    <Typography variant='h5'>
-                        Plan your break
-                    </Typography>
-                    
-                    <Container>
-                        <Typography variant='h6'>
-                            Set a time
-                        </Typography>
-
-                        <TimeSlotPicker
-                            selectedTime={selectedTime}
-                            onTimeSlotSelected={handleTimeSlotSelected}
-                        />         
-                    </Container>
-
-                    <Typography variant='h6'>
-                        Set a place 
-                    </Typography>
-
-                    
-
-                </Container>
-            </Paper>
+          <BreakPlannerCard user={user}/>      
         </>
     )
 }
