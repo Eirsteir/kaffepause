@@ -12,7 +12,7 @@ type Props = {
 
 export default function BaseNavigation({ children }: Props) {
     return (
-        <Box sx={{ flexGrow: 1, padding: '.5rem', borderBottom: '1px solid #DDD', marginBottom: '1rem', background: 'transparent' }}>
+        <Box sx={{ flexGrow: 1, padding: '.5rem', borderBottom: '1px solid #FFF', marginBottom: '1rem', background: 'transparent' }}>
           <AppBar position="static" elevation={0}>
             <Toolbar>
               <Typography variant="h5" component="a" href={URLS.LANDING} sx={{ flexGrow: 1 }}>

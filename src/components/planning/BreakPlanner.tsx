@@ -1,19 +1,29 @@
 import { useState } from "react";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
 
-import Paper from "../layout/Paper";
 import BreakPlannerCard from './BreakPlannerCard';
-import TimeSlotPicker from './TimeSlotPicker';
-import { TimeSlot } from "@/types/Time";
+import { IUser } from "@/types/User";
 
 
-export default function BreakPlanner({ user }) {
+interface BreakPlannerProps {
+  user: IUser;
+}
 
+
+export default function BreakPlanner({ user }: BreakPlannerProps) {
+    const [hasInitiatedBreak, setHasInitiatedBreak] = useState<boolean>(false);
+    const callback = () => setHasInitiatedBreak(!hasInitiatedBreak);
 
     return (
         <>
-          <BreakPlannerCard user={user}/>      
+          { hasInitiatedBreak ? (
+            <>
+              <p>VENT PÅ PAUSE - Start ny!!</p>
+              <Button variant='contained' onClick={callback} >Planlegg ny pause</Button>
+            </>
+          ) : (
+            <BreakPlannerCard user={user} breakInitiatedCallback={callback}/>      
+          )}
         </>
     )
 }

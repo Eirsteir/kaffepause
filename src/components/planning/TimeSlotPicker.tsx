@@ -8,6 +8,8 @@ import Box from "@mui/material/Box";
 
 import usePagination from '@/hooks/Pagination';
 import { TimeSlot } from "@/types/Time";
+import { generateTimeSlots } from "@/utils";
+import { useTimeSlots } from "@/hooks/utils";
 
 
 interface TimeSlotPickerProps {
@@ -15,27 +17,12 @@ interface TimeSlotPickerProps {
   onTimeSlotSelected: (time: TimeSlot) => void;
 }
 
-const generateTimeSlots = (): TimeSlot[] => {
-  console.log("Generating timeslots")
-  const interval = 15;
-  const times: TimeSlot[] = [];
-  let start = dayjs().startOf('hour').add(15, 'minutes');
-  const end = dayjs().endOf('day');
-
-  while (start.isBefore(end) || start.isSame(end)) {
-    start = start.add(interval, 'minutes');
-    times.push({ time: start, formatted: start.format('HH:mm') });
-  }
-
-  return times;
-};
-
 
 const TimeSlotPicker: React.FC<TimeSlotPickerProps> = ({
   selectedTime,
   onTimeSlotSelected,
 }) => {
-  const timeSlots = generateTimeSlots();
+  const [timeSlots, _] = useTimeSlots();
   const [page, setPage] = useState<number>(1);
   
   const PER_PAGE = 12;

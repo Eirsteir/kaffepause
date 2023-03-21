@@ -1,86 +1,65 @@
 import * as React from 'react';
-import { styled } from '@mui/material/styles';
-import Card from '@mui/material/Card';
-import CardHeader from '@mui/material/CardHeader';
-import CardContent from '@mui/material/CardContent';
-import CardActions from '@mui/material/CardActions';
-import Collapse from '@mui/material/Collapse';
-import Avatar from '@mui/material/Avatar';
-import IconButton, { IconButtonProps } from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Divider from '@mui/material/Divider';
-import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
 import AccessTimeOutlinedIcon from '@mui/icons-material/AccessTimeOutlined';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
 import AddCommentOutlinedIcon from '@mui/icons-material/AddCommentOutlined';
+import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import CardHeader from '@mui/material/CardHeader';
+import Collapse from '@mui/material/Collapse';
+import Divider from '@mui/material/Divider';
+import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
 
-import { getInitialsFromName } from '@/utils';
-import { IUser } from '../../types/User';
-import TimeSlotPicker from './TimeSlotPicker';
+import { useIniateBreak } from '@/hooks/Breaks';
+import { useTimeSlots } from '@/hooks/utils';
 import { TimeSlot } from '@/types/Time';
 import Button from '@mui/material/Button';
-import { useIniateBreak } from '@/hooks/Breaks';
+import { IUser } from '../../types/User';
+import { BreakPlannerTimeSelector } from './BreakPlannerTimeSelector';
 
 
-interface ExpandMoreProps extends IconButtonProps {
-  expand: boolean;
+enum EXPAND_OPTION {
+  TIME,
+  LOCATION,
+  COMMENT,
 }
-
-const ExpandMore = styled((props: ExpandMoreProps) => {
-  const { expand, ...other } = props;
-  return <IconButton {...other} />;
-})(({ theme, expand }) => ({
-  transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
-  marginLeft: 'auto',
-  transition: theme.transitions.create('transform', {
-    duration: theme.transitions.duration.shortest,
-  }),
-}));
 
 interface BreakPlannerProps {
     user: IUser;
+    breakInitiatedCallback: () => void
 }
 
-export default function BreakPlannerCard({ user }: BreakPlannerProps) {
+export default function BreakPlannerCard({ user, breakInitiatedCallback }: BreakPlannerProps) {
   const [expanded, setExpanded] = React.useState(false);
-  const [selectedTime, setSelectedTime] = React.useState<TimeSlot | undefined>();
+  const [expandedComponent, setExpandedComponent] = React.useState<EXPAND_OPTION | undefined>(undefined);
+  const [_, selectedTime, setSelectedTime] = useTimeSlots();
   const [initiateBreak, { loading }] = useIniateBreak({
     variables: {
         addressees: [], //[...invitees].map(user => user.uuid),
         startTime: selectedTime?.time,
         location: "ab856ca9-fd99-4b77-939c-b56af779b369"// location?.uuid || initialLocation?.uuid,
     },
-    onCompleted: () => {
-        alert("Vent på svar og gjør deg klar til pause!");
+    onCompleted: ({ initiateBreak }) => {
+      if (initiateBreak.success)
+        breakInitiatedCallback(); // TODO: handle errors
     },
     onError: err => alert("Noe gikk galt", err)
 });
 
-  const handleExpandClick = () => {
+  const handleExpandClick = (expand: EXPAND_OPTION | undefined) => {
+    setExpandedComponent(expand);
     setExpanded(!expanded);
   };
 
-
   const handleTimeSlotSelected = (timeSlot: TimeSlot) => {        
-      if (timeSlot.time.isSame(selectedTime?.time))
-          setSelectedTime(undefined);
-      else 
-          setSelectedTime(timeSlot);
+      setSelectedTime(timeSlot);
   };
 
+  // TODO: venner
   return (
-    <Card sx={{ maxWidth: 400 }} >
+    <Card sx={{ maxWidth: 400 }}>
       <CardHeader
-        // avatar={
-        //   <Avatar aria-label="break-planner">
-        //     {getInitialsFromName(user.name)}
-        //   </Avatar>
-        // }
-        // action={
-        //   <IconButton aria-label="settings">
-        //     <MoreVertIcon />
-        //   </IconButton>
-        // }
         title={
             <Typography sx={{fontWeight: 600}}>
                 Planlegg en pause
@@ -96,9 +75,9 @@ export default function BreakPlannerCard({ user }: BreakPlannerProps) {
             variant="body1" 
             sx={{ textDecoration: 'underline', fontWeight: 600, cursor: 'pointer'}}
             display="inline"
-            onClick={handleExpandClick}
+            onClick={() => handleExpandClick(EXPAND_OPTION.TIME)}
         >
-            kl {selectedTime?.formatted}
+            kl {selectedTime.formatted}
         </Typography>
         &nbsp;på&nbsp; 
         <Typography 
@@ -127,7 +106,7 @@ export default function BreakPlannerCard({ user }: BreakPlannerProps) {
             aria-label="send-invitation"
             onClick={initiateBreak}
         >
-            Send invitasjon
+            {loading ? 'Laster' : 'Send invitasjon'}
         </Button>
 
 
@@ -137,19 +116,15 @@ export default function BreakPlannerCard({ user }: BreakPlannerProps) {
 
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
-          <Typography paragraph>Endre tid</Typography>
-          <TimeSlotPicker
-                selectedTime={selectedTime}
-                onTimeSlotSelected={handleTimeSlotSelected}
-            />   
-            <Button 
-                variant='contained' 
-                onClick={handleExpandClick}
-                sx={{ display: 'block', margin: 'auto', marginTop: '1rem' }} 
-                aria-label="bekreft"
-            >
-                OK
-            </Button>
+          { expandedComponent == EXPAND_OPTION.TIME && 
+            <BreakPlannerTimeSelector 
+              selectedTime={selectedTime} 
+              handleTimeSlotSelected={handleTimeSlotSelected}
+              handleExpandClick={() => handleExpandClick(undefined)}
+            />
+          } 
+
+
         </CardContent>
       </Collapse>
     </Card>

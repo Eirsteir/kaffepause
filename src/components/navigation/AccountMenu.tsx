@@ -40,7 +40,7 @@ export default function AccountMenu({ name }: IProps) {
                 <IconButton
                 onClick={handleClick}
                 size="small"
-                sx={{ ml: 2, padding: '5px 5px 5px 12px', border: '1px solid #DDD', borderRadius: '21px' }}
+                sx={{ ml: 2, padding: '5px 5px 5px 12px', border: '1px solid #FFF', borderRadius: '21px' }}
                 aria-controls={open ? 'account-menu' : undefined}
                 aria-haspopup="true"
                 aria-expanded={open ? 'true' : undefined}

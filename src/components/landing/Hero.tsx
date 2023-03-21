@@ -19,20 +19,20 @@ export default function Hero() {
               <Grid item xs={6}>
                 
               <Box sx={{paddingLeft: '5rem'}}>
-                <Typography variant="h2" color='secondary' component="div" align="left" sx={{fontWeight: 900}}>
+                <Typography variant="h2" component="div" align="left" sx={{fontWeight: 900}}>
                 Elevate Your Study Breaks with Friends
                 </Typography>            
-                <Typography variant="subtitle1" color='secondary' component='div' align='left'>
+                <Typography variant="subtitle1" component='div' align='left'>
                   Whether you need a quick caffeine boost or want to catch up with friends over a cup of coffee, our tool makes it easy to plan the perfect coffee break.
                 </Typography>
 
                   <Link href={URLS.SIGNIN}>
-                        <Button color="secondary" variant="contained" disableElevation sx={{ marginTop: '1rem'}}>
+                        <Button variant="contained" disableElevation sx={{ marginTop: '1rem'}}>
                             Take a break
                         </Button>
                     </Link>
                     <Link href={URLS.SIGNUP}>
-                        <Button color="secondary" variant="contained" disableElevation sx={{ marginTop: '1rem', marginLeft: '1rem'}}>
+                        <Button variant="contained" disableElevation sx={{ marginTop: '1rem', marginLeft: '1rem'}}>
                           Register
                         </Button>
                     </Link> 
@@ -42,7 +42,7 @@ export default function Hero() {
               <Grid item xs={6}>
                 
               <Box>
-                <Typography variant="h1" color='secondary' component="div" align="center">
+                <Typography variant="h1" component="div" align="center">
                     {/* IMAGE */}
                 </Typography>            
 
