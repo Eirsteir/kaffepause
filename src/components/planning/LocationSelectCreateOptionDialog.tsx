@@ -7,6 +7,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button';
 import Autocomplete, { createFilterOptions } from '@mui/material/Autocomplete';
+import { CircularProgress } from '@mui/material';
 
 interface LocationOptionType {
   inputValue?: string;
@@ -15,14 +16,15 @@ interface LocationOptionType {
 
 interface LocationSelectCreateOptionDialogProps {
   locations: readonly LocationOptionType[];
-  originalLocation: LocationOptionType;
+  initialLocation: LocationOptionType;
+  loading: boolean;
   onSelect: (location: LocationOptionType) => void;
 }
 
 const filter = createFilterOptions<LocationOptionType>();
 
-export default function LocationSelectCreateOptionDialog({ locations, originalLocation, onSelect }: LocationSelectCreateOptionDialogProps) {
-  const [value, setValue] = React.useState<LocationOptionType | null>(originalLocation);
+export default function LocationSelectCreateOptionDialog({ locations, initialLocation, loading, onSelect }: LocationSelectCreateOptionDialogProps) {
+  const [value, setValue] = React.useState<LocationOptionType | null>(initialLocation);
   const [open, toggleOpen] = React.useState(false);
   
   const [dialogValue, setDialogValue] = React.useState({
@@ -64,7 +66,7 @@ export default function LocationSelectCreateOptionDialog({ locations, originalLo
             });
           } else {
             setValue(newValue);
-            onSelect(newValue);  // TODO: sjekk nye verdier
+            onSelect(newValue);   
           }
         }}
         filterOptions={(options, params) => {
@@ -73,7 +75,7 @@ export default function LocationSelectCreateOptionDialog({ locations, originalLo
           if (params.inputValue !== '') {
             filtered.push({
               inputValue: params.inputValue,
-              title: `Add "${params.inputValue}"`,
+              title: `Opprett "${params.inputValue}"`,
             });
           }
 
@@ -97,7 +99,23 @@ export default function LocationSelectCreateOptionDialog({ locations, originalLo
         renderOption={(props, option) => <li {...props}>{option.title}</li>}
         sx={{ width: 300 }}
         freeSolo
-        renderInput={(params) => <TextField {...params} label="Velg sted" />}
+        loading={loading}
+        renderInput={(params) => (
+            <TextField 
+              {...params} 
+              label="Velg sted" 
+              InputProps={{
+                ...params.InputProps,
+                endAdornment: (
+                  <React.Fragment>
+                    {loading && !value ? <CircularProgress color="inherit" size={20} /> : null}
+                    {params.InputProps.endAdornment}
+                  </React.Fragment>
+                ),
+              }}
+            />
+          )
+        }
       />
       <Dialog open={open} onClose={handleClose}>
         <form onSubmit={handleSubmit}>

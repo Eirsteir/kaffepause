@@ -1,6 +1,6 @@
 import * as React from 'react';
 import AccessTimeOutlinedIcon from '@mui/icons-material/AccessTimeOutlined';
-import AddCommentOutlinedIcon from '@mui/icons-material/AddCommentOutlined';
+import Groups2OutlinedIcon from '@mui/icons-material/Groups2Outlined';
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
@@ -24,7 +24,7 @@ enum EXPAND_OPTION {
   NOT_EXPANDED,
   TIME,
   LOCATION,
-  COMMENT,
+  INVITEES,
 }
 
 interface BreakPlannerProps {
@@ -40,16 +40,13 @@ const DEFAULT_LOCATION = {
 export default function BreakPlannerCard({ user, breakInitiatedCallback }: BreakPlannerProps) {
   const [expandedComponent, setExpandedComponent] = React.useState<EXPAND_OPTION>(EXPAND_OPTION.NOT_EXPANDED);
   const [_, selectedTime, setSelectedTime] = useTimeSlots();
-  const [selectedLocation, setSelectedLocation] = React.useState();
-
-  // TODO: refactor
-  const userLocation = React.useMemo(() => selectedLocation || user.preferredLocation?.title || DEFAULT_LOCATION , [user, selectedLocation])
+  const [location, setLocation] = React.useState(user.preferredLocation || DEFAULT_LOCATION);
 
   const [initiateBreak, { loading }] = useIniateBreak({
     variables: {
         addressees: [], //[...invitees].map(user => user.uuid),
         startTime: selectedTime?.time,
-        location: "ab856ca9-fd99-4b77-939c-b56af779b369"// location?.uuid || initialLocation?.uuid,
+        location: location.uuid,
     },
     onCompleted: ({ initiateBreak }) => {
       if (initiateBreak.success)
@@ -68,9 +65,9 @@ const handleExpandClick = (expand: EXPAND_OPTION) => {
       setSelectedTime(timeSlot);
   };
 
-  const handleLocationSelected = (location: any) => setSelectedLocation(location);
+  const handleLocationSelected = (newLocation: any) => setLocation(newLocation);
+  console.log("LOCATION", location);
 
-  // TODO: venner
   return (
     <Card sx={{ maxWidth: 400 }}>
       <CardHeader
@@ -99,7 +96,7 @@ const handleExpandClick = (expand: EXPAND_OPTION) => {
             display="inline"
             onClick={() => handleExpandClick(EXPAND_OPTION.LOCATION)}
         >
-            {userLocation} 
+            {location.title} 
 
         </Typography>
 
@@ -111,14 +108,15 @@ const handleExpandClick = (expand: EXPAND_OPTION) => {
         <IconButton onClick={() => handleExpandClick(EXPAND_OPTION.TIME)} aria-label="add to favorites">
           <AccessTimeOutlinedIcon fontSize='small'/>
         </IconButton>        
-        <IconButton onClick={() => handleExpandClick(EXPAND_OPTION.COMMENT)} aria-label="add to favorites">
-          <AddCommentOutlinedIcon fontSize='small'/>
+        <IconButton onClick={() => handleExpandClick(EXPAND_OPTION.INVITEES)} aria-label="add to favorites">
+          <Groups2OutlinedIcon fontSize='small'/>
         </IconButton>        
+        
         <Button 
             variant='contained' 
             sx={{ marginLeft: 'auto' }} 
             aria-label="send-invitation"
-            onClick={initiateBreak}
+            onClick={() => initiateBreak()}
         >
             {loading ? 'Laster' : 'Send invitasjon'}
         </Button>
@@ -140,7 +138,7 @@ const handleExpandClick = (expand: EXPAND_OPTION) => {
 
           { expandedComponent == EXPAND_OPTION.LOCATION && 
             <BreakPlannerLocationSelector 
-              selectedLocation={userLocation} 
+              selectedLocation={location} 
               handleLocationSelected={handleLocationSelected}
               handleExpandClick={() => handleExpandClick(EXPAND_OPTION.NOT_EXPANDED)}
             />

@@ -1,7 +1,7 @@
 import { useLocations } from "@/hooks/Location";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import LocationSelectCreateOptionDialog from "./LocationSelectCreateOptionDialog";
 
 
@@ -14,12 +14,13 @@ interface BreakPlannerLocationSelectorProps {
 export const BreakPlannerLocationSelector = ({ selectedLocation, handleLocationSelected, handleExpandClick }: BreakPlannerLocationSelectorProps) => {
     const { loading, error, data } = useLocations();
     const locations = useMemo(() => (data !== undefined ? data.locations.edges.map((edge) => edge.node) : []), [data]);
-    
+    const [location, setLocation] = useState(selectedLocation);
+
     const onSelect = (location: any) => {
-        console.log("Selected", location)
+        setLocation(location);
     }
     
-    const onSubmit = (location: any) => {
+    const onSubmit = () => {
         handleLocationSelected(location);
         handleExpandClick();
     }
@@ -28,9 +29,14 @@ export const BreakPlannerLocationSelector = ({ selectedLocation, handleLocationS
       <>
         <Typography paragraph>Endre sted</Typography>
 
-        <LocationSelectCreateOptionDialog locations={locations} originalLocation={selectedLocation} onSelect={onSelect}/>
+        <LocationSelectCreateOptionDialog 
+            locations={locations} 
+            initialLocation={selectedLocation} 
+            loading={loading}
+            onSelect={onSelect}
+        />
 
-        <Typography variant='caption'>*Du kan legge til et nytt sted ved å skrive inn et navn</Typography>
+        <Typography variant='caption'>*Du kan legge til et nytt sted ved å skrive det inn her</Typography>
         
         <Button 
             variant='contained' 
