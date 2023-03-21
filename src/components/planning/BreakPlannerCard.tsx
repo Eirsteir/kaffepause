@@ -66,7 +66,6 @@ const handleExpandClick = (expand: EXPAND_OPTION) => {
   };
 
   const handleLocationSelected = (newLocation: any) => setLocation(newLocation);
-  console.log("LOCATION", location);
 
   return (
     <Card sx={{ maxWidth: 400 }}>

@@ -18,12 +18,13 @@ interface LocationSelectCreateOptionDialogProps {
   locations: readonly LocationOptionType[];
   initialLocation: LocationOptionType;
   loading: boolean;
+  error: string;
   onSelect: (location: LocationOptionType) => void;
 }
 
 const filter = createFilterOptions<LocationOptionType>();
 
-export default function LocationSelectCreateOptionDialog({ locations, initialLocation, loading, onSelect }: LocationSelectCreateOptionDialogProps) {
+export default function LocationSelectCreateOptionDialog({ locations, initialLocation, loading, error, onSelect }: LocationSelectCreateOptionDialogProps) {
   const [value, setValue] = React.useState<LocationOptionType | null>(initialLocation);
   const [open, toggleOpen] = React.useState(false);
   
@@ -101,22 +102,27 @@ export default function LocationSelectCreateOptionDialog({ locations, initialLoc
         freeSolo
         loading={loading}
         renderInput={(params) => (
-            <TextField 
-              {...params} 
-              label="Velg sted" 
-              InputProps={{
-                ...params.InputProps,
-                endAdornment: (
-                  <React.Fragment>
-                    {loading && !value ? <CircularProgress color="inherit" size={20} /> : null}
-                    {params.InputProps.endAdornment}
-                  </React.Fragment>
-                ),
-              }}
-            />
+            <>
+              <TextField 
+                {...params} 
+                label="Velg sted" 
+                sx={{ ...(error && {border: '1px solid red'}) }}
+                InputProps={{
+                  ...params.InputProps,
+                  endAdornment: (
+                    <React.Fragment>
+                      {loading && !value ? <CircularProgress color="inherit" size={20} /> : null}
+                      {params.InputProps.endAdornment}
+                    </React.Fragment>
+                  ),
+                }}
+              />
+              <p>{error}</p>
+            </>
           )
         }
       />
+
       <Dialog open={open} onClose={handleClose}>
         <form onSubmit={handleSubmit}>
           <DialogTitle>Legg til et nytt sted</DialogTitle>

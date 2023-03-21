@@ -15,12 +15,18 @@ export const BreakPlannerLocationSelector = ({ selectedLocation, handleLocationS
     const { loading, error, data } = useLocations();
     const locations = useMemo(() => (data !== undefined ? data.locations.edges.map((edge) => edge.node) : []), [data]);
     const [location, setLocation] = useState(selectedLocation);
+    const [inputError, setInputError] = useState<string>('');
 
     const onSelect = (location: any) => {
+        setInputError('');
         setLocation(location);
     }
     
     const onSubmit = () => {
+        if (!location) {
+            setInputError("Du må velge et pausested");
+            return;
+        }
         handleLocationSelected(location);
         handleExpandClick();
     }
@@ -33,6 +39,7 @@ export const BreakPlannerLocationSelector = ({ selectedLocation, handleLocationS
             locations={locations} 
             initialLocation={selectedLocation} 
             loading={loading}
+            error={inputError}
             onSelect={onSelect}
         />
 
