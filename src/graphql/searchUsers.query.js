@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { gql } from "@/__generated__";
 
 const SEARCH_USERS = gql`
 query search($query: String!, $first: Int) {

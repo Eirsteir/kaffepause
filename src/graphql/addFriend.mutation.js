@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { gql } from "@/__generated__";
 
 const ADD_FRIEND_MUTATION = gql`
 mutation friend_request($toFriend: String!) {   

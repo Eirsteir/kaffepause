@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { gql } from "@/__generated__";
 
 const GET_FRIENDING_POSSIBILITIES_QUERY = gql`
 query friendingPossibilities {

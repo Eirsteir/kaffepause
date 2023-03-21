@@ -23,7 +23,6 @@ export default NextAuth({
         },
         secret: process.env.NEXTAUTH_SECRET,
         async authorize(credentials, req) {
-            console.log(credentials);
             if (credentials.isNewUser) {
                 return {
                     success: true,

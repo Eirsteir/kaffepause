@@ -16,8 +16,6 @@ export default function LandingPage() {
     return null;
   }
 
-  console.log(status);
-
   return (
     <>
       <Head>

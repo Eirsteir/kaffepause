@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { gql } from "@/__generated__";
 import { LOCATION_CHILD_FIELDS } from './locations.query';
 
 const PENDING_BREAK_INVITATIONS_QUERY = gql`

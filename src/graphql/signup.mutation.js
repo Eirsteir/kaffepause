@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { gql } from "@/__generated__";
 
 const SIGNUP_MUTATION = gql`
     mutation register(

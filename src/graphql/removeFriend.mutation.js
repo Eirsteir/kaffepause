@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { gql } from "@/__generated__";
 
 const REMOVE_FRIEND_MUTATION = gql`
 mutation unfriendUser($friend: String!) {

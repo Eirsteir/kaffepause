@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { gql } from "@/__generated__";
 
 const DECLINE_BREAK_INVITATION = gql`
 mutation declineBreakInvitation($invitation: UUID) {

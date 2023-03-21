@@ -16,9 +16,9 @@ export default function Hero() {
               sx={{ justifyContent: 'space-evenly' }}
             >
             <Grid container spacing={2}>
-              <Grid item xs={6}>
+              <Grid item xs={12}>
                 
-              <Box sx={{paddingLeft: '5rem'}}>
+              <Box sx={{paddingLeft: '5rem', paddingRight: '5rem'}}>
                 <Typography variant="h2" component="div" align="left" sx={{fontWeight: 900}}>
                 Elevate Your Study Breaks with Friends
                 </Typography>            
@@ -36,16 +36,6 @@ export default function Hero() {
                           Register
                         </Button>
                     </Link> 
-              </Box>
-
-              </Grid>
-              <Grid item xs={6}>
-                
-              <Box>
-                <Typography variant="h1" component="div" align="center">
-                    {/* IMAGE */}
-                </Typography>            
-
               </Box>
 
               </Grid>
