@@ -5,4 +5,5 @@ export interface IUser extends NextAuthUser{
     uuid: string;
     name: string;
     email: string;
+    preferredLocation?: any;
 }

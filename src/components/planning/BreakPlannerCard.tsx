@@ -17,9 +17,11 @@ import { TimeSlot } from '@/types/Time';
 import Button from '@mui/material/Button';
 import { IUser } from '../../types/User';
 import { BreakPlannerTimeSelector } from './BreakPlannerTimeSelector';
+import { BreakPlannerLocationSelector } from './BreakPlannerLocationSelector';
 
 
 enum EXPAND_OPTION {
+  NOT_EXPANDED,
   TIME,
   LOCATION,
   COMMENT,
@@ -30,10 +32,19 @@ interface BreakPlannerProps {
     breakInitiatedCallback: () => void
 }
 
+const DEFAULT_LOCATION = {
+  uuid: "ab856ca9-fd99-4b77-939c-b56af779b369", 
+  title: 'Gløshaugen'
+}
+
 export default function BreakPlannerCard({ user, breakInitiatedCallback }: BreakPlannerProps) {
-  const [expanded, setExpanded] = React.useState(false);
-  const [expandedComponent, setExpandedComponent] = React.useState<EXPAND_OPTION | undefined>(undefined);
+  const [expandedComponent, setExpandedComponent] = React.useState<EXPAND_OPTION>(EXPAND_OPTION.NOT_EXPANDED);
   const [_, selectedTime, setSelectedTime] = useTimeSlots();
+  const [selectedLocation, setSelectedLocation] = React.useState();
+
+  // TODO: refactor
+  const userLocation = React.useMemo(() => selectedLocation || user.preferredLocation?.title || DEFAULT_LOCATION , [user, selectedLocation])
+
   const [initiateBreak, { loading }] = useIniateBreak({
     variables: {
         addressees: [], //[...invitees].map(user => user.uuid),
@@ -47,14 +58,17 @@ export default function BreakPlannerCard({ user, breakInitiatedCallback }: Break
     onError: err => alert("Noe gikk galt", err)
 });
 
-  const handleExpandClick = (expand: EXPAND_OPTION | undefined) => {
-    setExpandedComponent(expand);
-    setExpanded(!expanded);
+const isExpanded = () => expandedComponent !== EXPAND_OPTION.NOT_EXPANDED;
+  
+const handleExpandClick = (expand: EXPAND_OPTION) => {
+      setExpandedComponent(expand);
   };
 
   const handleTimeSlotSelected = (timeSlot: TimeSlot) => {        
       setSelectedTime(timeSlot);
   };
+
+  const handleLocationSelected = (location: any) => setSelectedLocation(location);
 
   // TODO: venner
   return (
@@ -65,7 +79,6 @@ export default function BreakPlannerCard({ user, breakInitiatedCallback }: Break
                 Planlegg en pause
             </Typography>
         }
-        // subheader="Venner ^"
       />
       <CardContent>
         <Typography variant="body1" color="text.secondary" display="inline">
@@ -84,20 +97,21 @@ export default function BreakPlannerCard({ user, breakInitiatedCallback }: Break
             variant="body1" 
             sx={{ textDecoration: 'underline', fontWeight: 600, cursor: 'pointer'}}
             display="inline"
-            onClick={handleExpandClick}
+            onClick={() => handleExpandClick(EXPAND_OPTION.LOCATION)}
         >
-            Gløshaugen
+            {userLocation} 
+
         </Typography>
 
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton onClick={handleExpandClick} aria-label="add to favorites">
+        <IconButton onClick={() => handleExpandClick(EXPAND_OPTION.LOCATION)} aria-label="add to favorites">
           <LocationOnOutlinedIcon fontSize='small'/>
         </IconButton>
-        <IconButton onClick={handleExpandClick} aria-label="add to favorites">
+        <IconButton onClick={() => handleExpandClick(EXPAND_OPTION.TIME)} aria-label="add to favorites">
           <AccessTimeOutlinedIcon fontSize='small'/>
         </IconButton>        
-        <IconButton onClick={handleExpandClick} aria-label="add to favorites">
+        <IconButton onClick={() => handleExpandClick(EXPAND_OPTION.COMMENT)} aria-label="add to favorites">
           <AddCommentOutlinedIcon fontSize='small'/>
         </IconButton>        
         <Button 
@@ -112,15 +126,23 @@ export default function BreakPlannerCard({ user, breakInitiatedCallback }: Break
 
       </CardActions>
 
-        <Divider />
+      <Divider />
 
-      <Collapse in={expanded} timeout="auto" unmountOnExit>
+      <Collapse in={isExpanded()} timeout="auto" unmountOnExit>
         <CardContent>
           { expandedComponent == EXPAND_OPTION.TIME && 
             <BreakPlannerTimeSelector 
               selectedTime={selectedTime} 
               handleTimeSlotSelected={handleTimeSlotSelected}
-              handleExpandClick={() => handleExpandClick(undefined)}
+              handleExpandClick={() => handleExpandClick(EXPAND_OPTION.NOT_EXPANDED)}
+            />
+          } 
+
+          { expandedComponent == EXPAND_OPTION.LOCATION && 
+            <BreakPlannerLocationSelector 
+              selectedLocation={userLocation} 
+              handleLocationSelected={handleLocationSelected}
+              handleExpandClick={() => handleExpandClick(EXPAND_OPTION.NOT_EXPANDED)}
             />
           } 
 

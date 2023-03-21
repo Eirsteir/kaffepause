@@ -21,10 +21,10 @@ export default function Home({ user }: IProps) {
                 </Typography>
 
                 <Grid container spacing={2}>
-                    <Grid xs={4}>
+                    <Grid xs={12} md={4}>
                         <BreakPlanner user={user} /> 
                     </Grid>
-                    <Grid xs={8}>
+                    <Grid xs={12} md={8}>
                         <UpcomingBreaks user={user} />
                     </Grid>
                     <Grid xs={4}>
