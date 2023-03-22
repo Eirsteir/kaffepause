@@ -1,8 +1,12 @@
 import { useState } from "react";
 import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
 
 import BreakPlannerCard from './BreakPlannerCard';
 import { IUser } from "@/types/User";
+import Card from "@mui/material/Card";
+import CardHeader from "@mui/material/CardHeader";
+import CardContent from "@mui/material/CardContent";
 
 
 interface BreakPlannerProps {
@@ -17,10 +21,25 @@ export default function BreakPlanner({ user }: BreakPlannerProps) {
     return (
         <>
           { hasInitiatedBreak ? (
-            <>
-              <p>VENT PÅ PAUSE - Start ny!!</p>
-              <Button variant='contained' onClick={callback} >Planlegg ny pause</Button>
-            </>
+            <Card sx={{ maxWidth: 400 }}>
+                <CardHeader
+                  title={
+                    <Typography sx={{fontWeight: 600}}>
+                        Da er det bare å vente på svar!
+                    </Typography>
+                  }
+                  subheader='...eller invitere på nytt'
+                />
+                <CardContent>
+                  <Button 
+                    onClick={callback} 
+                    variant='contained'
+                    sx={{ display: 'block', margin: 'auto'}}
+                  >
+                    Inviter på nytt
+                  </Button>
+                </CardContent>
+            </Card>
           ) : (
             <BreakPlannerCard user={user} breakInitiatedCallback={callback}/>      
           )}
