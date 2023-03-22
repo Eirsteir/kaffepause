@@ -1,6 +1,6 @@
 const URLS = {
   LANDING: '/',
-  SIGNIN: '/sign-in',
+  SIGNIN: '/login',
   SIGNUP: '/sign-up',
   PROFILE: '/profile',
 };

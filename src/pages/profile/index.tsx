@@ -12,7 +12,7 @@ export default function Profile() {
   // mine steder
   // pauser - Nylig aktivitet
   // venner
-  const { session, status, user, isAuthenticated, loading } = useIsAuthenticated();
+  const { user, loading } = useIsAuthenticated();
 
   const hasMounted = useHasMounted();
   if (!hasMounted) {
@@ -35,4 +35,20 @@ export default function Profile() {
       </Grid>
     </Box>
   );
+}
+
+export async function getServerSideProps(context) {
+  const { req } = context;
+  const session = await getSession({ req });
+
+  if (!session) {
+    return {
+      redirect: { destination: URLS.SIGNIN },
+    };
+  }
+  return {
+    props: {
+      user: session.user,
+    },
+  };
 }

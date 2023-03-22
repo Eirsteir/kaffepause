@@ -15,7 +15,6 @@ export default function Layout({ children }) {
       </Head>
       <main className={styles.main}>
         <Navigation />
-
         <div className={styles.mainContainer}>{children}</div>
       </main>
     </>

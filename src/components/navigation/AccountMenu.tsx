@@ -46,7 +46,7 @@ export default function AccountMenu({ name }: IProps) {
             aria-haspopup='true'
             onClick={handleClick}
             size='small'
-            sx={{ ml: 2, padding: '5px 5px 5px 12px', border: '1px solid #FFF', borderRadius: '21px' }}>
+            sx={{ ml: 2, padding: '5px 5px 5px 12px', border: '1px solid #DDD', borderRadius: '21px' }}>
             <MenuIcon sx={{ marginRight: '.1rem', width: 20, height: 20 }} />
             <Avatar sx={{ width: 30, height: 30 }}>{initials}</Avatar>
           </IconButton>
