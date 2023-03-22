@@ -18,6 +18,7 @@ import Button from '@mui/material/Button';
 import { IUser } from '../../types/User';
 import { BreakPlannerTimeSelector } from './BreakPlannerTimeSelector';
 import { BreakPlannerLocationSelector } from './BreakPlannerLocationSelector';
+import BreakPlannerFriendsSelector from './BreakPlannerFriendsSelector';
 
 
 enum EXPAND_OPTION {
@@ -41,10 +42,11 @@ export default function BreakPlannerCard({ user, breakInitiatedCallback }: Break
   const [expandedComponent, setExpandedComponent] = React.useState<EXPAND_OPTION>(EXPAND_OPTION.NOT_EXPANDED);
   const [_, selectedTime, setSelectedTime] = useTimeSlots();
   const [location, setLocation] = React.useState(user.preferredLocation || DEFAULT_LOCATION);
+  const [invitees, setInvitees] = React.useState<IUser[]>([]);
 
   const [initiateBreak, { loading }] = useIniateBreak({
     variables: {
-        addressees: [], //[...invitees].map(user => user.uuid),
+        addressees: invitees.map(user => user.uuid),
         startTime: selectedTime?.time,
         location: location.uuid,
     },
@@ -66,6 +68,11 @@ const handleExpandClick = (expand: EXPAND_OPTION) => {
   };
 
   const handleLocationSelected = (newLocation: any) => setLocation(newLocation);
+
+  const handleInviteesSelected = (invitees: IUser[]) => {
+    setInvitees(invitees);
+    handleExpandClick(EXPAND_OPTION.NOT_EXPANDED);
+  }
 
   return (
     <Card sx={{ maxWidth: 400 }}>
@@ -127,7 +134,7 @@ const handleExpandClick = (expand: EXPAND_OPTION) => {
 
       <Collapse in={isExpanded()} timeout="auto" unmountOnExit>
         <CardContent>
-          { expandedComponent == EXPAND_OPTION.TIME && 
+          { expandedComponent === EXPAND_OPTION.TIME && 
             <BreakPlannerTimeSelector 
               selectedTime={selectedTime} 
               handleTimeSlotSelected={handleTimeSlotSelected}
@@ -135,11 +142,19 @@ const handleExpandClick = (expand: EXPAND_OPTION) => {
             />
           } 
 
-          { expandedComponent == EXPAND_OPTION.LOCATION && 
+          { expandedComponent === EXPAND_OPTION.LOCATION && 
             <BreakPlannerLocationSelector 
               selectedLocation={location} 
               handleLocationSelected={handleLocationSelected}
               handleExpandClick={() => handleExpandClick(EXPAND_OPTION.NOT_EXPANDED)}
+            />
+          } 
+
+          { expandedComponent === EXPAND_OPTION.INVITEES && 
+            <BreakPlannerFriendsSelector
+              user={user}
+              initialSelection={invitees}
+              onSubmit={handleInviteesSelected}
             />
           } 
 

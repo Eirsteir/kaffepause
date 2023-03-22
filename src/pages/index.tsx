@@ -19,7 +19,7 @@ export default function LandingPage() {
   return (
     <>
       <Head>
-        <title>kaffe</title>
+        <title>kaffepause</title>
         <meta name="description" content="kaffekaffekaffe" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />

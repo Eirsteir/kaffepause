@@ -16,7 +16,7 @@ export default function BaseNavigation({ children }: Props) {
           <AppBar position="static" elevation={0}>
             <Toolbar>
               <Typography variant="h5" component="a" href={URLS.LANDING} sx={{ flexGrow: 1 }}>
-                kaffe
+                kaffepause
               </Typography>
 
                 {children}

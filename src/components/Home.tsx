@@ -16,10 +16,6 @@ export default function Home({ user }: IProps) {
     return (
         <>
             <Box sx={{ flexGrow: 1, padding: '0 2rem' }}>
-                <Typography variant="h4" component="div" sx={{ flexGrow: 1 }} mb={2}>
-                    Tid for en pause?
-                </Typography>
-
                 <Grid container spacing={2}>
                     <Grid xs={12} md={4}>
                         <BreakPlanner user={user} /> 
