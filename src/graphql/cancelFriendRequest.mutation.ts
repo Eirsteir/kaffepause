@@ -1,6 +1,6 @@
-import { gql } from "@apollo/client";
+import { gql } from "@/__generated__";
 
-const CANCEL_FRIEND_REQUEST_MUTATION = gql`
+const CANCEL_FRIEND_REQUEST_MUTATION = gql(`
 mutation cancelFriendRequest($toFriend: String!) {
     cancelFriendRequest(toFriend: $toFriend) {
       cancelledFriendRequestee {
@@ -13,7 +13,7 @@ mutation cancelFriendRequest($toFriend: String!) {
       errors
     }
   }
-`;
+`);
 
 
 export default CANCEL_FRIEND_REQUEST_MUTATION;

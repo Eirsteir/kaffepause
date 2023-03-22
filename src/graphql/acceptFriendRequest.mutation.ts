@@ -1,6 +1,6 @@
-import { gql } from "@apollo/client";
+import { gql } from "@/__generated__";
 
-const ACCEPT_FRIEND_REQUEST_MUTATION = gql`
+export const ACCEPT_FRIEND_REQUEST_MUTATION = gql(`
 mutation acceptFriendRequest($requester: String!) {
     acceptFriendRequest(requester: $requester) {
       friend {
@@ -29,7 +29,6 @@ mutation acceptFriendRequest($requester: String!) {
       errors
     }
   }
-`;
+`);
 
 
-export default ACCEPT_FRIEND_REQUEST_MUTATION;

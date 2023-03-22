@@ -1,6 +1,6 @@
 import { gql } from "@/__generated__";
 
-const ADD_FRIEND_MUTATION = gql`
+export const ADD_FRIEND_MUTATION = gql(`
 mutation friend_request($toFriend: String!) {   
     sendFriendRequest(toFriend: $toFriend) {
       sentFriendRequestee {
@@ -13,6 +13,4 @@ mutation friend_request($toFriend: String!) {
       errors
     }
   }
-`;
-
-export default ADD_FRIEND_MUTATION;
+`);

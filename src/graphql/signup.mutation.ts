@@ -1,6 +1,6 @@
 import { gql } from "@/__generated__";
 
-const SIGNUP_MUTATION = gql`
+const SIGNUP_MUTATION = gql(`
     mutation register(
         $name: String!,
         $email: String!,
@@ -23,6 +23,6 @@ const SIGNUP_MUTATION = gql`
             token
         }
     }
-`
+`)
 
 export default SIGNUP_MUTATION;

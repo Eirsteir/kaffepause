@@ -1,26 +1,28 @@
 import { gql } from "@/__generated__";
 import { LOCATION_CHILD_FIELDS } from './locations.query';
 
-const BREAK_HISTORY_QUERY = gql`
+const PENDING_BREAK_INVITATIONS_QUERY = gql(`
 ${LOCATION_CHILD_FIELDS}
-query breakHistory {
-    breakHistory {
-      edges {
-        node {
+query pendingBreakInvitations($before: String, $after: String, $first: Int, $last: Int) {
+  pendingBreakInvitations(before: $before, after: $after, first: $first, last: $last) {
+    edges {
+      node {
+        id
+        uuid
+        created
+        sender {
+          id
+          uuid
+          name
+          username
+        }
+        addresseeCount
+        subject {
           id
           uuid
           startingAt
           location {
             ...LocationChildFields
-          }
-          invitation {
-            id 
-            uuid
-            sender {
-              id
-              uuid
-              name
-            }
           }
           participants {
             count
@@ -41,8 +43,14 @@ query breakHistory {
       }
       __typename
     }
+    pageInfo {
+      hasNextPage
+      startCursor
+      endCursor
+    }
     __typename
-  }  
-`;
+  }
+}
+`);
 
-export default BREAK_HISTORY_QUERY;
+export default PENDING_BREAK_INVITATIONS_QUERY;

@@ -1,8 +1,8 @@
 import { gql } from "@/__generated__";
 
-const ACCEPT_BREAK_INVITATION = gql`
-mutation acceptBreakInvitation($invitation: UUID) {
-  acceptBreakInvitation(invitation: $invitation) {
+const DECLINE_BREAK_INVITATION = gql(`
+mutation declineBreakInvitation($invitation: UUID) {
+  declineBreakInvitation(invitation: $invitation) {
     invitation {
       id
       uuid
@@ -28,6 +28,6 @@ mutation acceptBreakInvitation($invitation: UUID) {
     errors
   }
 }
-`;
+`);
 
-export default ACCEPT_BREAK_INVITATION;
+export default DECLINE_BREAK_INVITATION;

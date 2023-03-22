@@ -1,6 +1,6 @@
 import { gql } from "@/__generated__";
 
-const USER_QUERY = gql`
+const USER_QUERY = gql(`
 query user($userId: UUID) {
     user(id: $userId) {
       id 
@@ -41,6 +41,6 @@ query user($userId: UUID) {
       }
     }
   }
-`
+`)
 
 export default USER_QUERY;

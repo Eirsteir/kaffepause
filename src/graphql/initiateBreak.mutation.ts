@@ -1,7 +1,7 @@
 import { gql } from "@/__generated__";
 import { LOCATION_CHILD_FIELDS } from './locations.query';
 
-const INITIATE_BREAK_MUTATION = gql`
+const INITIATE_BREAK_MUTATION = gql(`
 ${LOCATION_CHILD_FIELDS}
 mutation initiateBreak($addressees: [UUID], $startTime: DateTime, $location: UUID) {
   initiateBreak(addressees: $addressees, startTime: $startTime, location: $location) {
@@ -38,6 +38,6 @@ mutation initiateBreak($addressees: [UUID], $startTime: DateTime, $location: UUI
   errors
   }
 }
-`;
+`);
 
 export default INITIATE_BREAK_MUTATION;
