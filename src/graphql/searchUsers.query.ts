@@ -1,6 +1,7 @@
-import { gql } from "@/__generated__";
+import { gql } from "@apollo/client";
 
-const SEARCH_USERS = gql(`
+
+const SEARCH_USERS = gql`
 query search($query: String!, $first: Int) {
     searchUsers(query: $query, first: $first) {
       count
@@ -38,6 +39,6 @@ query search($query: String!, $first: Int) {
       }
     }
   }
-`)
+`
 
 export default SEARCH_USERS;

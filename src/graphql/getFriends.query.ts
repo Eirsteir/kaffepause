@@ -1,6 +1,7 @@
-import { gql } from "@/__generated__";
+import { gql } from "@apollo/client";
 
-const GET_FRIENDS_QUERY = gql(`
+
+const GET_FRIENDS_QUERY = gql`
     query allFriendships($user: String!) {
     friendships(user: $user) {
       count
@@ -13,6 +14,6 @@ const GET_FRIENDS_QUERY = gql(`
       }
     }
   }
-`)
+`
 
 export default GET_FRIENDS_QUERY;

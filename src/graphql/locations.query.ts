@@ -1,7 +1,8 @@
-import { gql } from "@/__generated__";
+import { gql } from "@apollo/client";
 
 
-export const LOCATION_CHILD_FIELDS = gql(`
+
+export const LOCATION_CHILD_FIELDS = gql`
 fragment LocationChildFields on Location {
     id
     uuid
@@ -10,9 +11,9 @@ fragment LocationChildFields on Location {
     itemType
     __typename
   }
-`)
+`
 
-const LOCATION_RECURSIVE = gql(`
+const LOCATION_RECURSIVE = gql`
 fragment LocationRecursive on Location {
     children {
       edges {
@@ -36,9 +37,9 @@ fragment LocationRecursive on Location {
       }
     }
   }
-`)
+`
 
-const LOCATIONS_QUERY = gql(`
+const LOCATIONS_QUERY = gql`
   ${LOCATION_CHILD_FIELDS}
   ${LOCATION_RECURSIVE}
   query locations {
@@ -54,6 +55,6 @@ const LOCATIONS_QUERY = gql(`
     }
   }
   
-`);
+`;
 
 export default LOCATIONS_QUERY;

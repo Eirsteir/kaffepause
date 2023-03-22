@@ -1,6 +1,7 @@
-import { gql } from "@/__generated__";
+import { gql } from "@apollo/client";
 
-const UPDATE_PROFILE_MUTATION = gql(`
+
+const UPDATE_PROFILE_MUTATION = gql`
     mutation updateProfile(
         $name: String!,
         $username: String!,
@@ -22,7 +23,7 @@ const UPDATE_PROFILE_MUTATION = gql(`
         }
     }
     }
-`)
+`
 
 
 export default UPDATE_PROFILE_MUTATION;

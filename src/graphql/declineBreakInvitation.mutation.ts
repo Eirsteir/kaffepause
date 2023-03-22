@@ -1,6 +1,7 @@
-import { gql } from "@/__generated__";
+import { gql } from "@apollo/client";
 
-const DECLINE_BREAK_INVITATION = gql(`
+
+const DECLINE_BREAK_INVITATION = gql`
 mutation declineBreakInvitation($invitation: UUID) {
   declineBreakInvitation(invitation: $invitation) {
     invitation {
@@ -28,6 +29,6 @@ mutation declineBreakInvitation($invitation: UUID) {
     errors
   }
 }
-`);
+`;
 
 export default DECLINE_BREAK_INVITATION;

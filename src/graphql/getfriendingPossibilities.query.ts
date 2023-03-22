@@ -1,6 +1,7 @@
-import { gql } from "@/__generated__";
+import { gql } from "@apollo/client";
 
-const GET_FRIENDING_POSSIBILITIES_QUERY = gql(`
+
+const GET_FRIENDING_POSSIBILITIES_QUERY = gql`
 query friendingPossibilities {
     friendingPossibilities {
         count
@@ -23,6 +24,6 @@ query friendingPossibilities {
       __typename
     }
   }  
-`)
+`
 
 export default GET_FRIENDING_POSSIBILITIES_QUERY;

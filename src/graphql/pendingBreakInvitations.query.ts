@@ -1,7 +1,8 @@
-import { gql } from "@/__generated__";
+import { gql } from "@apollo/client";
+
 import { LOCATION_CHILD_FIELDS } from './locations.query';
 
-const PENDING_BREAK_INVITATIONS_QUERY = gql(`
+const PENDING_BREAK_INVITATIONS_QUERY = gql`
 ${LOCATION_CHILD_FIELDS}
 query pendingBreakInvitations($before: String, $after: String, $first: Int, $last: Int) {
   pendingBreakInvitations(before: $before, after: $after, first: $first, last: $last) {
@@ -51,6 +52,6 @@ query pendingBreakInvitations($before: String, $after: String, $first: Int, $las
     __typename
   }
 }
-`);
+`;
 
 export default PENDING_BREAK_INVITATIONS_QUERY;

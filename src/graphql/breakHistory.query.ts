@@ -1,7 +1,8 @@
-import { gql } from "@/__generated__";
+import { gql } from "@apollo/client";
+
 import { LOCATION_CHILD_FIELDS } from './locations.query';
 
-const BREAK_HISTORY_QUERY = gql(`
+const BREAK_HISTORY_QUERY = gql`
 ${LOCATION_CHILD_FIELDS}
 query breakHistory {
     breakHistory {
@@ -43,6 +44,6 @@ query breakHistory {
     }
     __typename
   }  
-`);
+`;
 
 export default BREAK_HISTORY_QUERY;

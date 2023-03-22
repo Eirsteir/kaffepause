@@ -27,10 +27,5 @@
     "next-auth": "^4.20.1",
     "react": "18.2.0",
     "react-dom": "18.2.0"
-  },
-  "devDependencies": {
-    "@graphql-codegen/cli": "^3.2.2",
-    "@graphql-codegen/client-preset": "^2.1.1",
-    "typescript": "^5.0.2"
   }
 }

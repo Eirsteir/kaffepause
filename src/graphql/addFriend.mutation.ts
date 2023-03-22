@@ -1,6 +1,7 @@
-import { gql } from "@/__generated__";
+import { gql } from "@apollo/client";
 
-export const ADD_FRIEND_MUTATION = gql(`
+
+const ADD_FRIEND_MUTATION = gql`
 mutation friend_request($toFriend: String!) {   
     sendFriendRequest(toFriend: $toFriend) {
       sentFriendRequestee {
@@ -13,4 +14,6 @@ mutation friend_request($toFriend: String!) {
       errors
     }
   }
-`);
+`;
+
+export default ADD_FRIEND_MUTATION;

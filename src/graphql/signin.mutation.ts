@@ -1,7 +1,8 @@
-import { gql } from "@/__generated__";
+import { gql } from "@apollo/client";
 
 
-const SIGNIN_MUTATION = gql(`
+
+const SIGNIN_MUTATION = gql`
     mutation signin($email: String!, $password: String!) {
         tokenAuth(email: $email, password: $password) {
             success,
@@ -14,6 +15,6 @@ const SIGNIN_MUTATION = gql(`
             }
         }
     }
-`)
+`
 
 export default SIGNIN_MUTATION;
