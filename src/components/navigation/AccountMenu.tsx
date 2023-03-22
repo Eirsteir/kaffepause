@@ -88,34 +88,34 @@ export default function AccountMenu({ name }: IProps) {
             >
             <MenuItem onClick={handleClose}>
                 <Typography variant='subtitle2' sx={{ fontWeight: 700 }}>
-                   Break Preferences    
+                   Pausepreferanser
                 </Typography>
             </MenuItem>
             <MenuItem onClick={handleClose}>
                 <Typography variant='subtitle2' sx={{ fontWeight: 700 }}>
-                   Schedules    
+                   Leseplaner    
                 </Typography>
             </MenuItem>
             <Divider />
             <MenuItem onClick={handleClose}>
                 <Typography variant='subtitle2'>
-                   Profile    
+                   Profil    
                 </Typography>
             </MenuItem>
             <MenuItem onClick={handleClose}>
                 <Typography variant='subtitle2'>
-                   Account    
+                   Konto    
                 </Typography>
             </MenuItem>
             <Divider />
             <MenuItem onClick={handleClose}>
                 <Typography variant='subtitle2'>
-                    Help    
+                    Hjelp    
                 </Typography>
             </MenuItem>
             <MenuItem onClick={onSignOut}>
                 <Typography variant='subtitle2'>
-                    Log Out
+                    Logg ut
                 </Typography>
             </MenuItem>
             </Menu>

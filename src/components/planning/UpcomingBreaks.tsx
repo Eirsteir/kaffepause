@@ -25,6 +25,8 @@ export default function UpcomingBreaks({ user }: UpcomingBreaksProps) {
     const invitations = useMemo(() => (data !== undefined ? data.pendingBreakInvitations.edges.map(edge => edge.node) : []), [data]);
     const refreshing = networkStatus === NetworkStatus.refetch;
 
+    console.log(data)
+    
   return (
     <Card>
       <CardHeader

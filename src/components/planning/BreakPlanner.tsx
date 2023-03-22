@@ -18,6 +18,7 @@ export default function BreakPlanner({ user }: BreakPlannerProps) {
     const [hasInitiatedBreak, setHasInitiatedBreak] = useState<boolean>(false);
     const callback = () => setHasInitiatedBreak(!hasInitiatedBreak);
 
+    // TODO: refactor this somehow:)
     return (
         <>
           { hasInitiatedBreak ? (

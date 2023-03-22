@@ -1,7 +1,13 @@
 import * as React from 'react';
+
+import { useIniateBreak } from '@/hooks/Breaks';
+import { useTimeSlots } from '@/hooks/utils';
+import { TimeSlot } from '@/types/Time';
+import { IUser } from '@/types/User';
 import AccessTimeOutlinedIcon from '@mui/icons-material/AccessTimeOutlined';
 import Groups2OutlinedIcon from '@mui/icons-material/Groups2Outlined';
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
+import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -11,15 +17,9 @@ import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 
-import { useIniateBreak } from '@/hooks/Breaks';
-import { useTimeSlots } from '@/hooks/utils';
-import { TimeSlot } from '@/types/Time';
-import Button from '@mui/material/Button';
-import { IUser } from '../../types/User';
-import { BreakPlannerTimeSelector } from './BreakPlannerTimeSelector';
-import { BreakPlannerLocationSelector } from './BreakPlannerLocationSelector';
 import BreakPlannerFriendsSelector from './BreakPlannerFriendsSelector';
-
+import { BreakPlannerLocationSelector } from './BreakPlannerLocationSelector';
+import { BreakPlannerTimeSelector } from './BreakPlannerTimeSelector';
 
 enum EXPAND_OPTION {
   NOT_EXPANDED,
@@ -29,14 +29,14 @@ enum EXPAND_OPTION {
 }
 
 interface BreakPlannerProps {
-    user: IUser;
-    breakInitiatedCallback: () => void
+  user: IUser;
+  breakInitiatedCallback: () => void;
 }
 
 const DEFAULT_LOCATION = {
-  uuid: "ab856ca9-fd99-4b77-939c-b56af779b369", 
-  title: 'Gløshaugen'
-}
+  uuid: 'ab856ca9-fd99-4b77-939c-b56af779b369',
+  title: 'Gløshaugen',
+};
 
 export default function BreakPlannerCard({ user, breakInitiatedCallback }: BreakPlannerProps) {
   const [expandedComponent, setExpandedComponent] = React.useState<EXPAND_OPTION>(EXPAND_OPTION.NOT_EXPANDED);
@@ -46,25 +46,25 @@ export default function BreakPlannerCard({ user, breakInitiatedCallback }: Break
 
   const [initiateBreak, { loading }] = useIniateBreak({
     variables: {
-        addressees: invitees.map(user => user.uuid),
-        startTime: selectedTime?.time,
-        location: location.uuid,
+      addressees: invitees.map((user) => user.uuid),
+      startTime: selectedTime?.time,
+      location: location.uuid,
     },
     onCompleted: ({ initiateBreak }) => {
-      if (initiateBreak.success)
-        breakInitiatedCallback(); // TODO: handle errors
+      if (initiateBreak.success) breakInitiatedCallback(); // TODO: handle errors
     },
-    onError: err => alert("Noe gikk galt", err)
-});
+    onError: (err) => alert('Noe gikk galt', err),
+  });
 
-const isExpanded = () => expandedComponent !== EXPAND_OPTION.NOT_EXPANDED;
-  
-const handleExpandClick = (expand: EXPAND_OPTION) => {
-      setExpandedComponent(expand);
+  const isExpanded = () => expandedComponent !== EXPAND_OPTION.NOT_EXPANDED;
+
+  const handleExpandClick = (expand: EXPAND_OPTION) => {
+    if (expandedComponent === expand) return setExpandedComponent(EXPAND_OPTION.NOT_EXPANDED);
+    setExpandedComponent(expand);
   };
 
-  const handleTimeSlotSelected = (timeSlot: TimeSlot) => {        
-      setSelectedTime(timeSlot);
+  const handleTimeSlotSelected = (timeSlot: TimeSlot) => {
+    setSelectedTime(timeSlot);
   };
 
   const handleLocationSelected = (newLocation: any) => setLocation(newLocation);
@@ -72,93 +72,73 @@ const handleExpandClick = (expand: EXPAND_OPTION) => {
   const handleInviteesSelected = (invitees: IUser[]) => {
     setInvitees(invitees);
     handleExpandClick(EXPAND_OPTION.NOT_EXPANDED);
-  }
+  };
 
   return (
     <Card sx={{ maxWidth: 400 }}>
-      <CardHeader
-        title={
-            <Typography sx={{fontWeight: 600}}>
-                Planlegg en pause
-            </Typography>
-        }
-      />
+      <CardHeader title={<Typography sx={{ fontWeight: 600 }}>Planlegg en pause</Typography>} />
       <CardContent>
-        <Typography variant="body1" color="text.secondary" display="inline">
-          Du inviterer til pause&nbsp;
+        <Typography color='text.secondary' display='inline' variant='body1'>
+          Inviterer til pause&nbsp;
         </Typography>
-        <Typography 
-            variant="body1" 
-            sx={{ textDecoration: 'underline', fontWeight: 600, cursor: 'pointer'}}
-            display="inline"
-            onClick={() => handleExpandClick(EXPAND_OPTION.TIME)}
-        >
-            kl {selectedTime.formatted}
+        <Typography
+          display='inline'
+          onClick={() => handleExpandClick(EXPAND_OPTION.TIME)}
+          sx={{ textDecoration: 'underline', fontWeight: 600, cursor: 'pointer' }}
+          variant='body1'>
+          kl {selectedTime.formatted}
         </Typography>
-        &nbsp;på&nbsp; 
-        <Typography 
-            variant="body1" 
-            sx={{ textDecoration: 'underline', fontWeight: 600, cursor: 'pointer'}}
-            display="inline"
-            onClick={() => handleExpandClick(EXPAND_OPTION.LOCATION)}
-        >
-            {location.title} 
-
+        &nbsp;på&nbsp;
+        <Typography
+          display='inline'
+          onClick={() => handleExpandClick(EXPAND_OPTION.LOCATION)}
+          sx={{ textDecoration: 'underline', fontWeight: 600, cursor: 'pointer' }}
+          variant='body1'>
+          {location.title}
         </Typography>
-
+        <Typography color='text.secondary' display='inline' variant='body1'>
+          .
+        </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton onClick={() => handleExpandClick(EXPAND_OPTION.LOCATION)} aria-label="add to favorites">
-          <LocationOnOutlinedIcon fontSize='small'/>
+        <IconButton aria-label='add to favorites' onClick={() => handleExpandClick(EXPAND_OPTION.LOCATION)}>
+          <LocationOnOutlinedIcon fontSize='small' />
         </IconButton>
-        <IconButton onClick={() => handleExpandClick(EXPAND_OPTION.TIME)} aria-label="add to favorites">
-          <AccessTimeOutlinedIcon fontSize='small'/>
-        </IconButton>        
-        <IconButton onClick={() => handleExpandClick(EXPAND_OPTION.INVITEES)} aria-label="add to favorites">
-          <Groups2OutlinedIcon fontSize='small'/>
-        </IconButton>        
-        
-        <Button 
-            variant='contained' 
-            sx={{ marginLeft: 'auto' }} 
-            aria-label="send-invitation"
-            onClick={() => initiateBreak()}
-        >
-            {loading ? 'Laster' : 'Send invitasjon'}
+        <IconButton aria-label='add to favorites' onClick={() => handleExpandClick(EXPAND_OPTION.TIME)}>
+          <AccessTimeOutlinedIcon fontSize='small' />
+        </IconButton>
+        <IconButton aria-label='add to favorites' onClick={() => handleExpandClick(EXPAND_OPTION.INVITEES)}>
+          <Groups2OutlinedIcon fontSize='small' />
+        </IconButton>
+
+        <Button aria-label='send-invitation' onClick={() => initiateBreak()} sx={{ marginLeft: 'auto' }} variant='contained'>
+          {loading ? 'Laster' : 'Send invitasjon'}
         </Button>
-
-
       </CardActions>
 
       <Divider />
 
-      <Collapse in={isExpanded()} timeout="auto" unmountOnExit>
+      <Collapse in={isExpanded()} timeout='auto' unmountOnExit>
         <CardContent>
-          { expandedComponent === EXPAND_OPTION.TIME && 
-            <BreakPlannerTimeSelector 
-              selectedTime={selectedTime} 
+          {expandedComponent === EXPAND_OPTION.TIME && (
+            <BreakPlannerTimeSelector
+              handleExpandClick={() => handleExpandClick(EXPAND_OPTION.NOT_EXPANDED)}
               handleTimeSlotSelected={handleTimeSlotSelected}
-              handleExpandClick={() => handleExpandClick(EXPAND_OPTION.NOT_EXPANDED)}
+              selectedTime={selectedTime}
             />
-          } 
+          )}
 
-          { expandedComponent === EXPAND_OPTION.LOCATION && 
-            <BreakPlannerLocationSelector 
-              selectedLocation={location} 
+          {expandedComponent === EXPAND_OPTION.LOCATION && (
+            <BreakPlannerLocationSelector
+              handleExpandClick={() => handleExpandClick(EXPAND_OPTION.NOT_EXPANDED)}
               handleLocationSelected={handleLocationSelected}
-              handleExpandClick={() => handleExpandClick(EXPAND_OPTION.NOT_EXPANDED)}
+              selectedLocation={location}
             />
-          } 
+          )}
 
-          { expandedComponent === EXPAND_OPTION.INVITEES && 
-            <BreakPlannerFriendsSelector
-              user={user}
-              initialSelection={invitees}
-              onSubmit={handleInviteesSelected}
-            />
-          } 
-
-
+          {expandedComponent === EXPAND_OPTION.INVITEES && (
+            <BreakPlannerFriendsSelector initialSelection={invitees} onSubmit={handleInviteesSelected} user={user} />
+          )}
         </CardContent>
       </Collapse>
     </Card>

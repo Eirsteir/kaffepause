@@ -5,7 +5,6 @@ import TextField from '@mui/material/TextField';
 import { IUser } from '@/types/User';
 import Button from '@mui/material/Button';
 
-
 interface BreakPlannerFriendsSelectorProps {
     user: IUser,
     initialSelection: IUser[];
@@ -34,7 +33,7 @@ export default function BreakPlannerFriendsSelector({ user, initialSelection, on
                     ]);
                 }}
                 renderInput={(params) => (
-                    <TextField {...params} label="Begynn å skrive..." placeholder="Dine venner" />
+                    <TextField {...params} label="Begynn å skrive..." placeholder="Pål" />
                 )}
                 sx={{ width: 300 }}
             />
