@@ -1,6 +1,7 @@
 import { createTheme, ThemeOptions } from '@mui/material/styles';
 import '@fontsource/raleway';
 import '@fontsource/raleway/900.css';
+import '@fontsource/raleway/500.css';
 
 const themeOptions: ThemeOptions = {
   palette: {

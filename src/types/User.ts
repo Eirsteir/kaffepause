@@ -1,9 +1,12 @@
-import { User as NextAuthUser }  from "next-auth";
+import { User as NextAuthUser } from 'next-auth';
 
-export interface IUser extends NextAuthUser{
-    id: string;
-    uuid: string;
-    name: string;
-    email: string;
-    preferredLocation?: any;
+import { ILocation } from '@/types/Location';
+
+export interface IUser extends NextAuthUser {
+  id: string;
+  uuid: string;
+  name: string;
+  email: string;
+  preferredLocation?: ILocation;
+  profilePic: string;
 }

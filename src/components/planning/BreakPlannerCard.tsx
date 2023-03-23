@@ -76,7 +76,7 @@ export default function BreakPlannerCard({ user, breakInitiatedCallback }: Break
 
   return (
     <Card sx={{ maxWidth: 400 }}>
-      <CardHeader title={<Typography sx={{ fontWeight: 600 }}>Planlegg en pause</Typography>} />
+      <CardHeader title={<Typography variant='h6'>Planlegg en pause</Typography>} />
       <CardContent>
         <Typography color='text.secondary' display='inline' variant='body1'>
           Inviterer til pause&nbsp;
