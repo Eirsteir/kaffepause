@@ -30,7 +30,7 @@ function Copyright(props: any) {
   );
 }
 
-export default function SignIn() {
+export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loginError, setLoginError] = useState('');
