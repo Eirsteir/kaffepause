@@ -1,10 +1,13 @@
 import Head from 'next/head';
 
+import Navigation from '@/components/navigation/Navigation';
 import styles from '@/styles/Layout.module.css';
 
-import Navigation from './navigation/Navigation';
+type Props = {
+  children?: React.ReactNode;
+};
 
-export default function Layout({ children }) {
+export default function Layout({ children }: Props) {
   return (
     <>
       <Head>

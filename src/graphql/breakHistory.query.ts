@@ -1,10 +1,10 @@
-import { gql } from "@apollo/client";
+import { gql } from '@apollo/client';
 
 import { LOCATION_CHILD_FIELDS } from './locations.query';
 
 const BREAK_HISTORY_QUERY = gql`
-${LOCATION_CHILD_FIELDS}
-query breakHistory {
+  ${LOCATION_CHILD_FIELDS}
+  query breakHistory {
     breakHistory {
       edges {
         node {
@@ -15,7 +15,7 @@ query breakHistory {
             ...LocationChildFields
           }
           invitation {
-            id 
+            id
             uuid
             sender {
               id
@@ -43,7 +43,7 @@ query breakHistory {
       __typename
     }
     __typename
-  }  
+  }
 `;
 
 export default BREAK_HISTORY_QUERY;

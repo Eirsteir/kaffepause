@@ -1,3 +1,5 @@
+import Head from 'next/head';
+
 import BreakSection from '@/components/modules/profile/BreakSection';
 import FriendsSection from '@/components/modules/profile/FriendsSection';
 import UserPaperSection from '@/components/modules/profile/UserPaperSection';
@@ -13,26 +15,27 @@ interface ProfileProps {
 
 const Divider = () => <MUIDivider sx={{ marginTop: '2rem', marginBottom: '2rem' }} />;
 
+// TODO: mine steder
 export default function Profile({ user }: ProfileProps) {
-  // profile pic
-  // mine steder
-  // pauser - Nylig aktivitet
-  // venner
-
   return (
-    <Box sx={{ padding: '2rem 7rem' }}>
-      <Grid container spacing={10}>
-        <Grid item md={4} xs={12}>
-          <UserPaperSection user={user} />
+    <>
+      <Head>
+        <title>{`${user.name.split(' ')[0]} sin profil`}</title>
+      </Head>
+      <Box sx={{ padding: '2rem 7rem' }}>
+        <Grid container spacing={10}>
+          <Grid item md={4} xs={12}>
+            <UserPaperSection user={user} />
+          </Grid>
+          <Grid item md={8} xs={12}>
+            <UserSection user={user} />
+            <Divider />
+            <FriendsSection user={user} />
+            <Divider />
+            <BreakSection />
+          </Grid>
         </Grid>
-        <Grid item md={8} xs={12}>
-          <UserSection user={user} />
-          <Divider />
-          <FriendsSection user={user} />
-          <Divider />
-          <BreakSection user={user} />
-        </Grid>
-      </Grid>
-    </Box>
+      </Box>
+    </>
   );
 }
