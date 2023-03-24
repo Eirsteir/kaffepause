@@ -2,6 +2,7 @@ import { signOut } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import * as React from 'react';
 
+import { IUser } from '@/types/User';
 import URLS from '@/URLS';
 import { getInitialsFromName } from '@/utils';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -15,12 +16,12 @@ import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 
 interface IProps {
-  name: string;
+  user: IUser;
 }
 
-export default function AccountMenu({ name }: IProps) {
+export default function AccountMenu({ user }: IProps) {
   const router = useRouter();
-  const initials = getInitialsFromName(name); // TODO: user image
+  const initials = getInitialsFromName(user.name); // TODO: user image
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
@@ -98,7 +99,7 @@ export default function AccountMenu({ name }: IProps) {
           </Typography>
         </MenuItem>
         <Divider />
-        <MenuItem onClick={() => router.push(URLS.PROFILE)}>
+        <MenuItem onClick={() => router.push(`${URLS.USERS}/${user.uuid}`)}>
           <Typography variant='subtitle2'>Profil</Typography>
         </MenuItem>
         <MenuItem onClick={handleClose}>

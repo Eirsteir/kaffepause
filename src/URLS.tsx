@@ -2,7 +2,7 @@ const URLS = {
   LANDING: '/',
   SIGNIN: '/login',
   SIGNUP: '/sign-up',
-  PROFILE: '/profile',
+  USERS: '/users',
 };
 
 export default URLS;

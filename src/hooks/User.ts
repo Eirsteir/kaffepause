@@ -1,5 +1,8 @@
+import { getToken } from 'next-auth/jwt';
 import { useSession } from 'next-auth/react';
 
+import apolloClient from '@/apollo-client-setup';
+import USER_QUERY from '@/graphql/user.query';
 import { IUser } from '@/types/User';
 
 type Authentication = {
@@ -17,4 +20,14 @@ export const useIsAuthenticated = (): Authentication => {
   const user = session?.user as IUser;
 
   return { session, status, user, isAuthenticated, loading };
+};
+
+export const getUser = async (userId: string, req) => {
+  const token = await getToken({ req });
+  const context = {
+    headers: {
+      authorization: `JWT ${token.account.accessToken}`,
+    },
+  };
+  return await apolloClient.query({ query: USER_QUERY, variables: { userId: userId }, context });
 };

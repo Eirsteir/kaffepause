@@ -8,20 +8,24 @@ import Typography from '@mui/material/Typography';
 
 interface UserPaperSectionProps {
   user: IUser;
+  actorIsUser: boolean;
 }
 
-export default function UserPaperSection({ user }: UserPaperSectionProps) {
+export default function UserPaperSection({ user, actorIsUser }: UserPaperSectionProps) {
   return (
     <Paper sx={{ padding: '1.5rem' }} variant='outlined'>
       <Box alignItems='center' display='flex' flexDirection='column' justifyContent='center'>
         <Avatar src={user.profilePic} sx={{ width: 128, height: 128 }}>
           <Typography variant='h3'>{getInitialsFromName(user.name)}</Typography>
         </Avatar>
-        <Link href='#'>
-          <Typography sx={{ fontWeight: 500 }} variant='body2'>
-            Oppdater bilde
-          </Typography>
-        </Link>
+
+        {actorIsUser && (
+          <Link href='#'>
+            <Typography sx={{ fontWeight: 500 }} variant='body2'>
+              Oppdater bilde
+            </Typography>
+          </Link>
+        )}
       </Box>
     </Paper>
   );

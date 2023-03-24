@@ -1,10 +1,9 @@
-import { gql } from "@apollo/client";
-
+import { gql } from '@apollo/client';
 
 const USER_QUERY = gql`
-query user($userId: UUID) {
+  query user($userId: UUID) {
     user(id: $userId) {
-      id 
+      id
       uuid
       username
       name
@@ -19,15 +18,15 @@ query user($userId: UUID) {
       friends {
         totalCount
         edges {
-            node {
-              id
-              uuid
-              name 
-              username
-              profilePic
-              isViewerFriend
-            }
+          node {
+            id
+            uuid
+            name
+            username
+            profilePic
+            isViewerFriend
           }
+        }
       }
       friendshipStatus
       preferredLocation {
@@ -42,6 +41,6 @@ query user($userId: UUID) {
       }
     }
   }
-`
+`;
 
 export default USER_QUERY;

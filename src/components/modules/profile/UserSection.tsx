@@ -6,9 +6,10 @@ import Typography from '@mui/material/Typography';
 
 interface UserSectionProps {
   user: IUser;
+  actorIsUser: boolean;
 }
 
-export default function UserSection({ user }: UserSectionProps) {
+export default function UserSection({ user, actorIsUser }: UserSectionProps) {
   return (
     <div>
       <div>
@@ -18,11 +19,14 @@ export default function UserSection({ user }: UserSectionProps) {
         <Typography sx={{ marginBottom: '0.5rem' }} variant='body2'>
           Kaffedrikker siden 2023
         </Typography>
-        <Link href='#'>
-          <Typography sx={{ fontWeight: 500, marginTop: '1rem' }} variant='body2'>
-            Rediger profil
-          </Typography>
-        </Link>
+
+        {actorIsUser && (
+          <Link href='#'>
+            <Typography sx={{ fontWeight: 500, marginTop: '1rem' }} variant='body2'>
+              Rediger profil
+            </Typography>
+          </Link>
+        )}
       </div>
 
       <Box sx={{ marginTop: '2rem' }}>

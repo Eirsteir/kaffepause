@@ -3,14 +3,13 @@ import AccountMenu from './AccountMenu';
 import BaseNavigation from './BaseNavigation';
 
 interface IProps {
-    user: IUser;
+  user: IUser;
 }
 
 export default function AuthenticatedNav({ user }: IProps) {
-
-    return (
-      <BaseNavigation>
-        <AccountMenu name={user.name}/>
-      </BaseNavigation>
-    );
-  };
+  return (
+    <BaseNavigation>
+      <AccountMenu user={user} />
+    </BaseNavigation>
+  );
+}

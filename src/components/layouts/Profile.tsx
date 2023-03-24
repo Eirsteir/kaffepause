@@ -11,12 +11,13 @@ import Grid from '@mui/material/Grid';
 
 interface ProfileProps {
   user: IUser;
+  actorIsUser: boolean;
 }
 
 const Divider = () => <MUIDivider sx={{ marginTop: '2rem', marginBottom: '2rem' }} />;
 
 // TODO: mine steder
-export default function Profile({ user }: ProfileProps) {
+export default function Profile({ user, actorIsUser }: ProfileProps) {
   return (
     <>
       <Head>
@@ -25,14 +26,18 @@ export default function Profile({ user }: ProfileProps) {
       <Box sx={{ padding: '2rem 7rem' }}>
         <Grid container spacing={10}>
           <Grid item md={4} xs={12}>
-            <UserPaperSection user={user} />
+            <UserPaperSection actorIsUser={actorIsUser} user={user} />
           </Grid>
           <Grid item md={8} xs={12}>
-            <UserSection user={user} />
+            <UserSection actorIsUser={actorIsUser} user={user} />
             <Divider />
-            <FriendsSection user={user} />
-            <Divider />
-            <BreakSection />
+            {actorIsUser && (
+              <>
+                <FriendsSection user={user} />
+                <Divider />
+                <BreakSection />
+              </>
+            )}
           </Grid>
         </Grid>
       </Box>
