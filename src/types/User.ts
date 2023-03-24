@@ -17,6 +17,7 @@ export interface IUser extends NextAuthUser {
   id: string;
   uuid: string;
   name: string;
+  shortName: string;
   email: string;
   preferredLocation?: ILocation;
   profilePic: string;

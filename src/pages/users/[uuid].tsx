@@ -11,7 +11,6 @@ interface ProfilePageProps {
 }
 
 export default function ProfilePage({ user, actorIsUser }: ProfilePageProps) {
-  console.log(user);
   return <Profile actorIsUser={actorIsUser} user={user} />;
 }
 

@@ -7,6 +7,7 @@ const USER_QUERY = gql`
       uuid
       username
       name
+      shortName
       profilePic
       isViewerFriend
       socialContext

@@ -1,4 +1,4 @@
-import Home from '@/components/Home';
+import Home from '@/components/layouts/Home';
 import Landing from '@/components/landing/Landing';
 import { useIsAuthenticated } from '@/hooks/User';
 import { useHasMounted } from '@/hooks/utils';

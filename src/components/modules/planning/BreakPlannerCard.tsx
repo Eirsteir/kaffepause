@@ -17,9 +17,9 @@ import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 
-import BreakPlannerFriendsSelector from './BreakPlannerFriendsSelector';
-import { BreakPlannerLocationSelector } from './BreakPlannerLocationSelector';
-import { BreakPlannerTimeSelector } from './BreakPlannerTimeSelector';
+import BreakPlannerFriendsSelector from './friends/BreakPlannerFriendsSelector';
+import { BreakPlannerLocationSelector } from './location/BreakPlannerLocationSelector';
+import { BreakPlannerTimeSelector } from './time/BreakPlannerTimeSelector';
 
 enum EXPAND_OPTION {
   NOT_EXPANDED,

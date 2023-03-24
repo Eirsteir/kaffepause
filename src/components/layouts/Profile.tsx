@@ -21,7 +21,7 @@ export default function Profile({ user, actorIsUser }: ProfileProps) {
   return (
     <>
       <Head>
-        <title>{`${user.name.split(' ')[0]} sin profil`}</title>
+        <title>{`${user.shortName} sin profil`}</title>
       </Head>
       <Box sx={{ padding: '2rem 7rem' }}>
         <Grid container spacing={10}>
