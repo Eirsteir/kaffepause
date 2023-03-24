@@ -4,6 +4,7 @@ import BreakPlannerTimeSelector from '@/components/modules/planning/time/BreakPl
 import { TimeSlot } from '@/types/Time';
 import { IUser } from '@/types/User';
 import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 
 import StartBreakButton from './StartBreakButton';
@@ -26,18 +27,33 @@ export default function BreakPlanner({ user }: BreakPlannerProps) {
         // alignItems: 'center',
         justifyContent: 'left',
         margin: 'auto',
-        maxWidth: 460,
+        paddingRight: '2rem',
+        paddingLeft: '2rem',
+        maxWidth: '90vw',
         width: 'fit-content',
       }}>
       <Typography sx={{ marginBottom: '0.5rem' }} variant='h5'>
         Planlegg neste pause
       </Typography>
 
-      <BreakPlannerTimeSelector onSelect={onTimeSlotSelect} />
-      <BreakPlannerLocationSelector onSelect={onLocationSelect} user={user} />
-      <BreakPlannerFriendsSelector onSelect={onFriendSelect} user={user} />
+      <Grid container spacing={10}>
+        <Grid item md={4} xs={12}>
+          <BreakPlannerTimeSelector onSelect={onTimeSlotSelect} />
+        </Grid>
 
-      <StartBreakButton />
+        <Grid item md={4} xs={12}>
+          <BreakPlannerLocationSelector
+            onSelect={onLocationSelect}
+            user={user}
+          />
+        </Grid>
+
+        <Grid item md={4} xs={12}>
+          <BreakPlannerFriendsSelector onSelect={onFriendSelect} user={user} />
+        </Grid>
+      </Grid>
+
+      <StartBreakButton loading={false} />
     </Box>
   );
 }
