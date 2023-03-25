@@ -2,7 +2,7 @@ import { User as NextAuthUser } from 'next-auth';
 
 import { ILocation } from '@/types/Location';
 
-interface IUserEdge {
+export interface IUserEdge {
   __typename: string;
   node: IUser;
 }

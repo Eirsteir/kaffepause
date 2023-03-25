@@ -22,10 +22,15 @@ export default function BaseNavigation({ children }: Props) {
           justifyContent: 'center',
         }}>
         <Toolbar>
-          <Typography component='a' href={URLS.LANDING} sx={{ flexGrow: 1, fontWeight: 600 }} variant='h5'>
-            kaffepause
-          </Typography>
-
+          <Box sx={{ flexGrow: 1 }}>
+            <Typography
+              component='a'
+              href={URLS.LANDING}
+              sx={{ fontWeight: 600 }}
+              variant='h5'>
+              kaffepause
+            </Typography>
+          </Box>
           {children}
         </Toolbar>
       </AppBar>

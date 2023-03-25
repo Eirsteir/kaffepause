@@ -1,4 +1,4 @@
-import SearchField from '@/components/elements/SearchField';
+import Search from '@/components/modules/Search';
 import AccountMenu from '@/components/navigation/AccountMenu';
 import BaseNavigation from '@/components/navigation/BaseNavigation';
 import { IUser } from '@/types/User';
@@ -10,7 +10,7 @@ interface IProps {
 export default function AuthenticatedNav({ user }: IProps) {
   return (
     <BaseNavigation>
-      <SearchField />
+      <Search />
       <AccountMenu user={user} />
     </BaseNavigation>
   );
