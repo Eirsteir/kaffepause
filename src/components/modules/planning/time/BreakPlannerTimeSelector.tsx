@@ -17,7 +17,7 @@ export default function BreakPlannerTimeSelector({
         variant='h6'>
         Når?
       </Typography>
-      <Box sx={{ margin: 'auto' }}>
+      <Box>
         <TimeSlotPicker onSelect={onSelect} />
       </Box>
     </>

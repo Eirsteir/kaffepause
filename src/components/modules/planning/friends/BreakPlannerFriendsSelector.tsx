@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react';
 
+import InviteFriendsCheckBoxList from '@/components/modules/planning/friends/InviteFriendsCheckBoxList';
 import { IUser } from '@/types/User';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
@@ -43,11 +44,13 @@ export default function BreakPlannerFriendsSelector({
         }}
         options={friends}
         renderInput={(params) => (
-          <TextField {...params} label='Begynn å skrive...' placeholder='Pål' />
+          <TextField {...params} placeholder='Søk kaffedrikkere' size='small' />
         )}
         sx={{ width: 300, margin: 'auto' }}
         value={selection}
       />
+
+      <InviteFriendsCheckBoxList users={friends} />
     </>
   );
 }

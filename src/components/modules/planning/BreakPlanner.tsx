@@ -21,10 +21,8 @@ export default function BreakPlanner({ user }: BreakPlannerProps) {
   return (
     <Box
       sx={{
-        // textAlign: 'center',
         display: 'flex',
         flexDirection: 'column',
-        // alignItems: 'center',
         justifyContent: 'left',
         margin: 'auto',
         paddingRight: '2rem',
@@ -32,7 +30,7 @@ export default function BreakPlanner({ user }: BreakPlannerProps) {
         maxWidth: '90vw',
         width: 'fit-content',
       }}>
-      <Typography sx={{ marginBottom: '0.5rem' }} variant='h5'>
+      <Typography sx={{ marginBottom: '0.5rem' }} variant='h4'>
         Planlegg neste pause
       </Typography>
 

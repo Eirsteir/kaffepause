@@ -3,6 +3,16 @@ import '@fontsource/raleway';
 import '@fontsource/raleway/900.css';
 import '@fontsource/raleway/500.css';
 
+declare module '@mui/material/styles' {
+  interface Palette {
+    border: Palette['primary'];
+  }
+
+  interface PaletteOptions {
+    border: PaletteOptions['primary'];
+  }
+}
+
 const themeOptions: ThemeOptions = {
   palette: {
     mode: 'light',
@@ -11,6 +21,9 @@ const themeOptions: ThemeOptions = {
     },
     secondary: {
       main: '#f8e7e4',
+    },
+    border: {
+      main: '#DDD',
     },
   },
   components: {

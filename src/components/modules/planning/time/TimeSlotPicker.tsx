@@ -37,7 +37,7 @@ const TimeSlotPicker: React.FC<TimeSlotPickerProps> = ({ onSelect }) => {
       display='flex'
       flexDirection='column'
       justifyContent='center'
-      sx={{ width: 300, margin: 'auto' }}>
+      sx={{ width: 300 }}>
       <Grid container spacing={1}>
         {_DATA.currentData().map((timeSlot: TimeSlot) => (
           <Grid
