@@ -1,13 +1,11 @@
 import SearchIcon from '@mui/icons-material/Search';
 import { grey } from '@mui/material/colors';
-import InputAdornment from '@mui/material/InputAdornment';
 import InputBase from '@mui/material/InputBase';
 import { alpha, styled } from '@mui/material/styles';
-import TextField from '@mui/material/TextField';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
-  borderRadius: theme.shape.borderRadius,
+  borderRadius: '21px', //theme.shape.borderRadius,
   backgroundColor: alpha(grey[500], 0.15),
   '&:hover': {
     backgroundColor: alpha(grey[500], 0.25),
@@ -47,65 +45,14 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-const SearchInputField = () => (
-  <Search>
-    <SearchIconWrapper>
-      <SearchIcon color='primary' />
-    </SearchIconWrapper>
-    <StyledInputBase
-      inputProps={{ 'aria-label': 'search' }}
-      placeholder='Søk...'
-    />
-  </Search>
-);
-
-const CssTextField = styled(TextField)({
-  '& label.Mui-focused': {
-    color: 'green',
-  },
-  '& .MuiInput-underline:after': {
-    borderBottomColor: 'green',
-  },
-  '& .MuiFilledInput-root': {
-    '& fieldset': {
-      borderColor: 'red',
-    },
-    '&:hover fieldset': {
-      borderColor: 'yellow',
-    },
-    '&.Mui-focused fieldset': {
-      borderColor: 'green',
-    },
-  },
-});
-
 export default function SearchBar(params) {
   const { InputLabelProps, InputProps, ...rest } = params;
   return (
-    // <CssTextField
-    //   {...params}
-    //   InputProps={{
-    //     ...params.InputProps,
-    //     startAdornment: (
-    //       <InputAdornment position='start'>
-    //         <SearchIcon color='primary' />
-    //       </InputAdornment>
-    //     ),
-    //   }}
-    //   label='Søk...'
-    //   size='small'
-    //   variant='filled'
-    // />
     <Search>
       <SearchIconWrapper>
         <SearchIcon color='primary' />
       </SearchIconWrapper>
-      <StyledInputBase
-        {...params.InputProps}
-        {...rest}
-        // inputProps={{ 'aria-label': 'search' }}
-        placeholder='Søk...'
-      />
+      <StyledInputBase {...params.InputProps} {...rest} />
     </Search>
   );
 }
