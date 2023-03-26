@@ -16,11 +16,11 @@ export default function IncomingFriendRequestActionButton({ user }: Props) {
   const [
     acceptFriendRequest,
     { data: acceptData, loading: acceptLoading, error: acceptError },
-  ] = useAcceptFriendRequest();
+  ] = useAcceptFriendRequest({ variables: { requester: user.uuid } });
   const [
     rejectFriendRequest,
     { data: rejectData, loading: rejectLoading, error: rejectError },
-  ] = useRejectFriendRequest();
+  ] = useRejectFriendRequest({});
 
   return (
     <ProfileAction

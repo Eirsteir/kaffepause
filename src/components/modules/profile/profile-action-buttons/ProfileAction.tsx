@@ -1,5 +1,6 @@
 import LoadingButton from '@/components/elements/LoadingButton';
 import { ApolloError } from '@apollo/client';
+import { LoadingButtonProps } from '@mui/lab/LoadingButton';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
@@ -11,6 +12,7 @@ interface ProfileActionProps {
   error: ApolloError | undefined;
   success: boolean;
   successState: JSX.Element;
+  buttonProps?: LoadingButtonProps;
 }
 
 export default function ProfileAction({
@@ -21,6 +23,7 @@ export default function ProfileAction({
   error,
   success,
   successState,
+  buttonProps,
 }: ProfileActionProps) {
   if (success) {
     return successState;
@@ -31,7 +34,7 @@ export default function ProfileAction({
       <Typography sx={{ fontWeight: 500 }} variant='body2'>
         {title}
       </Typography>
-      <LoadingButton loading={loading} onClick={action}>
+      <LoadingButton loading={loading} onClick={action} {...buttonProps}>
         {actionText}
       </LoadingButton>
       {error && <p>{error.message}</p>}
