@@ -1,18 +1,18 @@
-import { gql } from "@apollo/client";
-
+import { USER_FIELDS } from '@/graphql/user.query';
+import { gql } from '@apollo/client';
 
 const REMOVE_FRIEND_MUTATION = gql`
-mutation unfriendUser($friend: String!) {
-  unfriendUser(friend: $friend) {
-    unfriendedPerson {
-      id
-      uuid
-      name
-      username
+  ${USER_FIELDS}
+
+  mutation unfriendUser($friend: String!) {
+    unfriendUser(friend: $friend) {
+      unfriendedPerson {
+        ...UserFields
+      }
+      success
+      errors
     }
-    success
-    errors
   }
-}`;
+`;
 
 export default REMOVE_FRIEND_MUTATION;

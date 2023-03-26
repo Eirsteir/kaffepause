@@ -1,14 +1,12 @@
-import { gql } from "@apollo/client";
-
+import { USER_FIELDS } from '@/graphql/user.query';
+import { gql } from '@apollo/client';
 
 const ADD_FRIEND_MUTATION = gql`
-mutation friend_request($toFriend: String!) {   
+  ${USER_FIELDS}
+  mutation friend_request($toFriend: String!) {
     sendFriendRequest(toFriend: $toFriend) {
       sentFriendRequestee {
-        id
-        uuid
-        name
-        username
+        ...UserFields
       }
       success
       errors

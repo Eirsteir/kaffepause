@@ -1,45 +1,52 @@
+import { LOCATION_CHILD_FIELDS } from '@/graphql/locations.query';
 import { gql } from '@apollo/client';
 
-const USER_QUERY = gql`
-  query user($userId: UUID) {
-    user(id: $userId) {
+export const USER_FIELDS = gql`
+  ${LOCATION_CHILD_FIELDS}
+  fragment UserFields on User {
+    id
+    uuid
+    username
+    name
+    shortName
+    profilePic
+    isViewerFriend
+    socialContext
+    currentStatus {
       id
-      uuid
-      username
-      name
-      shortName
-      profilePic
-      isViewerFriend
-      socialContext
-      currentStatus {
-        id
-        statusType
-        verb
-      }
-      friends {
-        totalCount
-        edges {
-          node {
-            id
-            uuid
-            name
-            username
-            profilePic
-            isViewerFriend
-          }
+      statusType
+      verb
+    }
+    friends {
+      totalCount
+      edges {
+        node {
+          id
+          uuid
+          name
+          shortName
+          username
+          profilePic
+          socialContext
+          isViewerFriend
         }
       }
-      friendshipStatus
-      preferredLocation {
-        id
-        uuid
-        title
-      }
-      currentLocation {
-        id
-        uuid
-        title
-      }
+    }
+    friendshipStatus
+    preferredLocation {
+      ...LocationChildFields
+    }
+    currentLocation {
+      ...LocationChildFields
+    }
+  }
+`;
+
+const USER_QUERY = gql`
+  ${USER_FIELDS}
+  query user($userId: UUID) {
+    user(id: $userId) {
+      ...UserFields
     }
   }
 `;

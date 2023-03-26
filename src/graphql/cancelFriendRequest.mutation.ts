@@ -1,20 +1,17 @@
-import { gql } from "@apollo/client";
-
+import { USER_FIELDS } from '@/graphql/user.query';
+import { gql } from '@apollo/client';
 
 const CANCEL_FRIEND_REQUEST_MUTATION = gql`
-mutation cancelFriendRequest($toFriend: String!) {
+  ${USER_FIELDS}
+  mutation cancelFriendRequest($toFriend: String!) {
     cancelFriendRequest(toFriend: $toFriend) {
       cancelledFriendRequestee {
-        id
-        uuid
-        name
-        username
+        ...UserFields
       }
       success
       errors
     }
   }
 `;
-
 
 export default CANCEL_FRIEND_REQUEST_MUTATION;

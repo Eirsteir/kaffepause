@@ -4,16 +4,18 @@ import MuiAvatar, { AvatarProps as MuiAvatarProps } from '@mui/material/Avatar';
 
 interface AvatarProps extends MuiAvatarProps {
   user: IUser;
+  children?: React.ReactElement;
 }
 
-export default function Avatar({ user, ...props }: AvatarProps) {
+export default function Avatar({ user, children, ...props }: AvatarProps) {
   return (
     <MuiAvatar
       alt={user.name}
       key={`avatar-${user.name}`}
       src={user.profilePic || ''}
       {...props}>
-      {getInitialsFromName(user.name)}
+      {children && { ...children }}
+      {!children && getInitialsFromName(user.name)}
     </MuiAvatar>
   );
 }

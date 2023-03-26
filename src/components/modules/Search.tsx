@@ -14,6 +14,7 @@ import { debounce } from '@mui/material/utils';
 
 import Avatar from '../elements/Avatar';
 
+// https://nextjs.org/docs/api-reference/next/router#resetting-state-after-navigation
 export default function Search() {
   const router = useRouter();
   const [value, setValue] = React.useState<IUser | null>(null);

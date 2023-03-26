@@ -1,15 +1,15 @@
-import { gql } from "@apollo/client";
-
+import { gql } from '@apollo/client';
 
 const GET_FRIENDING_POSSIBILITIES_QUERY = gql`
-query friendingPossibilities {
+  query friendingPossibilities {
     friendingPossibilities {
-        count
+      count
       edges {
         node {
           id
           uuid
           name
+          shortName
           username
           friendshipStatus
           isViewerFriend
@@ -23,7 +23,7 @@ query friendingPossibilities {
       }
       __typename
     }
-  }  
-`
+  }
+`;
 
 export default GET_FRIENDING_POSSIBILITIES_QUERY;

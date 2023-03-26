@@ -1,36 +1,17 @@
-import { gql } from "@apollo/client";
-
+import { USER_FIELDS } from '@/graphql/user.query';
+import { gql } from '@apollo/client';
 
 const ACCEPT_FRIEND_REQUEST_MUTATION = gql`
-mutation acceptFriendRequest($requester: String!) {
+  ${USER_FIELDS}
+  mutation acceptFriendRequest($requester: String!) {
     acceptFriendRequest(requester: $requester) {
       friend {
-        id
-        uuid
-        name
-        username
-        isViewerFriend
-        currentStatus {
-          statusType
-          verb
-          created
-        }
-        preferredLocation {
-          id
-          uuid
-          title
-        }
-        currentLocation {
-          id
-          uuid
-          title
-        }
+        ...UserFields
       }
       success
       errors
     }
   }
 `;
-
 
 export default ACCEPT_FRIEND_REQUEST_MUTATION;

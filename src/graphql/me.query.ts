@@ -1,6 +1,9 @@
+import { USER_FIELDS } from '@/graphql/user.query';
 import { gql } from '@apollo/client';
 
 const ME_QUERY = gql`
+  ${USER_FIELDS}
+
   query me {
     me {
       id
@@ -14,26 +17,7 @@ const ME_QUERY = gql`
         totalCount
         edges {
           node {
-            id
-            uuid
-            name
-            username
-            isViewerFriend
-            currentStatus {
-              statusType
-              verb
-              created
-            }
-            preferredLocation {
-              id
-              uuid
-              title
-            }
-            currentLocation {
-              id
-              uuid
-              title
-            }
+            ...UserFields
           }
         }
       }

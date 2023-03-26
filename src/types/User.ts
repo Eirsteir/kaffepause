@@ -13,6 +13,13 @@ export interface IUserConnection {
   edges: IUserEdge[];
 }
 
+export enum FriendshipStatus {
+  CAN_REQUEST = 'CAN_REQUEST',
+  ARE_FRIENDS = 'ARE_FRIENDS',
+  INCOMING_REQUEST = 'INCOMING_REQUEST',
+  OUTGOING_REQUEST = 'OUTGOING_REQUEST',
+}
+
 export interface IUser extends NextAuthUser {
   id: string;
   uuid: string;
@@ -22,4 +29,7 @@ export interface IUser extends NextAuthUser {
   preferredLocation?: ILocation;
   profilePic: string;
   friends: IUserConnection;
+  isViewerFriend: boolean;
+  friendshipStatus: FriendshipStatus;
+  socialContext: string;
 }
