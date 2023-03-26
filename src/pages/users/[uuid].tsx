@@ -41,7 +41,7 @@ export async function getServerSideProps({ req, params: { uuid } }) {
     return {
       props: {
         user: user,
-        actorIsUser: uuid === session.user,
+        actorIsUser: false,
       },
     };
   } catch (error) {
