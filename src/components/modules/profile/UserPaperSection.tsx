@@ -1,3 +1,5 @@
+import { useRouter } from 'next/router';
+
 import Avatar from '@/components/elements/Avatar';
 import CenteredBox from '@/components/elements/CenteredBox';
 import ProfileAction from '@/components/modules/profile/ProfileAction';

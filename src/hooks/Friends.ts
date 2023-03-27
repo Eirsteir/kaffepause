@@ -1,3 +1,4 @@
+import ME_QUERY from '@/graphql/me.query';
 import { useMutation, useQuery } from '@apollo/client';
 
 // import UserService from "../api/services/UserService";
@@ -15,10 +16,16 @@ export const useAddFriend = (options) =>
   useMutation(ADD_FRIEND_MUTATION, options);
 
 export const useRemoveFriend = (options) =>
-  useMutation(REMOVE_FRIEND_MUTATION, options);
+  useMutation(REMOVE_FRIEND_MUTATION, {
+    refetchQueries: [{ query: ME_QUERY }],
+    ...options,
+  });
 
 export const useAcceptFriendRequest = (options) =>
-  useMutation(ACCEPT_FRIEND_REQUEST_MUTATION, options);
+  useMutation(ACCEPT_FRIEND_REQUEST_MUTATION, {
+    refetchQueries: [{ query: ME_QUERY }],
+    ...options,
+  });
 
 export const useRejectFriendRequest = (options) =>
   useMutation(REJECT_FRIEND_REQUEST_MUTATION, options);

@@ -1,8 +1,8 @@
 import { getServerSession } from 'next-auth';
-import { getSession } from 'next-auth/react';
 
 import Profile from '@/components/layouts/Profile';
 import { getUser } from '@/hooks/User';
+import { authOptions } from '@/pages/api/auth/[...nextauth]';
 import { IUser } from '@/types/User';
 import URLS from '@/URLS';
 
@@ -14,12 +14,8 @@ interface ProfilePageProps {
 export default function ProfilePage({ user, actorIsUser }: ProfilePageProps) {
   return <Profile actorIsUser={actorIsUser} user={user} />;
 }
-import { authOptions } from '@/pages/api/auth/[...nextauth]';
 
-// TODO: must be a better way to do this
 export async function getServerSideProps(context) {
-  // const session = await getSession({ req });
-  // const session = await getServerSession(req, res, authOptions);
   const session = await getServerSession(context.req, context.res, authOptions);
 
   const requested_user_uuid = context.params.uuid;
@@ -35,11 +31,6 @@ export async function getServerSideProps(context) {
       },
     };
   }
-  console.log();
-  console.log(session.user.uuid === requested_user_uuid);
-  console.log('SESSION: ', session.user.uuid);
-  console.log('REQUESTED: ', requested_user_uuid);
-  console.log();
 
   if (session.user.uuid === requested_user_uuid) {
     return {
@@ -53,7 +44,9 @@ export async function getServerSideProps(context) {
   try {
     const {
       data: { user },
-    } = await getUser(requested_user_uuid, context.req);
+    } = await getUser(requested_user_uuid, context.req, {
+      fetchPolicy: 'no-cache', // dont know how to update SSR cache from client: https://developers.wpengine.com/blog/apollo-client-cache-rehydration-in-next-js
+    });
 
     return {
       props: {

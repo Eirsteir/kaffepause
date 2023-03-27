@@ -3,19 +3,19 @@ import { getInitialsFromName } from '@/utils';
 import MuiAvatar, { AvatarProps as MuiAvatarProps } from '@mui/material/Avatar';
 
 interface AvatarProps extends MuiAvatarProps {
-  user: IUser;
+  user: IUser | undefined;
   children?: React.ReactElement;
 }
 
 export default function Avatar({ user, children, ...props }: AvatarProps) {
   return (
     <MuiAvatar
-      alt={user.name}
-      key={`avatar-${user.name}`}
-      src={user.profilePic || ''}
+      alt={`profile-picture-${user?.name}`}
+      key={`avatar-${user?.name}`}
+      src={user?.profilePic || ''}
       {...props}>
       {children && { ...children }}
-      {!children && getInitialsFromName(user.name)}
+      {!children && user && getInitialsFromName(user.name)}
     </MuiAvatar>
   );
 }
