@@ -7,6 +7,7 @@ export default function LoadingButton({ ...props }: LoadingButtonProps) {
         textTransform: 'none',
         borderRadius: '21px',
         marginTop: '.5rem',
+        ...props.sx,
       }}
       variant='contained'
       {...props}

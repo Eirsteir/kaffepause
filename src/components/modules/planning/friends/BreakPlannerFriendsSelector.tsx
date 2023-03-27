@@ -50,7 +50,7 @@ export default function BreakPlannerFriendsSelector({
         value={selection}
       />
 
-      <InviteFriendsCheckBoxList users={friends} />
+      <InviteFriendsCheckBoxList onChange={handleSelect} users={friends} />
     </>
   );
 }

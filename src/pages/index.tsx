@@ -1,10 +1,10 @@
-import Home from '@/components/layouts/Home';
 import Landing from '@/components/landing/Landing';
+import Home from '@/components/layouts/Home';
 import { useIsAuthenticated } from '@/hooks/User';
 import { useHasMounted } from '@/hooks/utils';
 
 export default function LandingPage() {
-  const { session, status, user, isAuthenticated } = useIsAuthenticated();
+  const { status, user, isAuthenticated } = useIsAuthenticated();
 
   const hasMounted = useHasMounted();
   if (!hasMounted) {
@@ -13,8 +13,9 @@ export default function LandingPage() {
 
   return (
     <>
-      {status !== 'loading' && // TODO: find better solution
-        (isAuthenticated ? <Home user={user!} /> : <Landing />)}
+      {status !== 'loading' &&
+        // TODO: find better solution
+        (isAuthenticated ? <Home user={user} /> : <Landing />)}
     </>
   );
 }

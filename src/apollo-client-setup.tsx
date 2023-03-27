@@ -1,36 +1,39 @@
-import { useMemo, PropsWithChildren } from 'react';
+import { getToken } from 'next-auth/jwt';
+import { PropsWithChildren, useMemo } from 'react';
+
 import {
   ApolloClient,
-  InMemoryCache,
-  createHttpLink,
+  ApolloLink,
   ApolloProvider,
-  ApolloLink
-} from '@apollo/client'
-import { setContext } from '@apollo/client/link/context'
-import { getToken } from 'next-auth/jwt';
-
+  createHttpLink,
+  InMemoryCache,
+} from '@apollo/client';
+import { setContext } from '@apollo/client/link/context';
 
 const httpLink = createHttpLink({
-  uri: process.env.NEXT_PUBLIC_API_URL
+  uri: process.env.NEXT_PUBLIC_API_URL,
 });
 
 const authLink = setContext(async (_, { headers }) => {
-  const { token } = await fetch('http://localhost:3000/api/auth/token').then(res => res.json())
-  const accessToken = token?.accessToken;
-    
+  const { token } = await fetch(
+    process.env.NEXT_PUBLIC_NEXTAUTH_URL + 'api/auth/token',
+  ).then((res) => res.json());
+
+  const accessToken = token?.account.access_token;
+
   return {
     headers: {
-      authorization: accessToken ? `JWT ${accessToken}`: null,
+      authorization: accessToken ? `JWT ${accessToken}` : null,
       ...headers,
-    }
-  }
+    },
+  };
 });
 
 const logLink = new ApolloLink((operation, forward) => {
   // console.debug('request', operation.getContext());
   return forward(operation).map((result) => {
-      // console.debug('response', operation.getContext());
-      return result;
+    // console.debug('response', operation.getContext());
+    return result;
   });
 });
 
@@ -43,9 +46,9 @@ const apolloClient = new ApolloClient({
 });
 
 export const ApolloProviderWrapper = ({ children }: PropsWithChildren) => {
-  const client = useMemo(() => apolloClient, [getToken])
+  const client = useMemo(() => apolloClient, [getToken]);
 
-  return <ApolloProvider client={client}>{children}</ApolloProvider>
-}
+  return <ApolloProvider client={client}>{children}</ApolloProvider>;
+};
 
 export default apolloClient;

@@ -1,8 +1,9 @@
 import * as React from 'react';
 
+import Avatar from '@/components/elements/Avatar';
+import { IUser } from '@/types/User';
 import AddCircleOutlineRoundedIcon from '@mui/icons-material/AddCircleOutlineRounded';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import Avatar from '@mui/material/Avatar';
 import Checkbox from '@mui/material/Checkbox';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -12,14 +13,17 @@ import ListItemText from '@mui/material/ListItemText';
 
 interface InviteFriendsCheckBoxListProps {
   users: IUser[];
+  onSelect: (invitees: IUser[]) => void;
 }
 
 export default function InviteFriendsCheckBoxList({
   users,
+  onSelect,
 }: InviteFriendsCheckBoxListProps) {
   const [checked, setChecked] = React.useState([1]);
 
   const handleToggle = (value: number) => () => {
+    console.log(value);
     const currentIndex = checked.indexOf(value);
     const newChecked = [...checked];
 
@@ -36,8 +40,8 @@ export default function InviteFriendsCheckBoxList({
     <List
       dense
       sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
-      {[0, 1, 2, 3].map((value) => {
-        const labelId = `checkbox-list-secondary-label-${value}`;
+      {users.map((value) => {
+        const labelId = `checkbox-list-secondary-label-${value.uuid}`;
         return (
           <ListItem
             disablePadding
@@ -57,12 +61,9 @@ export default function InviteFriendsCheckBoxList({
               onClick={handleToggle(value)}
               role={undefined}>
               <ListItemAvatar>
-                <Avatar
-                  alt={`Avatar n°${value + 1}`}
-                  src={`/static/images/avatar/${value + 1}.jpg`}
-                />
+                <Avatar user={value} />
               </ListItemAvatar>
-              <ListItemText id={labelId} primary={`Line item ${value + 1}`} />
+              <ListItemText id={labelId} primary={value.name} />
             </ListItemButton>
           </ListItem>
         );

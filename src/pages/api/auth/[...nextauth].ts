@@ -21,14 +21,7 @@ export default NextAuth({
         maxAge: 30 * 24 * 60 * 60,
       },
       secret: process.env.NEXTAUTH_SECRET,
-      async authorize(credentials, req) {
-        if (credentials.isNewUser) {
-          return {
-            success: true,
-            accessToken: credentials.token,
-            refresToken: credentials.refreshToken,
-          };
-        }
+      async authorize(credentials) {
         const {
           data: { tokenAuth },
         } = await apolloClient.mutate({
@@ -39,48 +32,53 @@ export default NextAuth({
           },
         });
 
-        if (!tokenAuth.success || !tokenAuth.user) throw new Error(JSON.stringify({ errors: tokenAuth.errors, email: credentials?.email, ok: false }));
+        if (tokenAuth.success) {
+          const context = {
+            headers: {
+              authorization: `JWT ${tokenAuth.token}`,
+            },
+          };
 
-        return {
-          success: true,
-          accessToken: tokenAuth.token,
-          refresToken: tokenAuth.refresh_token,
-        };
+          const {
+            data: { me },
+          } = await apolloClient.query({
+            query: ME_QUERY,
+            context: context,
+          });
+
+          if (me) {
+            return {
+              success: true,
+              access_token: tokenAuth.token,
+              refresh_token: tokenAuth.refreshToken,
+              user: { ...me },
+            };
+          }
+        }
+
+        return null;
       },
     }),
   ],
   callbacks: {
     async jwt({ token, user, account }) {
-      if (account) {
+      if (account && user) {
         token.account = {
-          ...account,
-          accessToken: user?.accessToken,
-          refreshToken: user?.refreshToken,
+          ...user,
+          access_token: user?.access_token,
+          refresh_token: user?.refresh_token,
         };
-        token.accessToken = user?.accessToken;
       }
-
       return token;
     },
-    async session({ session, token }) {
-      if (token && token.account.accessToken) {
-        const context = {
-          headers: {
-            authorization: `JWT ${token.account.accessToken}`,
-          },
-        };
-
-        const {
-          data: { me },
-        } = await apolloClient.query({
-          query: ME_QUERY,
-          context: context,
-        });
-
-        session.user = me;
-      }
-
-      return { ...session };
+    async session({
+      session,
+      token: {
+        account: { user },
+      },
+    }) {
+      session.user = user;
+      return session;
     },
   },
   pages: {

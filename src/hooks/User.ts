@@ -37,7 +37,7 @@ export const getUser = async (userId: string, req) => {
   };
   return await apolloClient.query({
     query: USER_QUERY,
-    variables: { userId: userId },
+    variables: { userId },
     context,
   });
 };

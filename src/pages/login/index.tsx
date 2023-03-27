@@ -19,7 +19,11 @@ import Typography from '@mui/material/Typography';
 
 function Copyright(props: any) {
   return (
-    <Typography align='center' color='text.secondary' variant='body2' {...props}>
+    <Typography
+      align='center'
+      color='text.secondary'
+      variant='body2'
+      {...props}>
       {'Copyright © '}
       <Link color='inherit' href='https://mui.com/'>
         Your Website
@@ -58,14 +62,7 @@ export default function Login() {
       if (res && res.ok && res.status === 200) router.push(URLS.LANDING);
       else {
         setIsLoading(false);
-        const error = JSON.parse(res.error);
-        setEmail(error.email);
-
-        if (error.errors.nonFieldErrors) {
-          setLoginError(error.errors.nonFieldErrors[0].message);
-        } else {
-          setLoginError('Something went wrong');
-        }
+        setLoginError('Noe gikk galt');
       }
     });
   };
@@ -112,13 +109,17 @@ export default function Login() {
             type='password'
             value={password}
           />
-          <FormControlLabel control={<Checkbox color='primary' value='remember' />} label='Remember me' />
-          <span
-          // className={styles.error}
-          >
-            {loginError}
-          </span>
-          <Button disabled={isLoading} fullWidth sx={{ mt: 3, mb: 2 }} type='submit' variant='contained'>
+          <FormControlLabel
+            control={<Checkbox color='primary' value='remember' />}
+            label='Remember me'
+          />
+          {loginError && <p>{loginError}</p>}
+          <Button
+            disabled={isLoading}
+            fullWidth
+            sx={{ mt: 3, mb: 2 }}
+            type='submit'
+            variant='contained'>
             Sign In
           </Button>
           <Grid container>

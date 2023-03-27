@@ -1,3 +1,4 @@
+import { getServerSession } from 'next-auth';
 import { getSession } from 'next-auth/react';
 
 import Profile from '@/components/layouts/Profile';
@@ -13,18 +14,32 @@ interface ProfilePageProps {
 export default function ProfilePage({ user, actorIsUser }: ProfilePageProps) {
   return <Profile actorIsUser={actorIsUser} user={user} />;
 }
+import { authOptions } from '@/pages/api/auth/[...nextauth]';
 
 // TODO: must be a better way to do this
-export async function getServerSideProps({ req, params: { uuid } }) {
-  const session = await getSession({ req });
+export async function getServerSideProps({ req, res, params }) {
+  // const session = await getSession({ req });
+  const session = await getServerSession(req, res, authOptions);
+  const requested_user_uuid = params.uuid;
 
-  if (!session?.user) {
+  if (!session) {
     return {
-      redirect: { destination: URLS.SIGNIN },
+      redirect: {
+        destination:
+          URLS.SIGNIN +
+          '?callbackUrl=http://localhost:3000/users/' +
+          requested_user_uuid,
+        permanent: false,
+      },
     };
   }
+  console.log();
+  console.log(session.user.uuid === requested_user_uuid);
+  console.log('SESSION: ', session.user.uuid);
+  console.log('REQUESTED: ', requested_user_uuid);
+  console.log();
 
-  if (session.user.uuid === uuid) {
+  if (session.user.uuid === requested_user_uuid) {
     return {
       props: {
         user: session.user,
@@ -36,7 +51,7 @@ export async function getServerSideProps({ req, params: { uuid } }) {
   try {
     const {
       data: { user },
-    } = await getUser(uuid, req);
+    } = await getUser(requested_user_uuid, req);
 
     return {
       props: {
