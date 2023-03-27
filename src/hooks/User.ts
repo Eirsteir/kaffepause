@@ -32,7 +32,7 @@ export const getUser = async (userId: string, req) => {
   const token = await getToken({ req });
   const context = {
     headers: {
-      authorization: `JWT ${token.account.accessToken}`,
+      authorization: `JWT ${token.account.access_token}`,
     },
   };
   return await apolloClient.query({

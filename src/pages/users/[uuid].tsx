@@ -17,10 +17,12 @@ export default function ProfilePage({ user, actorIsUser }: ProfilePageProps) {
 import { authOptions } from '@/pages/api/auth/[...nextauth]';
 
 // TODO: must be a better way to do this
-export async function getServerSideProps({ req, res, params }) {
+export async function getServerSideProps(context) {
   // const session = await getSession({ req });
-  const session = await getServerSession(req, res, authOptions);
-  const requested_user_uuid = params.uuid;
+  // const session = await getServerSession(req, res, authOptions);
+  const session = await getServerSession(context.req, context.res, authOptions);
+
+  const requested_user_uuid = context.params.uuid;
 
   if (!session) {
     return {
@@ -51,7 +53,7 @@ export async function getServerSideProps({ req, res, params }) {
   try {
     const {
       data: { user },
-    } = await getUser(requested_user_uuid, req);
+    } = await getUser(requested_user_uuid, context.req);
 
     return {
       props: {

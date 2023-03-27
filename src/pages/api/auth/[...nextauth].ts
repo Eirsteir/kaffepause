@@ -1,13 +1,13 @@
 import NextAuth from 'next-auth';
+import type { NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 
 import apolloClient from '@/apollo-client-setup';
+import ME_QUERY from '@/graphql/me.query';
+import SIGNIN_MUTATION from '@/graphql/signin.mutation';
 import URLS from '@/URLS';
 
-import ME_QUERY from '../../../graphql/me.query';
-import SIGNIN_MUTATION from '../../../graphql/signin.mutation';
-
-export default NextAuth({
+export const authOptions: NextAuthOptions = {
   providers: [
     CredentialsProvider({
       id: 'email-login',
@@ -63,11 +63,7 @@ export default NextAuth({
   callbacks: {
     async jwt({ token, user, account }) {
       if (account && user) {
-        token.account = {
-          ...user,
-          access_token: user?.access_token,
-          refresh_token: user?.refresh_token,
-        };
+        token.account = user;
       }
       return token;
     },
@@ -85,4 +81,6 @@ export default NextAuth({
     signIn: URLS.SIGNIN,
     // error: URLS.SIGNIN
   },
-});
+};
+
+export default NextAuth(authOptions);
