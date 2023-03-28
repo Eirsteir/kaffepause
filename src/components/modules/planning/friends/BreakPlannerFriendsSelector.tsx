@@ -1,8 +1,10 @@
 import { useMemo, useState } from 'react';
 
+import CenteredBox from '@/components/elements/CenteredBox';
 import InviteFriendsCheckBoxList from '@/components/modules/planning/friends/InviteFriendsCheckBoxList';
 import { IUser } from '@/types/User';
 import Autocomplete from '@mui/material/Autocomplete';
+import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 
@@ -37,10 +39,8 @@ export default function BreakPlannerFriendsSelector({
   };
 
   return (
-    <>
-      <Typography
-        sx={{ marginBottom: '0.5rem', marginTop: '2rem' }}
-        variant='h6'>
+    <CenteredBox>
+      <Typography sx={{ marginBottom: '1rem', marginTop: '2rem' }} variant='h6'>
         Med hvem?
       </Typography>
 
@@ -58,7 +58,7 @@ export default function BreakPlannerFriendsSelector({
         renderInput={(params) => (
           <TextField {...params} placeholder='Søk kaffedrikkere' size='small' />
         )}
-        sx={{ width: 300, margin: 'auto' }}
+        sx={{ width: '100%', maxWidth: 250, margin: 'auto' }}
         value={selection}
       />
 
@@ -68,6 +68,6 @@ export default function BreakPlannerFriendsSelector({
         onSelect={handleSelect}
         users={friends}
       />
-    </>
+    </CenteredBox>
   );
 }

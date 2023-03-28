@@ -130,7 +130,7 @@ export default function LocationSelectCreateOptionDialog({
         )}
         renderOption={(props, option) => <li {...props}>{option.title}</li>}
         selectOnFocus
-        sx={{ width: 300 }}
+        // sx={{ width: 300 }}
         value={value}
       />
 

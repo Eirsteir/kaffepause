@@ -39,14 +39,14 @@ const TimeSlotPicker: React.FC<TimeSlotPickerProps> = ({ onSelect }) => {
       display='flex'
       flexDirection='column'
       justifyContent='center'
-      sx={{ width: 300 }}>
+      sx={{ maxWidth: 250 }}>
       <Grid container spacing={1}>
         {_DATA.currentData().map((timeSlot: TimeSlot) => (
           <Grid
             item
             key={timeSlot.formatted}
-            sm={4}
-            sx={{ textAlign: 'center' }}>
+            sx={{ textAlign: 'center' }}
+            xs={4}>
             <Button
               disableElevation
               onClick={() => handleSelect(timeSlot)}
@@ -58,11 +58,13 @@ const TimeSlotPicker: React.FC<TimeSlotPickerProps> = ({ onSelect }) => {
       </Grid>
 
       <Pagination
+        boundaryCount={0}
         count={count}
         onChange={handleChange}
         page={page}
         shape='rounded'
-        sx={{ paddingTop: '1rem' }}
+        siblingCount={0}
+        sx={{ paddingTop: '.5rem' }}
       />
     </Box>
   );

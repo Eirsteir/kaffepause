@@ -1,7 +1,7 @@
 import Box from '@mui/material/Box';
 
 interface CenteredBoxProps {
-  children: React.ReactNode[];
+  children: React.ReactNode;
 }
 
 export default function CenteredBox({ children }: CenteredBoxProps) {
@@ -11,7 +11,7 @@ export default function CenteredBox({ children }: CenteredBoxProps) {
       display='flex'
       flexDirection='column'
       justifyContent='center'>
-      {...children}
+      {children}
     </Box>
   );
 }

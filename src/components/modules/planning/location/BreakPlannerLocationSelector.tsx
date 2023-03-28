@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 
+import CenteredBox from '@/components/elements/CenteredBox';
 import LocationSelectCreateOptionDialog from '@/components/modules/planning/location/LocationSelectCreateOptionDialog';
 import { useLocations } from '@/hooks/Location';
 import { ILocation } from '@/types/Location';
@@ -43,13 +44,11 @@ export default function BreakPlannerLocationSelector({
   }, [onSelect, location]);
 
   return (
-    <>
-      <Typography
-        sx={{ marginBottom: '0.5rem', marginTop: '2rem' }}
-        variant='h6'>
+    <CenteredBox>
+      <Typography sx={{ marginBottom: '1rem', marginTop: '2rem' }} variant='h6'>
         Hvor?
       </Typography>
-      <Box sx={{ margin: 'auto' }}>
+      <Box sx={{ maxWidth: 250 }}>
         <LocationSelectCreateOptionDialog
           error={inputError}
           initialLocation={location}
@@ -63,6 +62,6 @@ export default function BreakPlannerLocationSelector({
         </Typography>
         {error && <p>{error.message}</p>}
       </Box>
-    </>
+    </CenteredBox>
   );
 }

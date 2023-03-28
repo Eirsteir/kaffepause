@@ -48,7 +48,7 @@ export default function InviteFriendsCheckBoxList({
   return (
     <List
       dense
-      sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
+      sx={{ width: '100%', maxWidth: 300, bgcolor: 'background.paper' }}>
       {users.map((value) => {
         const labelId = `checkbox-list-secondary-label-${value.uuid}`;
         return (
