@@ -78,7 +78,7 @@ export default function Search() {
       id='search-bar'
       includeInputInList
       loading={loading}
-      loadingText='Laster...'
+      loadingText={'Laster...'}
       noOptionsText='Ingen treff'
       onChange={(event: any, newValue: IUser | null) => {
         setOptions([]);
@@ -91,15 +91,6 @@ export default function Search() {
       }}
       options={options}
       renderInput={(params) => {
-        params.InputProps = {
-          ...params.InputProps,
-          endAdornment: (
-            <React.Fragment>
-              {loading ? <CircularProgress color='inherit' size={20} /> : null}
-              {params.InputProps.endAdornment}
-            </React.Fragment>
-          ),
-        };
         return <SearchBar placeholder='Søk etter brukere...' {...params} />;
       }}
       renderOption={(props, option) => {

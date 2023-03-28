@@ -14,6 +14,9 @@ declare module '@mui/material/styles' {
 }
 
 const themeOptions: ThemeOptions = {
+  shape: {
+    borderRadius: 21,
+  },
   palette: {
     mode: 'light',
     primary: {

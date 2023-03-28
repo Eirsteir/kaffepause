@@ -12,7 +12,7 @@ export default function NavigationMenu({
   user,
   children,
 }: {
-  user: IUser;
+  user?: IUser;
   children: React.ReactNode;
 }) {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -43,7 +43,7 @@ export default function NavigationMenu({
               borderRadius: '21px',
             }}>
             <MenuIcon sx={{ marginRight: '.1rem', width: 20, height: 20 }} />
-            <Avatar sx={{ width: 30, height: 30 }} user={user || undefined} />
+            <Avatar sx={{ width: 30, height: 30 }} user={user} />
           </IconButton>
         </Tooltip>
       </Box>
@@ -57,7 +57,7 @@ export default function NavigationMenu({
         PaperProps={{
           elevation: 0,
           sx: {
-            width: 200,
+            minWidth: 200,
             overflow: 'visible',
             filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
             mt: 1.5,
