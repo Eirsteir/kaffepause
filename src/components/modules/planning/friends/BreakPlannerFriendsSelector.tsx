@@ -8,7 +8,7 @@ import Typography from '@mui/material/Typography';
 
 interface BreakPlannerFriendsSelectorProps {
   user: IUser;
-  onSelect: (invitees: IUser[]) => void;
+  onSelect: (selectedInvitees: IUser[]) => void;
 }
 
 export default function BreakPlannerFriendsSelector({
@@ -21,9 +21,19 @@ export default function BreakPlannerFriendsSelector({
     [user],
   );
   const [selection, setSelection] = useState<IUser[]>([]);
+
   const handleSelect = (selectedUser: IUser) => {
-    setSelection([...selectedUser]);
-    onSelect(selection);
+    const newSelection = [...selection, selectedUser];
+    setSelection(newSelection);
+    onSelect(newSelection);
+  };
+
+  const handleDeselect = (deselected: IUser) => {
+    const newSelection = selection.filter((u) => u.uuid !== deselected.uuid);
+    setSelection((current) =>
+      current.filter((u) => u.uuid !== deselected.uuid),
+    );
+    onSelect(newSelection);
   };
 
   return (
@@ -37,10 +47,12 @@ export default function BreakPlannerFriendsSelector({
       <Autocomplete
         getOptionLabel={(option) => option.name}
         id='friends-selector'
+        isOptionEqualToValue={(option, value) => option.uuid === value.uuid}
         limitTags={2}
         multiple
-        onChange={(event, newValue) => {
-          handleSelect(newValue);
+        onChange={(event, values) => {
+          setSelection(values);
+          onSelect(values);
         }}
         options={friends}
         renderInput={(params) => (
@@ -50,7 +62,12 @@ export default function BreakPlannerFriendsSelector({
         value={selection}
       />
 
-      <InviteFriendsCheckBoxList onChange={handleSelect} users={friends} />
+      <InviteFriendsCheckBoxList
+        initialSelection={selection}
+        onDeselect={handleDeselect}
+        onSelect={handleSelect}
+        users={friends}
+      />
     </>
   );
 }

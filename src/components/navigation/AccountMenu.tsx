@@ -15,11 +15,10 @@ interface IProps {
 
 export default function AccountMenu({ user }: IProps) {
   const router = useRouter();
-
   const dummyAction = () => undefined;
 
-  const renderMenuItems = () => (
-    <>
+  return (
+    <NavigationMenu user={user}>
       <MenuItem onClick={dummyAction}>
         <Typography sx={{ fontWeight: 700 }} variant='subtitle2'>
           Pausepreferanser
@@ -44,8 +43,6 @@ export default function AccountMenu({ user }: IProps) {
       <MenuItem onClick={() => signOut()}>
         <Typography variant='subtitle2'>Logg ut</Typography>
       </MenuItem>
-    </>
+    </NavigationMenu>
   );
-
-  return <NavigationMenu user={user}>{renderMenuItems()}</NavigationMenu>;
 }

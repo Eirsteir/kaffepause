@@ -1,6 +1,9 @@
+import { useState } from 'react';
+
 import BreakPlannerFriendsSelector from '@/components/modules/planning/friends/BreakPlannerFriendsSelector';
 import BreakPlannerLocationSelector from '@/components/modules/planning/location/BreakPlannerLocationSelector';
 import BreakPlannerTimeSelector from '@/components/modules/planning/time/BreakPlannerTimeSelector';
+import { ILocation } from '@/types/Location';
 import { TimeSlot } from '@/types/Time';
 import { IUser } from '@/types/User';
 import Box from '@mui/material/Box';
@@ -14,9 +17,20 @@ interface BreakPlannerProps {
 }
 
 export default function BreakPlanner({ user }: BreakPlannerProps) {
-  const onTimeSlotSelect = (timeSlot: TimeSlot) => {};
-  const onLocationSelect = (location: ILocation) => {};
-  const onFriendSelect = (invitees: IUser[]) => {};
+  const [timeSlot, setTimeSlot] = useState<TimeSlot | null>(null);
+  const [location, setLocation] = useState<ILocation | null>(null);
+  const [invitees, setInvitees] = useState<IUser[]>([]);
+
+  const onTimeSlotSelect = (selectedTimeSlot: TimeSlot) => {
+    setTimeSlot(selectedTimeSlot);
+  };
+  const onLocationSelect = (selectedLocation: ILocation) => {
+    setLocation(selectedLocation);
+  };
+  const onFriendSelect = (selectedInvitees: IUser[]) => {
+    console.log('onFriendSelect(): ', selectedInvitees);
+    setInvitees(selectedInvitees);
+  };
 
   return (
     <Box

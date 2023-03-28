@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import LocationSelectCreateOptionDialog from '@/components/modules/planning/location/LocationSelectCreateOptionDialog';
 import { useLocations } from '@/hooks/Location';
@@ -16,7 +16,9 @@ export default function BreakPlannerLocationSelector({
   user,
   onSelect,
 }: BreakPlannerLocationSelectorProps) {
-  const [location, setLocation] = useState(user.preferredLocation);
+  const [location, setLocation] = useState<ILocation | undefined>(
+    user.preferredLocation,
+  );
   const [inputError, setInputError] = useState<string>('');
   const { loading, error, data } = useLocations();
   const locations = useMemo(
@@ -33,6 +35,12 @@ export default function BreakPlannerLocationSelector({
     setLocation(location);
     onSelect(location);
   };
+
+  useEffect(() => {
+    if (location) {
+      onSelect(location);
+    }
+  }, [onSelect, location]);
 
   return (
     <>

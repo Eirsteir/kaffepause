@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import usePagination from '@/hooks/Pagination';
 import { useTimeSlots } from '@/hooks/utils';
@@ -30,6 +30,8 @@ const TimeSlotPicker: React.FC<TimeSlotPickerProps> = ({ onSelect }) => {
     setValue(timeSlot);
     onSelect(timeSlot);
   };
+
+  useEffect(() => onSelect(value), [onSelect, value]);
 
   return (
     <Box

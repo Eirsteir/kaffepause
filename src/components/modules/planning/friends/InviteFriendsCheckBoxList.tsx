@@ -12,29 +12,38 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 
 interface InviteFriendsCheckBoxListProps {
+  initialSelection: IUser[];
   users: IUser[];
-  onSelect: (invitees: IUser[]) => void;
+  onSelect: (user: IUser) => void;
+  onDeselect: (user: IUser) => void;
 }
 
 export default function InviteFriendsCheckBoxList({
   users,
   onSelect,
+  onDeselect,
+  initialSelection,
 }: InviteFriendsCheckBoxListProps) {
-  const [checked, setChecked] = React.useState([1]);
+  const [checked, setChecked] = React.useState<IUser[]>([]);
 
-  const handleToggle = (value: number) => () => {
-    console.log(value);
-    const currentIndex = checked.indexOf(value);
+  const handleToggle = (user: IUser) => () => {
+    const currentIndex = checked.indexOf(user);
     const newChecked = [...checked];
 
     if (currentIndex === -1) {
-      newChecked.push(value);
+      newChecked.push(user);
+      onSelect(user);
     } else {
       newChecked.splice(currentIndex, 1);
+      onDeselect(user);
     }
-
     setChecked(newChecked);
   };
+
+  React.useEffect(
+    () => setChecked(initialSelection),
+    [setChecked, initialSelection],
+  );
 
   return (
     <List
@@ -45,7 +54,7 @@ export default function InviteFriendsCheckBoxList({
         return (
           <ListItem
             disablePadding
-            key={value}
+            key={`item-${value.uuid}`}
             secondaryAction={
               <Checkbox
                 checked={checked.indexOf(value) !== -1}

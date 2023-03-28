@@ -37,6 +37,20 @@ const themeOptions: ThemeOptions = {
         },
       },
     },
+    MuiCard: {
+      styleOverrides: {
+        root: {
+          borderRadius: 12,
+        },
+      },
+    },
+    MuiPaper: {
+      styleOverrides: {
+        root: {
+          borderRadius: 12,
+        },
+      },
+    },
   },
   typography: {
     fontFamily: 'Raleway, sans-serif',
