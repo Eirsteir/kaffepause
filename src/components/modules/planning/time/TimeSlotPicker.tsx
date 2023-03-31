@@ -13,8 +13,8 @@ interface TimeSlotPickerProps {
 }
 
 const TimeSlotPicker: React.FC<TimeSlotPickerProps> = ({ onSelect }) => {
-  const [timeSlots, _] = useTimeSlots();
-  const [value, setValue] = useState<Dayjs>(timeSlots[0]);
+  const [timeSlots, timeSlot, _] = useTimeSlots();
+  const [value, setValue] = useState<Dayjs>(timeSlot);
   const [page, setPage] = useState<number>(1);
 
   const PER_PAGE = 9;
