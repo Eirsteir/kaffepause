@@ -7,10 +7,12 @@ import Typography from '@mui/material/Typography';
 
 interface BreakPlannerTimeSelectorProps {
   onSelect: (timeSlot: Dayjs) => void;
+  initialTimeSlot: Dayjs | undefined;
 }
 
 export default function BreakPlannerTimeSelector({
   onSelect,
+  initialTimeSlot,
 }: BreakPlannerTimeSelectorProps) {
   return (
     <CenteredBox>
@@ -18,7 +20,7 @@ export default function BreakPlannerTimeSelector({
         Når?
       </Typography>
       <Box>
-        <TimeSlotPicker onSelect={onSelect} />
+        <TimeSlotPicker initialTimeSlot={initialTimeSlot} onSelect={onSelect} />
       </Box>
     </CenteredBox>
   );

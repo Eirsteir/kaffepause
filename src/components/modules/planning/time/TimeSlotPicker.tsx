@@ -10,11 +10,15 @@ import Pagination from '@mui/material/Pagination';
 
 interface TimeSlotPickerProps {
   onSelect: (timeSlot: Dayjs) => void;
+  initialTimeSlot: Dayjs | undefined;
 }
 
-const TimeSlotPicker: React.FC<TimeSlotPickerProps> = ({ onSelect }) => {
+const TimeSlotPicker: React.FC<TimeSlotPickerProps> = ({
+  onSelect,
+  initialTimeSlot,
+}) => {
   const [timeSlots, timeSlot, _] = useTimeSlots();
-  const [value, setValue] = useState<Dayjs>(timeSlot);
+  const [value, setValue] = useState<Dayjs>(initialTimeSlot || timeSlot);
   const [page, setPage] = useState<number>(1);
 
   const PER_PAGE = 9;
