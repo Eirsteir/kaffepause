@@ -10,6 +10,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
 
 interface LocationOptionType {
   inputValue?: string;
@@ -123,9 +124,10 @@ export default function LocationSelectCreateOptionDialog({
                 ),
               }}
               label='Velg sted'
-              sx={{ ...(error && { border: '1px solid red' }) }}
             />
-            <p>{error}</p>
+            <Typography sx={{ color: 'red' }} variant='caption'>
+              {error}
+            </Typography>
           </>
         )}
         renderOption={(props, option) => <li {...props}>{option.title}</li>}

@@ -6,6 +6,8 @@ export interface IInvitation {
   id: string;
   uuid: string;
   sender: IUser;
+  addressees: IUserConnection;
+  addresseeCount: number;
 }
 
 export interface IBreak {

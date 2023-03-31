@@ -1,11 +1,12 @@
+import { Dayjs } from 'dayjs';
+
 import CenteredBox from '@/components/elements/CenteredBox';
 import TimeSlotPicker from '@/components/modules/planning/time/TimeSlotPicker';
-import { TimeSlot } from '@/types/Time';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
 interface BreakPlannerTimeSelectorProps {
-  onSelect: (timeSlot: TimeSlot) => void;
+  onSelect: (timeSlot: Dayjs) => void;
 }
 
 export default function BreakPlannerTimeSelector({

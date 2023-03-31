@@ -1,62 +1,67 @@
 import { useState } from 'react';
 
-import BreakPlannerFriendsSelector from '@/components/modules/planning/friends/BreakPlannerFriendsSelector';
-import BreakPlannerLocationSelector from '@/components/modules/planning/location/BreakPlannerLocationSelector';
-import BreakPlannerTimeSelector from '@/components/modules/planning/time/BreakPlannerTimeSelector';
-import { useIniateBreak } from '@/hooks/Breaks';
-import { ILocation } from '@/types/Location';
-import { TimeSlot } from '@/types/Time';
+import dayjs from '@/dayjs';
+import { useNextBreak } from '@/hooks/Breaks';
+import { IBreak } from '@/types/Break';
 import { IUser } from '@/types/User';
+import { NetworkStatus } from '@apollo/client';
 import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 
-import StartBreakButton from './StartBreakButton';
+import BreakPlannerForm from './BreakPlannerForm';
 
 interface BreakPlannerProps {
   user: IUser;
 }
 
 export default function BreakPlanner({ user }: BreakPlannerProps) {
-  const [timeSlot, setTimeSlot] = useState<TimeSlot | null>(null);
-  const [location, setLocation] = useState<ILocation | null>(null);
-  const [invitees, setInvitees] = useState<IUser[]>([]);
+  const [nextBreak, setNextBreak] = useState<IBreak | null>(null);
 
-  const [initiateBreak, { loading, error }] = useIniateBreak({
-    variables: {
-      addressees: [...invitees].map((user) => user.uuid),
-      startTime: timeSlot?.time,
-      location: location?.uuid,
+  const { data, loading, error, refetch, networkStatus } = useNextBreak({
+    onCompleted: ({ nextBreak }) => {
+      setNextBreak(nextBreak);
     },
-    skip: !timeSlot || !location || !invitees.length,
-    onCompleted: () => {
-      alert('Vent på svar og gjør deg klar til pause!');
-    },
+    notifyOnNetworkStatusChange: true,
   });
+  const isInitiated = data && data.nextBreak;
+
+  if (loading && data === undefined) {
+    return (
+      <Typography sx={{ marginBottom: '0.5rem' }} variant='h4'>
+        Sjekker om du har planlagt pauser...
+      </Typography>
+    );
+  }
+  if (networkStatus === NetworkStatus.refetch)
+    return (
+      <Typography sx={{ marginBottom: '0.5rem' }} variant='h4'>
+        Henter pausen din...
+      </Typography>
+    );
+
+  // TODO: this smells
+  const nextBreakTimeSlot = dayjs(nextBreak?.startingAt);
+  const nextBreakInvitees = nextBreak?.invitation.addressees.edges.map(
+    (edge) => edge.node,
+  );
+  const nextBreakLocation = nextBreak?.location;
+
+  console.log(nextBreak);
 
   return (
     <Box>
       <Typography sx={{ marginBottom: '0.5rem' }} variant='h4'>
-        Planlegg neste pause
+        {isInitiated
+          ? `Neste pause ${nextBreakTimeSlot?.fromNow()}`
+          : 'Planlegg neste pause'}
       </Typography>
 
-      <Grid container justifyContent='center' spacing={0}>
-        <Grid item md={4} sm={6} xs={12}>
-          <BreakPlannerTimeSelector onSelect={setTimeSlot} />
-        </Grid>
-
-        <Grid item md={4} sm={6} xs={12}>
-          <BreakPlannerLocationSelector onSelect={setLocation} user={user} />
-        </Grid>
-
-        <Grid item md={4} xs={12}>
-          <BreakPlannerFriendsSelector onSelect={setInvitees} user={user} />
-        </Grid>
-      </Grid>
-
-      <StartBreakButton loading={loading} onClick={initiateBreak} />
-
-      {error && <p>error.message</p>}
+      <BreakPlannerForm
+        initialInvitees={nextBreakInvitees}
+        initialLocation={nextBreakLocation}
+        initialTimeSlot={nextBreakTimeSlot}
+        user={user}
+      />
     </Box>
   );
 }

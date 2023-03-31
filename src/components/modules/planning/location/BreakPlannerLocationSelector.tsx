@@ -60,7 +60,11 @@ export default function BreakPlannerLocationSelector({
         <Typography variant='caption'>
           *Du kan legge til et nytt sted ved å skrive det inn her
         </Typography>
-        {error && <p>{error.message}</p>}
+        {error && (
+          <Typography sx={{ color: 'red' }} variant='caption'>
+            {error.message}
+          </Typography>
+        )}
       </Box>
     </CenteredBox>
   );

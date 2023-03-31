@@ -1,8 +1,7 @@
+import { Dayjs } from 'dayjs';
 import { useRouter } from 'next/router';
-import React from 'react';
-import { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 
-import { TimeSlot } from '@/types/Time';
 import { generateTimeSlots } from '@/utils';
 
 export const useHasMounted = () => {
@@ -14,12 +13,12 @@ export const useHasMounted = () => {
 };
 
 export const useTimeSlots = (): [
-  TimeSlot[],
-  TimeSlot,
-  React.Dispatch<React.SetStateAction<TimeSlot>>,
+  Dayjs[],
+  Dayjs,
+  React.Dispatch<React.SetStateAction<Dayjs>>,
 ] => {
-  const timeslots: TimeSlot[] = useMemo(generateTimeSlots, [generateTimeSlots]);
-  const [timeSlot, setTimeSlot] = useState<TimeSlot>(timeslots[0]);
+  const timeslots: Dayjs[] = useMemo(generateTimeSlots, [generateTimeSlots]);
+  const [timeSlot, setTimeSlot] = useState<Dayjs>(timeslots[0]);
   return [timeslots, timeSlot, setTimeSlot];
 };
 
