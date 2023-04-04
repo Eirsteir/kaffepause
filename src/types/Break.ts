@@ -8,6 +8,7 @@ export interface IInvitation {
   sender: IUser;
   addressees: IUserConnection;
   addresseeCount: number;
+  acceptees: IUserConnection;
 }
 
 export interface IBreak {

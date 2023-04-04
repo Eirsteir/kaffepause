@@ -9,7 +9,7 @@ export interface IUserEdge {
 
 export interface IUserConnection {
   __typename: string;
-  count: number;
+  count?: number;
   edges: IUserEdge[];
 }
 

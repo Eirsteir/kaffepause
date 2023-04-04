@@ -20,6 +20,14 @@ const BREAK_FIELDS = gql`
         uuid
         name
       }
+      acceptees {
+        count
+        edges {
+          node {
+            ...UserFields
+          }
+        }
+      }
       addressees {
         edges {
           node {

@@ -8,6 +8,18 @@ export const getInitialsFromName = (name: string): string => {
     .toUpperCase();
 };
 
+export const socialTextTruncated = (
+  displayName: string,
+  total: number,
+): string => {
+  if (total === 0) {
+    return 'Med ingen andre';
+  }
+  const pluralSuffix = total > 2 ? 'andre' : 'annen';
+  const suffix = total < 2 ? '' : ` og ${total - 1} ${pluralSuffix}`;
+  return 'Med ' + displayName + suffix;
+};
+
 function nextTimeQuarterHour(time = new Date()) {
   const timeToReturn = new Date(time);
 
