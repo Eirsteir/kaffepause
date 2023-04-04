@@ -68,7 +68,6 @@ export default function Search() {
 
   return (
     <Autocomplete
-      //   blurOnSelect={true}
       filterOptions={(x) => x}
       filterSelectedOptions
       freeSolo
@@ -91,7 +90,7 @@ export default function Search() {
       }}
       options={options}
       renderInput={(params) => {
-        return <SearchBar placeholder='Søk etter brukere...' {...params} />;
+        return <SearchBar placeholder='Søk kaffedrikkere...' {...params} />;
       }}
       renderOption={(props, option) => {
         return (
@@ -117,7 +116,6 @@ export default function Search() {
           </>
         );
       }}
-      sx={{ width: 302 }} // will push loading icon down if smaller
       value={value}
     />
   );

@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client';
 
 const NOTIFICATIONS_QUERY = gql`
-  query notifications($first: Int, $after: Int) {
-    notifications(first: $first, after: $after) {
+  query notifications($first: Int) {
+    notifications(first: $first) {
       edges {
         node {
           id

@@ -3,7 +3,11 @@ import * as React from 'react';
 
 import Avatar from '@/components/elements/Avatar';
 import Badge from '@/components/elements/Badge';
-import { useNotificationsBagdeCount } from '@/hooks/Notifications';
+import { QueryResult } from '@/components/QueryResult';
+import {
+  useNotifications,
+  useNotificationsBagdeCount,
+} from '@/hooks/Notifications';
 import { IUser } from '@/types/User';
 import MenuIcon from '@mui/icons-material/Menu';
 import NotificationsOutlinedIcon from '@mui/icons-material/NotificationsOutlined';
@@ -20,13 +24,14 @@ interface IProps {
 
 export default function NotificationsMenu({ user }: IProps) {
   const router = useRouter();
-  const { data } = useNotificationsBagdeCount();
-  const dummyAction = () => undefined;
+  const { data: notificationBadgeCountData } = useNotificationsBagdeCount();
+  const [fetchNotifications, { data, loading, error }] = useNotifications({});
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+    fetchNotifications({ variables: { first: 10 } });
     setAnchorEl(event.currentTarget);
   };
 
@@ -47,7 +52,10 @@ export default function NotificationsMenu({ user }: IProps) {
               ml: 2,
               padding: 1,
             }}>
-            <Badge badgeCount={data?.notificationBadgeCount.count || 0}>
+            <Badge
+              badgeCount={
+                notificationBadgeCountData?.notificationBadgeCount.count || 0
+              }>
               <NotificationsOutlinedIcon />
             </Badge>
           </IconButton>
@@ -64,14 +72,14 @@ export default function NotificationsMenu({ user }: IProps) {
           elevation: 0,
           sx: {
             minWidth: 200,
+            maxWidth: 360,
             overflow: 'visible',
             filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
             mt: 1.5,
             '& .MuiAvatar-root': {
-              width: 32,
-              height: 32,
-              ml: -0.5,
-              mr: 1,
+              width: 56,
+              height: 56,
+              mr: 1.5,
             },
             '&:before': {
               content: '""',
@@ -88,12 +96,21 @@ export default function NotificationsMenu({ user }: IProps) {
           },
         }}
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}>
-        {' '}
-        <MenuItem onClick={dummyAction}>
-          <Typography sx={{ fontWeight: 700 }} variant='subtitle2'>
-            Pausepreferanser
-          </Typography>
-        </MenuItem>
+        <QueryResult data={data} error={error} loading={loading}>
+          {(data?.notifications?.edges ?? []).map((edge) => {
+            const node = edge.node;
+            return (
+              <MenuItem
+                key={`notification-${node.uuid}`}
+                onClick={() => router.push(node.url)}>
+                <Avatar user={node.actor} />
+                <Typography sx={{ whiteSpace: 'normal' }} variant='subtitle2'>
+                  {node.text}
+                </Typography>
+              </MenuItem>
+            );
+          })}
+        </QueryResult>
       </Menu>
     </React.Fragment>
   );
