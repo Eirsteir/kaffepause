@@ -11,12 +11,16 @@ import {
 import { IUser } from '@/types/User';
 import MenuIcon from '@mui/icons-material/Menu';
 import NotificationsOutlinedIcon from '@mui/icons-material/NotificationsOutlined';
+import { Skeleton } from '@mui/lab';
+import { Stack } from '@mui/material';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
+
+import Link from './Link';
 
 interface IProps {
   user: IUser;
@@ -38,6 +42,28 @@ export default function NotificationsMenu({ user }: IProps) {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const loadingSkeleton = () =>
+    [1, 2, 3].map((i) => (
+      <Box key={i} sx={{ display: 'flex', alignItems: 'center', width: 360 }}>
+        <Box sx={{ margin: 1 }}>
+          <Skeleton
+            animation='wave'
+            height={56}
+            variant='circular'
+            width={56}
+          />
+        </Box>
+        <Box sx={{ width: '100%' }}>
+          <Skeleton width='90%'>
+            <Typography variant='subtitle2'>.</Typography>
+          </Skeleton>
+          <Skeleton width='40%'>
+            <Typography variant='subtitle2'>.</Typography>
+          </Skeleton>
+        </Box>
+      </Box>
+    ));
 
   return (
     <React.Fragment>
@@ -96,18 +122,30 @@ export default function NotificationsMenu({ user }: IProps) {
           },
         }}
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}>
-        <QueryResult data={data} error={error} loading={loading}>
+        <Typography sx={{ padding: 1, paddingLeft: 2 }} variant='h5'>
+          Varsler
+        </Typography>
+
+        <QueryResult
+          data={data}
+          error={error}
+          loading={loading}
+          loadingComponent={loadingSkeleton}>
           {(data?.notifications?.edges ?? []).map((edge) => {
             const node = edge.node;
             return (
-              <MenuItem
+              <Link
+                href={node.url}
                 key={`notification-${node.uuid}`}
-                onClick={() => router.push(node.url)}>
-                <Avatar user={node.actor} />
-                <Typography sx={{ whiteSpace: 'normal' }} variant='subtitle2'>
-                  {node.text}
-                </Typography>
-              </MenuItem>
+                noLinkStyle
+                prefetch>
+                <MenuItem>
+                  <Avatar user={node.actor} />
+                  <Typography sx={{ whiteSpace: 'normal' }} variant='subtitle2'>
+                    {node.text}
+                  </Typography>
+                </MenuItem>
+              </Link>
             );
           })}
         </QueryResult>

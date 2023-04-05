@@ -67,7 +67,7 @@ export default function SearchBar(params) {
               padding: 1,
               zIndex: 99999,
             }}>
-            <SearchIcon color='primary' />
+            <SearchIcon />
           </IconButton>
         </Tooltip>
       </SearchIconWrapper>
