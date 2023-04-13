@@ -1,13 +1,10 @@
-import { getServerSession } from 'next-auth';
 import { useRouter } from 'next/router';
 
-import Break from '@/components/breaks/Break';
-import { authOptions } from '@/pages/api/auth/[...nextauth]';
-import URLS from '@/URLS';
+import BreakDetail from '@/components/breaks/BreakDetail';
 
-export default function BreakPage() {
+export default function BreakDetailPage() {
   const router = useRouter();
   const { uuid } = router.query;
 
-  return <Break uuid={uuid}></Break>;
+  return <BreakDetail uuid={uuid}></BreakDetail>;
 }

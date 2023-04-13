@@ -38,7 +38,11 @@ const logLink = new ApolloLink((operation, forward) => {
 });
 
 const link = authLink.concat(logLink).concat(httpLink);
-const cache = new InMemoryCache();
+const cache = new InMemoryCache({
+  dataIdFromObject: (o) => {
+    o.id ? `${o.__typename}-${o.id}` : `${o.__typename}-${o.cursor}`;
+  },
+});
 
 const apolloClient = new ApolloClient({
   link: link,

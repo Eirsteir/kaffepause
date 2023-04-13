@@ -1,6 +1,7 @@
 import ACCEPT_BREAK_INVITATION from '@/graphql/acceptBreakInvitation.mutation';
 import BREAK_QUERY from '@/graphql/breaks/break.query';
 import BREAK_HISTORY_QUERY from '@/graphql/breaks/breakHistory.query';
+import BREAKS_PRESENTATION_QUERY from '@/graphql/breaks/breaksPresentation.query';
 import DECLINE_BREAK_INVITATION from '@/graphql/breaks/declineBreakInvitation.mutation';
 import INITIATE_BREAK_MUTATION from '@/graphql/breaks/initiateBreak.mutation';
 import NEXT_BREAK_QUERY from '@/graphql/breaks/nextBreak.query';
@@ -12,6 +13,8 @@ export const useBreak = (uuid, options?) =>
     variables: { breakUuid: uuid },
     ...options,
   });
+
+export const useBreaksPresentation = () => useQuery(BREAKS_PRESENTATION_QUERY);
 
 export const useBreakHistory = () => useQuery(BREAK_HISTORY_QUERY);
 

@@ -2,6 +2,8 @@ import Head from 'next/head';
 
 import AvatarChips from '@/components/elements/AvatarChips';
 import Divider from '@/components/elements/Divider';
+import Heading from '@/components/elements/Heading';
+import PageContainer from '@/components/elements/PageContainer';
 import { QueryResult } from '@/components/QueryResult';
 import dayjs from '@/dayjs';
 import { useBreak } from '@/hooks/Breaks';
@@ -13,27 +15,27 @@ type BreakProps = {
   uuid: string;
 };
 
-export default function Break({ uuid }: BreakProps) {
+export default function BreakDetail({ uuid }: BreakProps) {
   const { data, loading, error } = useBreak(uuid);
   const break_ = data?.break_;
-  console.log(data);
 
   return (
     <>
       <Head>
         <title>{`Pause`}</title>
       </Head>
-      <QueryResult
-        data={data}
-        error={error}
-        loading={loading}
-        loadingComponent={null}>
-        <Box sx={{ padding: '2rem 7rem' }}>
+      <PageContainer>
+        <QueryResult
+          data={data}
+          error={error}
+          loading={loading}
+          loadingComponent={null}>
           <div>
             <div>
-              <Typography sx={{ marginBottom: '0.5rem' }} variant='h4'>
+              <Heading>
                 {break_?.invitation.sender.shortName} inviterte deg til pause
-              </Typography>
+              </Heading>
+
               <Typography sx={{ marginBottom: '0.5rem' }} variant='body2'>
                 {dayjs(break_?.startingAt).format('LLL')}
               </Typography>
@@ -76,8 +78,8 @@ export default function Break({ uuid }: BreakProps) {
           </Box>
 
           <Divider />
-        </Box>
-      </QueryResult>
+        </QueryResult>
+      </PageContainer>
     </>
   );
 }
