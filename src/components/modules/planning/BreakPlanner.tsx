@@ -56,8 +56,6 @@ export default function BreakPlanner({ user }: BreakPlannerProps) {
       </Typography>
     );
 
-  console.log(data.nextBreak);
-
   return (
     <Box>
       <Typography sx={{ marginBottom: '0.5rem' }} variant='h4'>
@@ -65,7 +63,7 @@ export default function BreakPlanner({ user }: BreakPlannerProps) {
           ? `Din neste pause starter ${dayjs(
               data?.nextBreak?.startingAt,
             ).fromNow()}`
-          : 'Planlegg neste pause'}
+          : 'Planlegg en pause'}
       </Typography>
 
       {!isInitiated && (

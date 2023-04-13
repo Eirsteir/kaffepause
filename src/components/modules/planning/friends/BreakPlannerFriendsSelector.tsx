@@ -50,13 +50,14 @@ export default function BreakPlannerFriendsSelector({
         isOptionEqualToValue={(option, value) => option.uuid === value.uuid}
         limitTags={2}
         multiple
+        noOptionsText='Legg til venner for å invitere'
         onChange={(event, values) => {
           setSelection(values);
           onSelect(values);
         }}
         options={friends}
         renderInput={(params) => (
-          <TextField {...params} placeholder='Søk kaffedrikkere' size='small' />
+          <TextField {...params} placeholder='Søk venner' size='small' />
         )}
         sx={{ width: '100%', maxWidth: 250, margin: 'auto' }}
         value={selection}

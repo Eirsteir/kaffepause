@@ -4,15 +4,16 @@ import * as React from 'react';
 import Avatar from '@/components/elements/Avatar';
 import Badge from '@/components/elements/Badge';
 import { QueryResult } from '@/components/QueryResult';
+import dayjs from '@/dayjs';
 import {
   useNotifications,
   useNotificationsBagdeCount,
 } from '@/hooks/Notifications';
 import { IUser } from '@/types/User';
-import MenuIcon from '@mui/icons-material/Menu';
 import NotificationsOutlinedIcon from '@mui/icons-material/NotificationsOutlined';
 import { Skeleton } from '@mui/lab';
-import { Stack } from '@mui/material';
+import { ListItemText } from '@mui/material';
+import MuiBadge from '@mui/material/Badge';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
@@ -141,9 +142,16 @@ export default function NotificationsMenu({ user }: IProps) {
                 prefetch>
                 <MenuItem>
                   <Avatar user={node.actor} />
-                  <Typography sx={{ whiteSpace: 'normal' }} variant='subtitle2'>
-                    {node.text}
-                  </Typography>
+                  <ListItemText
+                    primary={
+                      <Typography
+                        sx={{ whiteSpace: 'normal' }}
+                        variant='subtitle2'>
+                        {node.text}
+                      </Typography>
+                    }
+                    secondary={dayjs(node.created).fromNow()}
+                  />
                 </MenuItem>
               </Link>
             );

@@ -1,10 +1,18 @@
 import { LOCATION_CHILD_FIELDS } from '@/graphql/locations.query';
-import { USER_FIELDS } from '@/graphql/user.query';
 import { gql } from '@apollo/client';
 
 const BREAK_FIELDS = gql`
-  ${USER_FIELDS}
   ${LOCATION_CHILD_FIELDS}
+
+  fragment BreakUserFields on User {
+    id
+    uuid
+    profilePic
+    shortName
+    name
+    __typename
+  }
+
   fragment BreakFields on Break {
     id
     uuid
@@ -16,22 +24,20 @@ const BREAK_FIELDS = gql`
       id
       uuid
       sender {
-        id
-        uuid
-        name
+        ...BreakUserFields
       }
       acceptees {
         count
         edges {
           node {
-            ...UserFields
+            ...BreakUserFields
           }
         }
       }
       addressees {
         edges {
           node {
-            ...UserFields
+            ...BreakUserFields
           }
         }
       }
@@ -41,11 +47,7 @@ const BREAK_FIELDS = gql`
       count
       edges {
         node {
-          id
-          uuid
-          username
-          name
-          __typename
+          ...BreakUserFields
         }
       }
       __typename

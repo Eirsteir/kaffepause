@@ -9,7 +9,7 @@ export const QueryResult = ({
   children,
 }) => {
   if (error) {
-    return <p>ERROR: {error.message}</p>;
+    return <p>Det oppsto en feil: {error.message}</p>;
   }
   if (loading) {
     if (loadingComponent) {
@@ -17,13 +17,13 @@ export const QueryResult = ({
     } else {
       return (
         <CenteredBox>
-          <CircularProgress color='inherit' />
+          <CircularProgress />
         </CenteredBox>
       );
     }
   }
   if (!data) {
-    return <p>Nothing to show...</p>;
+    return <p>Ingenting å vise...</p>;
   }
   if (data) {
     return children;

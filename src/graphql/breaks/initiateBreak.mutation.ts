@@ -1,4 +1,4 @@
-import BREAK_FIELDS from '@/graphql/break.fragment';
+import BREAK_FIELDS from '@/graphql/breaks/break.fragment';
 import { gql } from '@apollo/client';
 
 const INITIATE_BREAK_MUTATION = gql`

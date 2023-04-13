@@ -9,6 +9,7 @@ const NOTIFICATIONS_QUERY = gql`
           uuid
           seenState
           text
+          created
           url
           actor {
             id
