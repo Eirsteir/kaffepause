@@ -10,6 +10,9 @@ const BREAKS_PRESENTATION_QUERY = gql`
         id
         sectionId
         heading
+        isEmpty
+        emptyStateText
+        emptyStateActionText
         breaks {
           edges {
             node {

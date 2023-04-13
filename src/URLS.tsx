@@ -3,6 +3,7 @@ const URLS = {
   SIGNIN: '/login',
   SIGNUP: '/sign-up',
   USERS: '/users',
+  BREAKS: '/breaks',
 };
 
 export default URLS;

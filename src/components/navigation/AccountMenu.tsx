@@ -19,9 +19,9 @@ export default function AccountMenu({ user }: IProps) {
 
   return (
     <NavigationMenu user={user}>
-      <MenuItem onClick={dummyAction}>
+      <MenuItem onClick={() => router.push(URLS.BREAKS)}>
         <Typography sx={{ fontWeight: 700 }} variant='subtitle2'>
-          Pausepreferanser
+          Pauser
         </Typography>
       </MenuItem>
       <MenuItem onClick={dummyAction}>
