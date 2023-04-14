@@ -1,5 +1,5 @@
+import Home from '@/components/home/Home';
 import Landing from '@/components/landing/Landing';
-import Home from '@/components/layouts/Home';
 import { useMe } from '@/hooks/User';
 import { useHasMounted } from '@/hooks/utils';
 

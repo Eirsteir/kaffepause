@@ -20,10 +20,8 @@ export default function Breaks() {
       <Head>
         <title>Dine pauser - Kaffepause</title>
       </Head>
-      <PageContainer>
+      <>
         <Heading>Pauser</Heading>
-
-        <Divider />
 
         <QueryResult
           data={data}
@@ -32,7 +30,11 @@ export default function Breaks() {
           loadingComponent={null}>
           {data?.breaksPresentation.sections.map((section, i) => (
             <div key={i}>
-              <Typography variant='h2'>{section.heading}</Typography>
+              <Typography
+                sx={{ paddingTop: '1.5rem', paddingBottom: '1.5rem' }}
+                variant='h2'>
+                {section.heading}
+              </Typography>
 
               {section.breaks.edges
                 .map((edge) => edge.node)
@@ -42,15 +44,11 @@ export default function Breaks() {
 
               {section.isEmpty && (
                 <>
-                  <Typography mb={1.5} mt={3}>
-                    {section.emptyStateText}
-                    {/* Når du er klar for å starte din neste pause, er vi her. */}
-                  </Typography>
+                  <Typography mb={1.5}>{section.emptyStateText}</Typography>
                   <Button
                     onClick={() => router.push(URLS.LANDING)}
                     variant='contained'>
                     {section.emptyStateActionText}
-                    {/* Planlegg pause */}
                   </Button>
                 </>
               )}
@@ -59,7 +57,7 @@ export default function Breaks() {
             </div>
           ))}
         </QueryResult>
-      </PageContainer>
+      </>
     </>
   );
 }

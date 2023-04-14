@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 
+import Heading from '@/components/elements/Heading';
 import BreakPlannerCreateForm from '@/components/modules/planning/BreakPlannerCreateForm';
 import dayjs from '@/dayjs';
 import { useNextBreak } from '@/hooks/Breaks';
@@ -20,96 +21,10 @@ interface BreakPlannerProps {
 }
 
 export default function BreakPlanner({ user }: BreakPlannerProps) {
-  const { data, loading, error, refetch, networkStatus } = useNextBreak({
-    notifyOnNetworkStatusChange: true,
-  });
-
-  useEffect(() => {
-    const breakTime = dayjs(data?.nextBreak?.startingAt);
-    const now = dayjs();
-    if (breakTime.isBefore(now)) {
-      console.log('Refetching...');
-      refetch();
-    }
-  }, [refetch, data]);
-
-  const isInitiated = data && data.nextBreak !== null;
-
-  if (loading && data === undefined) {
-    return (
-      <Typography sx={{ marginBottom: '0.5rem' }} variant='h4'>
-        Sjekker om du har planlagt pauser...
-      </Typography>
-    );
-  }
-  if (networkStatus === NetworkStatus.refetch)
-    return (
-      <Typography sx={{ marginBottom: '0.5rem' }} variant='h4'>
-        Håper pausen gikk bra! Klargjør for en ny en...
-      </Typography>
-    );
-
-  if (error)
-    return (
-      <Typography sx={{ marginBottom: '0.5rem' }} variant='h6'>
-        {error.message}
-      </Typography>
-    );
-
   return (
     <Box>
-      <Typography sx={{ marginBottom: '0.5rem' }} variant='h4'>
-        {isInitiated
-          ? `Din neste pause starter ${dayjs(
-              data?.nextBreak?.startingAt,
-            ).fromNow()}`
-          : 'Planlegg en pause'}
-      </Typography>
-
-      {!isInitiated && (
-        <BreakPlannerCreateForm onSubmit={refetch} user={user} />
-      )}
-
-      {isInitiated && (
-        <>
-          <Grid container sx={{ marginTop: 4, maxWidth: 1200 }}>
-            <Grid item xs={4}>
-              <Card elevation={0}>
-                <CardActionArea sx={{ textAlign: 'center', padding: '2rem' }}>
-                  <LocationOnOutlinedIcon color='primary' />
-                  <Typography>{data.nextBreak.location.title}</Typography>
-                </CardActionArea>
-              </Card>
-            </Grid>
-            <Grid item xs={4}>
-              <Card elevation={0}>
-                <CardActionArea sx={{ textAlign: 'center', padding: '2rem' }}>
-                  <AccessTimeOutlinedIcon color='primary' />
-                  <Typography>
-                    {dayjs(data.nextBreak.startingAt).format('LLL')}
-                  </Typography>
-                </CardActionArea>
-              </Card>
-            </Grid>
-            <Grid item xs={4}>
-              <Card elevation={0}>
-                <CardActionArea sx={{ textAlign: 'center', padding: '2rem' }}>
-                  <GroupOutlinedIcon color='primary' />
-                  <Typography>
-                    {(data.nextBreak.invitation.acceptees.count ?? 0) == 0
-                      ? 'Ingen har godtatt enda'
-                      : socialTextTruncated(
-                          data.nextBreak.invitation.acceptees.edges[0]?.node
-                            .shortName,
-                          data.nextBreak.invitation.acceptees.count ?? 0,
-                        )}
-                  </Typography>
-                </CardActionArea>
-              </Card>
-            </Grid>
-          </Grid>
-        </>
-      )}
+      <Heading>Planlegg en pause</Heading>
+      <BreakPlannerCreateForm user={user} />
     </Box>
   );
 }

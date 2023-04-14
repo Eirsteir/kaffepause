@@ -17,8 +17,8 @@ export default function BaseNavigation({ children }: Props) {
         sx={{
           boxShadow: 'rgba(0,0,0,0.08) 0 1px 1px',
           height: '80px',
-          paddingLeft: '1rem',
-          paddingRight: '1rem',
+          paddingLeft: '3.5rem',
+          paddingRight: '3.5rem',
           justifyContent: 'center',
         }}>
         <Toolbar>

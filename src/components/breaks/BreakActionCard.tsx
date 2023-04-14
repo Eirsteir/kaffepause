@@ -19,7 +19,7 @@ type BreakActionCardProps = {
 export default function BreakActionCard({ break_ }: BreakActionCardProps) {
   return (
     <Link href={`${URLS.BREAKS}/${break_.uuid}`} noLinkStyle>
-      <Card sx={{ maxWidth: '80%', marginTop: 3 }}>
+      <Card elevation={5} sx={{ maxWidth: '80%', marginTop: 3 }}>
         <CardActionArea>
           <CardContent>
             <Typography component='div' variant='h3'>
