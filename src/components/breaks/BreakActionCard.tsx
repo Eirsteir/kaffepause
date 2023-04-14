@@ -1,6 +1,5 @@
-import { useRouter } from 'next/router';
-
 import AvatarChips from '@/components/elements/AvatarChips';
+import Link from '@/components/navigation/Link';
 import dayjs from '@/dayjs';
 import { IBreak } from '@/types/Break';
 import URLS from '@/URLS';
@@ -9,9 +8,6 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 
-import CenteredBox from '../elements/CenteredBox';
-import Link from '../navigation/Link';
-
 type BreakActionCardProps = {
   break_: IBreak;
 };
@@ -19,7 +15,9 @@ type BreakActionCardProps = {
 export default function BreakActionCard({ break_ }: BreakActionCardProps) {
   return (
     <Link href={`${URLS.BREAKS}/${break_.uuid}`} noLinkStyle>
-      <Card elevation={5} sx={{ marginTop: 3 }}>
+      <Card
+        elevation={0}
+        sx={{ marginTop: 3, boxShadow: '0 6px 20px rgba(0,0,0,0.2)' }}>
         <CardActionArea>
           <CardContent>
             <Typography component='div' variant='h3'>

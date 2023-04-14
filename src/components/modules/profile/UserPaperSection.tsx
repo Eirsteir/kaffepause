@@ -7,6 +7,7 @@ import OutgoingFriendRequestActionButton from '@/components/modules/profile/prof
 import Link from '@/components/navigation/Link';
 import { FriendshipStatus, IUser } from '@/types/User';
 import { getInitialsFromName } from '@/utils';
+import { Card } from '@mui/material';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 
@@ -29,7 +30,9 @@ export default function UserPaperSection({
     !actorIsUser && user.friendshipStatus === FriendshipStatus.OUTGOING_REQUEST;
 
   return (
-    <Paper sx={{ padding: '1.5rem' }} variant='outlined'>
+    <Paper
+      elevation={0}
+      sx={{ padding: '1.5rem', boxShadow: '0 6px 20px rgba(0,0,0,0.2)' }}>
       <CenteredBox>
         <Avatar
           sx={{ width: 128, height: 128, fontSize: '2rem' }}

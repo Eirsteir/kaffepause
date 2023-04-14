@@ -13,7 +13,7 @@ export const QueryResult = ({
   }
   if (loading) {
     if (loadingComponent) {
-      return loadingComponent();
+      return loadingComponent;
     } else {
       return (
         <CenteredBox>

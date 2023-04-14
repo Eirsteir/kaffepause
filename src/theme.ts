@@ -77,7 +77,7 @@ const themeOptions: ThemeOptions = {
       fontWeight: 600,
     },
     h3: {
-      fontSize: '1.625rem',
+      fontSize: '1.125rem',
       fontWeight: 600,
     },
   },

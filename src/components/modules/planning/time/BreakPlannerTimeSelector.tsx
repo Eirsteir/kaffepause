@@ -16,7 +16,7 @@ export default function BreakPlannerTimeSelector({
 }: BreakPlannerTimeSelectorProps) {
   return (
     <CenteredBox>
-      <Typography sx={{ marginBottom: '1rem', marginTop: '2rem' }} variant='h6'>
+      <Typography sx={{ marginBottom: '1rem' }} variant='h3'>
         Når?
       </Typography>
       <Box>

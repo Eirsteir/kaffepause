@@ -45,7 +45,7 @@ export default function BreakPlannerLocationSelector({
 
   return (
     <CenteredBox>
-      <Typography sx={{ marginBottom: '1rem', marginTop: '2rem' }} variant='h6'>
+      <Typography sx={{ marginBottom: '1rem' }} variant='h3'>
         Hvor?
       </Typography>
       <Box sx={{ maxWidth: 250 }}>

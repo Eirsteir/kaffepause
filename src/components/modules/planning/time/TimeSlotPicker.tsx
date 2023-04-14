@@ -21,7 +21,7 @@ const TimeSlotPicker: React.FC<TimeSlotPickerProps> = ({
   const [value, setValue] = useState<Dayjs>(initialTimeSlot || timeSlot);
   const [page, setPage] = useState<number>(1);
 
-  const PER_PAGE = 9;
+  const PER_PAGE = 6;
   const count = Math.ceil(timeSlots.length / PER_PAGE);
   const _DATA = usePagination(timeSlots, PER_PAGE);
 
