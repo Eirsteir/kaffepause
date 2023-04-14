@@ -2,15 +2,15 @@ import dayjs from '@/dayjs';
 import Typography from '@mui/material/Typography';
 
 export const BreakDetailHeader = ({
-  senderName,
+  title,
   startingAt,
 }: {
-  senderName: string;
+  title: string;
   startingAt: Date;
 }) => (
   <div>
     <Typography sx={{ paddingBottom: '.5rem' }} variant='h1'>
-      {senderName} inviterte deg til pause
+      {title}
     </Typography>
 
     <Typography sx={{ marginBottom: '0.5rem' }} variant='body2'>

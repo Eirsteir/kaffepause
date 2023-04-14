@@ -1,4 +1,4 @@
-import ACCEPT_BREAK_INVITATION from '@/graphql/acceptBreakInvitation.mutation';
+import ACCEPT_BREAK_INVITATION from '@/graphql/breaks/acceptBreakInvitation.mutation';
 import BREAK_QUERY from '@/graphql/breaks/break.query';
 import BREAK_HISTORY_QUERY from '@/graphql/breaks/breakHistory.query';
 import BREAKS_PRESENTATION_QUERY from '@/graphql/breaks/breaksPresentation.query';
@@ -30,30 +30,8 @@ export const usePendingBreakInvitations = (options) =>
 export const useIniateBreak = (options) =>
   useMutation(INITIATE_BREAK_MUTATION, options);
 
-export const useAcceptBreakInvitation = (options, invitation) =>
-  useMutation(ACCEPT_BREAK_INVITATION, {
-    update: (cache, { data }) =>
-      updatePendingBreakInvitationsCache(cache, { data }, invitation),
-    ...options,
-  });
+export const useAcceptBreakInvitation = (options?) =>
+  useMutation(ACCEPT_BREAK_INVITATION, options);
 
-export const useDeclineBreakInvitation = (options, invitation) =>
-  useMutation(DECLINE_BREAK_INVITATION, {
-    update: (cache, { data }) =>
-      updatePendingBreakInvitationsCache(cache, { data }, invitation),
-    ...options,
-  });
-
-const updatePendingBreakInvitationsCache = (cache, { data }, invitation) => {
-  const existingInvitations = cache.readQuery({
-    query: PENDING_BREAK_INVITATIONS_QUERY,
-  });
-  const newInvitations =
-    existingInvitations.pendingBreakInvitations.edges.filter(
-      (t) => t.id !== invitation.id,
-    );
-  cache.writeQuery({
-    query: PENDING_BREAK_INVITATIONS_QUERY,
-    data: { pendingBreakInvitations: newInvitations },
-  });
-};
+export const useDeclineBreakInvitation = (options?) =>
+  useMutation(DECLINE_BREAK_INVITATION, options);

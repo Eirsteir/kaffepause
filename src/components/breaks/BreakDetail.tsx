@@ -1,8 +1,8 @@
 import Head from 'next/head';
 
+import BreakDetailActionCard from '@/components/breaks/BreakDetailActionCard';
 import { BreakDetailHeader } from '@/components/breaks/BreakDetailHeader';
 import { BreakDetailLocationSection } from '@/components/breaks/BreakDetailLocationSection';
-import BreakDetailReplyActionCard from '@/components/breaks/BreakDetailReplyActionCard';
 import { BreakDetailUsersSection } from '@/components/breaks/BreakDetailUsersSection';
 import Divider from '@/components/elements/Divider';
 import PageContainer from '@/components/elements/PageContainer';
@@ -21,7 +21,7 @@ export default function BreakDetail({ uuid }: BreakProps) {
   return (
     <>
       <Head>
-        <title>{`Pause`}</title>
+        <title>Pause - Kaffepause</title>
       </Head>
       <PageContainer>
         <QueryResult
@@ -32,12 +32,12 @@ export default function BreakDetail({ uuid }: BreakProps) {
           <Grid container spacing={0}>
             <Grid item md={8} xs={12}>
               <BreakDetailHeader
-                senderName={break_?.invitation.sender?.shortName}
                 startingAt={break_?.startingAt}
+                title={break_?.title}
               />
             </Grid>
             <Grid item md={4} xs={12}>
-              <BreakDetailReplyActionCard break_={break_} />
+              <BreakDetailActionCard break_={break_} />
             </Grid>
             <Grid item md={8} xs={12}>
               <BreakDetailLocationSection

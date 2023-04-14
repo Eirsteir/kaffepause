@@ -15,8 +15,11 @@ export interface IBreak {
   __typename: string;
   id: string;
   uuid: string;
+  title: string;
   startingAt: Date;
   kicker: string;
+  isViewerInitiator: boolean;
+  canViewerEditBreak: boolean;
   location: ILocation;
   invitation: IInvitation;
   participants: IUserConnection;

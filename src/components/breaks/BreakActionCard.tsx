@@ -6,6 +6,7 @@ import URLS from '@/URLS';
 import { Box, CardActionArea } from '@mui/material';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
+import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 
 type BreakActionCardProps = {
@@ -17,11 +18,32 @@ export default function BreakActionCard({ break_ }: BreakActionCardProps) {
     <Link href={`${URLS.BREAKS}/${break_.uuid}`} noLinkStyle>
       <Card
         elevation={0}
-        sx={{ marginTop: 3, boxShadow: '0 6px 20px rgba(0,0,0,0.2)' }}>
+        sx={{
+          marginTop: 3,
+          boxShadow: '0 6px 20px rgba(0,0,0,0.2)',
+          position: 'relative',
+        }}>
         <CardActionArea>
           <CardContent>
+            {break_.kicker && (
+              <Paper
+                style={{
+                  position: 'absolute',
+                  top: '8px',
+                  right: '8px',
+                  borderRadius: '8px',
+                  padding: '3px 8px',
+                  backgroundColor: 'primary.main',
+                }}
+                variant='outlined'>
+                <Typography sx={{ fontWeight: 600, fontSize: '0.875rem' }}>
+                  {break_.kicker}
+                </Typography>
+              </Paper>
+            )}
+
             <Typography component='div' variant='h3'>
-              Pause
+              {break_.title}
             </Typography>
             <Typography
               color='text.secondary'
@@ -32,7 +54,7 @@ export default function BreakActionCard({ break_ }: BreakActionCardProps) {
             </Typography>
 
             <Typography variant='body1'>
-              {break_.location?.title || 'Ikke spesifisert'}
+              {break_.location?.title || 'Sted ikke oppgitt'}
             </Typography>
 
             <Box sx={{ padding: 1 }}>

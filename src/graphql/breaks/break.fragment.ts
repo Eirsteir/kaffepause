@@ -16,7 +16,10 @@ const BREAK_FIELDS = gql`
   fragment BreakFields on Break {
     id
     uuid
+    title
     startingAt
+    isViewerInitiator
+    canViewerEditBreak
     kicker
     location {
       ...LocationChildFields
