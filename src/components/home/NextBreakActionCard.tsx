@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { ReactNode, useEffect } from 'react';
 
 import BouncingDotsLoader from '@/components/elements/BouncingDotsLoader';
 import CenteredBox from '@/components/elements/CenteredBox';
@@ -8,61 +8,76 @@ import dayjs from '@/dayjs';
 import { useNextBreak } from '@/hooks/Breaks';
 import URLS from '@/URLS';
 import ArrowCircleRightOutlinedIcon from '@mui/icons-material/ArrowCircleRightOutlined';
+import { Skeleton } from '@mui/material';
 import Card from '@mui/material/Card';
 import CardActionArea from '@mui/material/CardActionArea';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import { Box } from '@mui/system';
 
+const ActionCard = ({ children }: { children: ReactNode }) => (
+  <Card
+    elevation={4}
+    sx={{
+      borderRadius: 21,
+      marginTop: 2,
+      width: '22.5rem',
+    }}>
+    <CardActionArea>
+      <CardContent
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          maxHeight: '3rem',
+          justifyContent: 'center',
+        }}>
+        {children}
+      </CardContent>
+    </CardActionArea>
+  </Card>
+);
+
 export default function NextBreakActionCard() {
   const { data, loading, error, refetch } = useNextBreak();
 
-  useEffect(() => {
-    const breakTime = dayjs(data?.nextBreak?.startingAt);
-    const now = dayjs();
-    if (breakTime.isBefore(now)) {
-      console.log('Refetching...');
-      refetch();
-    }
-  }, [refetch, data]);
+  // useEffect(() => {
+  //   const refreshIntervalInMs = new Date(
+  //     data?.break?.startingAt,
+  //   ).getMilliseconds();
+  //   // const interval = setInterval(() => refetch(), refreshIntervalInMs);  // NEEDS fixing calls all the time
+  //   return () => {
+  //     clearInterval(interval);
+  //   };
+  // }, [data, refetch]);
+
+  const url = () =>
+    data?.nextBreak ? `${URLS.BREAKS}/${data?.nextBreak?.uuid}` : '#';
 
   return (
-    <QueryResult
-      data={data}
-      error={error}
-      loading={true}
-      loadingComponent={
-        <Box sx={{ fontSize: '1rem' }}>
-          <BouncingDotsLoader />
-        </Box>
-      }>
-      <CenteredBox>
-        {/* <Link href={`${URLS.BREAKS}/${data?.nextBreak?.uuid}`} noLinkStyle>
-          <Card
-            elevation={4}
-            sx={{
-              borderRadius: 21,
-              marginTop: 2,
-            }}>
-            <CardActionArea>
-              <CardContent
-                sx={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  maxHeight: '3rem',
-                }}>
-                <Typography pr={1}>
-                  Neste pause om {dayjs(data?.nextBreak?.startingAt).fromNow()}
-                </Typography>
-                <ArrowCircleRightOutlinedIcon
-                  color='primary'
-                  sx={{ fontSize: '2rem' }}
-                />
-              </CardContent>
-            </CardActionArea>
-          </Card>
-        </Link> */}
-      </CenteredBox>
-    </QueryResult>
+    <CenteredBox>
+      <Link href={url()} noLinkStyle>
+        <ActionCard>
+          <QueryResult
+            data={data?.nextBreak}
+            emptyText='Ingen planlagte pauser'
+            error={error}
+            loading={loading}
+            loadingComponent={
+              <Skeleton
+                sx={{ fontSize: '28px', width: '100%' }}
+                variant='text'
+              />
+            }>
+            <Typography pr={1}>
+              Neste pause <b>{dayjs(data?.nextBreak?.startingAt).fromNow()}</b>
+            </Typography>
+            <ArrowCircleRightOutlinedIcon
+              color='primary'
+              sx={{ fontSize: '2rem' }}
+            />
+          </QueryResult>
+        </ActionCard>
+      </Link>
+    </CenteredBox>
   );
 }

@@ -18,7 +18,8 @@ export const useBreaksPresentation = () => useQuery(BREAKS_PRESENTATION_QUERY);
 
 export const useBreakHistory = () => useQuery(BREAK_HISTORY_QUERY);
 
-export const useNextBreak = (options?) => useQuery(NEXT_BREAK_QUERY, options);
+export const useNextBreak = (options?) =>
+  useQuery(NEXT_BREAK_QUERY, { fetchPolicy: 'network-only', ...options });
 
 export const usePendingBreakInvitations = (options) =>
   useQuery(PENDING_BREAK_INVITATIONS_QUERY, {

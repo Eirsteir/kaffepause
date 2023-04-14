@@ -16,6 +16,7 @@ export interface IBreak {
   id: string;
   uuid: string;
   startingAt: Date;
+  kicker: string;
   location: ILocation;
   invitation: IInvitation;
   participants: IUserConnection;

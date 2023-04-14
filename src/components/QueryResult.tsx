@@ -1,15 +1,29 @@
+import BouncingDotsLoader from '@/components/elements/BouncingDotsLoader';
 import CenteredBox from '@/components/elements/CenteredBox';
 import CircularProgress from '@mui/material/CircularProgress';
+import Typography from '@mui/material/Typography';
+
+type QueryResultProps = {
+  loading: boolean;
+  loadingComponent?: React.ReactNode;
+  error: unknown;
+  emptyText?: string;
+  data: unknown;
+  children: React.ReactNode | React.ReactNode[];
+};
 
 export const QueryResult = ({
   loading,
   loadingComponent,
   error,
+  emptyText,
   data,
   children,
-}) => {
+}: QueryResultProps): JSX.Element => {
   if (error) {
-    return <p>Det oppsto en feil: {error.message}</p>;
+    return (
+      <Typography>Det oppsto en feil: {(error as Error).message}</Typography>
+    );
   }
   if (loading) {
     if (loadingComponent) {
@@ -17,13 +31,13 @@ export const QueryResult = ({
     } else {
       return (
         <CenteredBox>
-          <CircularProgress />
+          <BouncingDotsLoader />
         </CenteredBox>
       );
     }
   }
   if (!data) {
-    return <p>Ingenting å vise...</p>;
+    return <Typography>{emptyText || 'Ingenting å vise...'}</Typography>;
   }
   if (data) {
     return children;

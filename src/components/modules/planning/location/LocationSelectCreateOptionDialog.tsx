@@ -1,7 +1,7 @@
 import * as React from 'react';
 
+import BouncingDotsLoader from '@/components/elements/BouncingDotsLoader';
 import { ILocation } from '@/types/Location';
-import { CircularProgress } from '@mui/material';
 import Autocomplete, { createFilterOptions } from '@mui/material/Autocomplete';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
@@ -88,6 +88,7 @@ export default function LocationSelectCreateOptionDialog({
         handleHomeEndKeys
         id='free-solo-dialog-demo'
         loading={loading}
+        loadingText={<BouncingDotsLoader fontSize={8} />}
         onChange={(event, newValue) => {
           if (typeof newValue === 'string') {
             // timeout to avoid instant validation of the dialog's form.
@@ -116,9 +117,7 @@ export default function LocationSelectCreateOptionDialog({
                 ...params.InputProps,
                 endAdornment: (
                   <React.Fragment>
-                    {loading && !value ? (
-                      <CircularProgress color='inherit' size={20} />
-                    ) : null}
+                    {loading && !value ? <BouncingDotsLoader /> : null}
                     {params.InputProps.endAdornment}
                   </React.Fragment>
                 ),
@@ -130,9 +129,12 @@ export default function LocationSelectCreateOptionDialog({
             </Typography>
           </>
         )}
-        renderOption={(props, option) => <li {...props}>{option.title}</li>}
+        renderOption={(props, option) => (
+          <li {...props} key={option.uuid}>
+            {option.title}
+          </li>
+        )}
         selectOnFocus
-        // sx={{ width: 300 }}
         value={value}
       />
 

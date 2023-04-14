@@ -10,6 +10,7 @@ const NOTIFICATIONS_QUERY = gql`
           seenState
           text
           created
+          kicker
           url
           actor {
             id

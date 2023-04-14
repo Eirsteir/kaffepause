@@ -31,7 +31,12 @@ export const useMe = (): Me => {
     },
   });
 
-  return { isAuthenticated, loading, error, me: data?.me };
+  return {
+    isAuthenticated,
+    loading: loading || isAuthLoading,
+    error,
+    me: data?.me,
+  };
 };
 
 export const useIsAuthenticated = () => {

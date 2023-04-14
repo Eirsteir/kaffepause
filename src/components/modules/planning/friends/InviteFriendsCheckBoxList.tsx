@@ -46,9 +46,7 @@ export default function InviteFriendsCheckBoxList({
   );
 
   return (
-    <List
-      dense
-      sx={{ width: '100%', maxWidth: 300, bgcolor: 'background.paper' }}>
+    <List dense sx={{ width: '100%', maxWidth: 250 }}>
       {users.map((value) => {
         const labelId = `checkbox-list-secondary-label-${value.uuid}`;
         return (
@@ -68,7 +66,8 @@ export default function InviteFriendsCheckBoxList({
             <ListItemButton
               dense
               onClick={handleToggle(value)}
-              role={undefined}>
+              role={undefined}
+              sx={{ borderRadius: '8px' }}>
               <ListItemAvatar>
                 <Avatar user={value} />
               </ListItemAvatar>

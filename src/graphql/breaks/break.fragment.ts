@@ -17,6 +17,7 @@ const BREAK_FIELDS = gql`
     id
     uuid
     startingAt
+    kicker
     location {
       ...LocationChildFields
     }
