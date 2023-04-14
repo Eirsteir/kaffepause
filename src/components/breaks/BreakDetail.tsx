@@ -41,7 +41,8 @@ export default function BreakDetail({ uuid }: BreakProps) {
             </Grid>
             <Grid item md={8} xs={12}>
               <BreakDetailLocationSection
-                title={break_?.location?.title || 'Ikke oppgitt'}
+                canViewerEdit={break_?.canViewerEdit}
+                location={break_?.location}
               />
 
               <Divider />

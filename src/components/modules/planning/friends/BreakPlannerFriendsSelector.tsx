@@ -6,6 +6,7 @@ import { IUser } from '@/types/User';
 import Autocomplete from '@mui/material/Autocomplete';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
+import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 
 interface BreakPlannerFriendsSelectorProps {
@@ -40,9 +41,13 @@ export default function BreakPlannerFriendsSelector({
 
   return (
     <CenteredBox>
-      <Typography sx={{ marginBottom: '1rem' }} variant='h3'>
-        Med hvem?
-      </Typography>
+      <Tooltip
+        placement='top'
+        title='Planlegger du en pause med venner vil de få en invitasjon.'>
+        <Typography sx={{ marginBottom: '1rem' }} variant='h3'>
+          Med hvem?
+        </Typography>
+      </Tooltip>
 
       <Autocomplete
         getOptionLabel={(option) => option.name}

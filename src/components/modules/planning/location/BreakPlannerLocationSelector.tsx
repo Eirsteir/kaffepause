@@ -6,6 +6,7 @@ import { useLocations } from '@/hooks/Location';
 import { ILocation } from '@/types/Location';
 import { IUser } from '@/types/User';
 import Box from '@mui/material/Box';
+import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 
 interface BreakPlannerLocationSelectorProps {
@@ -45,9 +46,14 @@ export default function BreakPlannerLocationSelector({
 
   return (
     <CenteredBox>
-      <Typography sx={{ marginBottom: '1rem' }} variant='h3'>
-        Hvor?
-      </Typography>
+      <Tooltip
+        placement='top'
+        title='Legg til et sted så blir det lettere å koordinere pausene.'>
+        <Typography sx={{ marginBottom: '1rem' }} variant='h3'>
+          Hvor?
+        </Typography>
+      </Tooltip>
+
       <Box sx={{ maxWidth: 250 }}>
         <LocationSelectCreateOptionDialog
           error={inputError}

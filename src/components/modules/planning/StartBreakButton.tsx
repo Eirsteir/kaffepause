@@ -3,10 +3,12 @@ import LoadingButton from '@/components/elements/LoadingButton';
 import SendIcon from '@mui/icons-material/Send';
 
 interface StartBreakButtonProps {
+  title: string;
   loading: boolean;
   onClick: () => void;
 }
 export default function StartBreakButton({
+  title,
   loading,
   onClick,
 }: StartBreakButtonProps) {
@@ -24,7 +26,7 @@ export default function StartBreakButton({
           maxWidth: 300,
         }}
         variant='contained'>
-        <span>Send invitasjon</span>
+        <span>{title}</span>
       </LoadingButton>
     </CenteredBox>
   );
