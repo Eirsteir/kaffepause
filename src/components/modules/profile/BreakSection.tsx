@@ -10,11 +10,17 @@ import Typography from '@mui/material/Typography';
 // TODO: pagination
 export default function BreakSection() {
   const { data, loading, error } = useBreakHistory();
-  const breakHistory = useMemo(() => (data !== undefined ? data.breakHistory.edges.map((edge) => edge.node) : []), [data]);
+  const breakHistory = useMemo(
+    () =>
+      data !== undefined
+        ? data.breakHistory.edges.map((edge) => edge.node)
+        : [],
+    [data],
+  );
 
   return (
     <Box>
-      <Typography variant='h5'>Dine pauser</Typography>
+      <Typography variant='h2'>Dine pauser</Typography>
       {loading ? (
         <Stack mt={2} spacing={2}>
           <Skeleton height={80} variant='rounded' width={420} />

@@ -1,42 +1,20 @@
+import BREAK_FIELDS from '@/graphql/breaks/break.fragment';
 import { LOCATION_CHILD_FIELDS } from '@/graphql/locations.query';
 import { gql } from '@apollo/client';
 
 const BREAK_HISTORY_QUERY = gql`
   ${LOCATION_CHILD_FIELDS}
+  ${BREAK_FIELDS}
   query breakHistory {
     breakHistory {
       edges {
         node {
-          id
-          uuid
-          startingAt
-          location {
-            ...LocationChildFields
-          }
-          invitation {
-            id
-            uuid
-            sender {
-              id
-              uuid
-              name
-            }
-          }
-          participants {
-            count
-            edges {
-              node {
-                id
-                uuid
-                username
-                name
-                __typename
-              }
-            }
-            __typename
-          }
-          __typename
+          ...BreakFields
         }
+        __typename
+      }
+      pageInfo {
+        hasNextPage
         __typename
       }
       __typename

@@ -10,11 +10,15 @@ interface FriendsSectionProps {
 }
 
 export default function FriendsSection({ user }: FriendsSectionProps) {
-  const friends = useMemo(() => (user !== undefined ? user.friends.edges.map((edge) => edge.node) : []), [user]);
+  const friends = useMemo(
+    () =>
+      user !== undefined ? user.friends.edges.map((edge) => edge.node) : [],
+    [user],
+  );
 
   return (
     <Box>
-      <Typography variant='h5'>Dine venner</Typography>
+      <Typography variant='h2'>Dine venner</Typography>
       <FriendsList friends={friends} />
     </Box>
   );

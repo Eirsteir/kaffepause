@@ -1,18 +1,14 @@
-import { useRouter } from 'next/router';
-
 import Avatar from '@/components/elements/Avatar';
 import CenteredBox from '@/components/elements/CenteredBox';
-import ProfileAction from '@/components/modules/profile/ProfileAction';
+import AddFriendActionButton from '@/components/modules/profile/profile-action-buttons/AddFriendActionButton';
+import FriendActionButton from '@/components/modules/profile/profile-action-buttons/FriendActionButton';
+import IncomingFriendRequestActionButton from '@/components/modules/profile/profile-action-buttons/IncomingFriendRequestActionButton';
+import OutgoingFriendRequestActionButton from '@/components/modules/profile/profile-action-buttons/OutgoingFriendRequestActionButton';
 import Link from '@/components/navigation/Link';
 import { FriendshipStatus, IUser } from '@/types/User';
 import { getInitialsFromName } from '@/utils';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
-
-import AddFriendActionButton from './profile-action-buttons/AddFriendActionButton';
-import FriendActionButton from './profile-action-buttons/FriendActionButton';
-import IncomingFriendRequestActionButton from './profile-action-buttons/IncomingFriendRequestActionButton';
-import OutgoingFriendRequestActionButton from './profile-action-buttons/OutgoingFriendRequestActionButton';
 
 interface UserPaperSectionProps {
   user: IUser;
@@ -35,9 +31,10 @@ export default function UserPaperSection({
   return (
     <Paper sx={{ padding: '1.5rem' }} variant='outlined'>
       <CenteredBox>
-        <Avatar sx={{ width: 128, height: 128 }} user={user}>
-          <Typography variant='h3'>{getInitialsFromName(user.name)}</Typography>
-        </Avatar>
+        <Avatar
+          sx={{ width: 128, height: 128, fontSize: '2rem' }}
+          user={user}
+        />
 
         {actorIsUser && (
           <Link href='#'>

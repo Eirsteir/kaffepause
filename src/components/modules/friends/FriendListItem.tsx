@@ -1,10 +1,8 @@
 import { useRouter } from 'next/router';
-import * as React from 'react';
 
+import Avatar from '@/components/elements/Avatar';
 import { IUser } from '@/types/User';
 import URLS from '@/URLS';
-import { getInitialsFromName } from '@/utils';
-import Avatar from '@mui/material/Avatar';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
@@ -18,13 +16,14 @@ export default function FriendListItem({ friend }: FriendListItemProps) {
   const onClick = () => router.push(`${URLS.USERS}/${friend.uuid}`);
 
   return (
-    <ListItemButton alignItems='flex-start' onClick={onClick}>
+    <ListItemButton onClick={onClick} sx={{ borderRadius: '8px' }}>
       <ListItemAvatar>
-        <Avatar alt={friend.name} src={friend.profilePic || ''}>
-          {getInitialsFromName(friend.name)}
-        </Avatar>
+        <Avatar user={friend} />
       </ListItemAvatar>
-      <ListItemText primary={friend.name} secondary={friend.preferredLocation?.title} />
+      <ListItemText
+        primary={friend.name}
+        secondary={friend.preferredLocation?.title}
+      />
     </ListItemButton>
   );
 }

@@ -5,5 +5,5 @@ export default function PageContainer({
 }: {
   children: React.ReactNode | React.ReactNode[];
 }) {
-  return <Box sx={{ padding: '1rem 7rem' }}>{children}</Box>;
+  return <Box sx={{ padding: '5rem' }}>{children}</Box>;
 }

@@ -123,7 +123,7 @@ export default function NotificationsMenu({ user }: IProps) {
           },
         }}
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}>
-        <Typography sx={{ padding: 1, paddingLeft: 2 }} variant='h5'>
+        <Typography sx={{ padding: 1, paddingLeft: 2 }} variant='h2'>
           Varsler
         </Typography>
 

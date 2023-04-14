@@ -19,7 +19,7 @@ declare module '@mui/material/styles' {
 
 const themeOptions: ThemeOptions = {
   shape: {
-    borderRadius: 21, // todo: change to 8 and create roundedButtonComponent
+    borderRadius: 8,
   },
   palette: {
     mode: 'light',
