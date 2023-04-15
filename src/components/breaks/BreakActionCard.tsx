@@ -3,6 +3,8 @@ import Link from '@/components/navigation/Link';
 import dayjs from '@/dayjs';
 import { IBreak } from '@/types/Break';
 import URLS from '@/URLS';
+import GroupOutlinedIcon from '@mui/icons-material/GroupOutlined';
+import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
 import { Box, CardActionArea } from '@mui/material';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -53,16 +55,38 @@ export default function BreakActionCard({ break_ }: BreakActionCardProps) {
               {dayjs(break_.startingAt).format('LLL')}
             </Typography>
 
-            <Typography variant='body1'>
-              {break_.location?.title || 'Sted ikke oppgitt'}
-            </Typography>
+            <Box
+              sx={{
+                paddingTop: 1.5,
+                display: 'flex',
+                alignItems: 'center',
+                flexWrap: 'wrap',
+              }}>
+              <LocationOnOutlinedIcon color='primary' fontSize='small' />
+              <Typography pl={1} variant='body1'>
+                {break_.location?.title || 'Sted ikke oppgitt'}
+              </Typography>
+            </Box>
 
-            <Box sx={{ padding: 1 }}>
-              <AvatarChips
-                users={break_.invitation.addressees.edges.map(
-                  (edge) => edge.node,
+            <Box
+              sx={{
+                paddingTop: 1,
+                display: 'flex',
+                alignItems: 'center',
+                flexWrap: 'wrap',
+              }}>
+              <GroupOutlinedIcon color='primary' fontSize='small' />
+              <Box pl={1}>
+                {break_.invitation?.addressees.edges.length ? (
+                  <AvatarChips
+                    users={break_.invitation.addressees.edges.map(
+                      (edge) => edge.node,
+                    )}
+                  />
+                ) : (
+                  <Typography variant='body1'>Ingen inviterte</Typography>
                 )}
-              />
+              </Box>
             </Box>
           </CardContent>
         </CardActionArea>

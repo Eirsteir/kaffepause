@@ -7,6 +7,7 @@ import BreakPlannerTimeSelector from '@/components/modules/planning/time/BreakPl
 import { ILocation } from '@/types/Location';
 import { IUser } from '@/types/User';
 import { ApolloError } from '@apollo/client';
+import { Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 
@@ -64,7 +65,7 @@ export default function BreakPlannerForm({
         title={invitees.length ? 'Send invitasjon' : 'Planlegg pausen'}
       />
 
-      {error && <p>error.message</p>}
+      {error && <Typography color='error.main'>{error.message}</Typography>}
     </Box>
   );
 }

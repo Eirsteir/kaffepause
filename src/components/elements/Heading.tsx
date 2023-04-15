@@ -4,7 +4,7 @@ export default function Heading({
   noGutterBottom,
   children,
 }: {
-  noGutterBottom: boolean;
+  noGutterBottom?: boolean;
   children: React.ReactNode;
 }) {
   return (

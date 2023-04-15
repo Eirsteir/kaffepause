@@ -6,4 +6,5 @@
 
 .mainContainer {
   padding: 0rem 5rem;
+  min-height: 90vh;
 }

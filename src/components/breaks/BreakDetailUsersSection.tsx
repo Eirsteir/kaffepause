@@ -6,27 +6,50 @@ import Typography from '@mui/material/Typography';
 
 export const BreakDetailUsersSection = ({
   users,
-  canViewerEdit,
+  canViewerEditBreak,
 }: {
   users: IUser[];
-  canViewerEdit: boolean;
-}) => (
-  <Box sx={{ marginTop: '2rem' }}>
-    <Typography sx={{ paddingBottom: '.5rem' }} variant='h2'>
-      Inviterte
-    </Typography>
-    <Box
-      sx={{
-        display: 'flex',
-        alignItems: 'center',
-        flexWrap: 'wrap',
-        marginTop: '0.5rem',
-      }}>
-      <AvatarChips users={users} />
-    </Box>
+  canViewerEditBreak: boolean;
+}) => {
+  const resolveButton = () => {
+    if (!canViewerEditBreak) {
+      return;
+    }
 
-    {(canViewerEdit && !users.length) ?? (
-      <Button variant='outlined'>Inviter venner</Button>
-    )}
-  </Box>
-);
+    if (users.length) {
+      return (
+        <Button sx={{ marginTop: 2 }} variant='outlined'>
+          Inviter flere
+        </Button>
+      );
+    } else {
+      return (
+        <Button sx={{ marginTop: 2 }} variant='outlined'>
+          Inviter venner
+        </Button>
+      );
+    }
+  };
+
+  return (
+    <Box sx={{ marginTop: '2rem' }}>
+      <Typography sx={{ paddingBottom: '.5rem' }} variant='h2'>
+        Inviterte
+      </Typography>
+
+      {users.length !== 0 && (
+        <Box
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            flexWrap: 'wrap',
+            marginTop: '0.5rem',
+          }}>
+          <AvatarChips users={users} />
+        </Box>
+      )}
+
+      {resolveButton()}
+    </Box>
+  );
+};

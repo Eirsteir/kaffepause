@@ -1,5 +1,6 @@
 import Head from 'next/head';
 
+import Footer from '@/components/Footer';
 import Navigation from '@/components/navigation/Navigation';
 import styles from '@/styles/Layout.module.css';
 
@@ -19,6 +20,7 @@ export default function Layout({ children }: Props) {
       <main className={styles.main}>
         <Navigation />
         <div className={styles.mainContainer}>{children}</div>
+        {/* <Footer /> */}
       </main>
     </>
   );

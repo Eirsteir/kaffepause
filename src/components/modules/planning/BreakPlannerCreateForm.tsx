@@ -33,7 +33,7 @@ export default function BreakPlannerCreateForm({
         startTime: startTime,
         location: location?.uuid,
       },
-      skip: !startTime || !location || !invitees.length,
+      skip: !startTime || !location,
     });
   };
 

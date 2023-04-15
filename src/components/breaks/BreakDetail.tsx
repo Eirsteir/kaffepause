@@ -41,16 +41,19 @@ export default function BreakDetail({ uuid }: BreakProps) {
             </Grid>
             <Grid item md={8} xs={12}>
               <BreakDetailLocationSection
-                canViewerEdit={break_?.canViewerEdit}
+                canViewerEditBreak={break_?.canViewerEditBreak}
                 location={break_?.location}
               />
 
               <Divider />
 
               <BreakDetailUsersSection
-                users={break_?.invitation.addressees.edges.map(
-                  (edge) => edge.node,
-                )}
+                canViewerEditBreak={break_?.canViewerEditBreak}
+                users={
+                  break_?.invitation?.addressees.edges.map(
+                    (edge) => edge.node,
+                  ) ?? []
+                }
               />
               <Divider />
             </Grid>

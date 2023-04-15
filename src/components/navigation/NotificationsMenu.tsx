@@ -3,6 +3,7 @@ import * as React from 'react';
 
 import Avatar from '@/components/elements/Avatar';
 import Badge from '@/components/elements/Badge';
+import Link from '@/components/navigation/Link';
 import { QueryResult } from '@/components/QueryResult';
 import dayjs from '@/dayjs';
 import {
@@ -21,31 +22,9 @@ import MenuItem from '@mui/material/MenuItem';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 
-import Link from './Link';
-
-interface IProps {
-  user: IUser;
-}
-
-export default function NotificationsMenu({ user }: IProps) {
-  const router = useRouter();
-  const { data: notificationBadgeCountData } = useNotificationsBagdeCount();
-  const [fetchNotifications, { data, loading, error }] = useNotifications({});
-
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const open = Boolean(anchorEl);
-
-  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-    fetchNotifications({ variables: { first: 10 } });
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  const loadingSkeleton = () =>
-    [1, 2, 3].map((i) => (
+const LoadingSkeleton = () => (
+  <>
+    {[1, 2, 3].map((i) => (
       <Box key={i} sx={{ display: 'flex', alignItems: 'center', width: 360 }}>
         <Box sx={{ margin: 1 }}>
           <Skeleton
@@ -64,7 +43,29 @@ export default function NotificationsMenu({ user }: IProps) {
           </Skeleton>
         </Box>
       </Box>
-    ));
+    ))}
+  </>
+);
+
+interface IProps {
+  user: IUser;
+}
+
+export default function NotificationsMenu({ user }: IProps) {
+  const { data: notificationBadgeCountData } = useNotificationsBagdeCount();
+  const [fetchNotifications, { data, loading, error }] = useNotifications({});
+
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
+
+  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+    fetchNotifications({ variables: { first: 10 } });
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   return (
     <React.Fragment>
@@ -131,7 +132,7 @@ export default function NotificationsMenu({ user }: IProps) {
           data={data}
           error={error}
           loading={loading}
-          loadingComponent={loadingSkeleton}>
+          loadingComponent={<LoadingSkeleton />}>
           {(data?.notifications?.edges ?? []).map((edge) => {
             const node = edge.node;
             return (

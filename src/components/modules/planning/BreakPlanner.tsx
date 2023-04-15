@@ -10,7 +10,7 @@ interface BreakPlannerProps {
 
 export default function BreakPlanner({ user }: BreakPlannerProps) {
   return (
-    <Box>
+    <Box sx={{ paddingTop: '1rem' }}>
       <Heading noGutterBottom>Planlegg en pause</Heading>
       <Typography sx={{ marginBottom: '3rem' }} variant='body2'>
         Start en pause ved å legge til et tidspunkt. Resten kan du ta senere.
