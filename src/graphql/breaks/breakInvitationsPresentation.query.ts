@@ -1,10 +1,11 @@
-import BREAK_FIELDS from '@/graphql/breaks/break.fragment';
+import BREAK_INVITATION_FIELDS from '@/graphql/breaks/breakInvitation.fragment';
 import { gql } from '@apollo/client';
 
-const BREAKS_PRESENTATION_QUERY = gql`
-  ${BREAK_FIELDS}
-  query BreaksPresentation {
-    breaksPresentation {
+const BREAKS_INVITATION_PRESENTATION_QUERY = gql`
+  ${BREAK_INVITATION_FIELDS}
+
+  query BreakInvitationsPresentation {
+    breakInvitationsPresentation {
       id
       sections {
         id
@@ -16,7 +17,7 @@ const BREAKS_PRESENTATION_QUERY = gql`
         items {
           edges {
             node {
-              ...BreakFields
+              ...BreakInvitationFields
             }
             __typename
           }
@@ -33,4 +34,4 @@ const BREAKS_PRESENTATION_QUERY = gql`
   }
 `;
 
-export default BREAKS_PRESENTATION_QUERY;
+export default BREAKS_INVITATION_PRESENTATION_QUERY;

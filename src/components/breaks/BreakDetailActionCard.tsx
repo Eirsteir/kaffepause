@@ -2,7 +2,8 @@ import { useState } from 'react';
 
 import BreakReplyButtons from '@/components/breaks/BreakReplyButtons';
 import CenteredBox from '@/components/elements/CenteredBox';
-import { IBreak } from '@/types/Break';
+import dayjs from '@/dayjs';
+import { IBreak, InvitationContext } from '@/types/Break';
 import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
@@ -17,27 +18,70 @@ export default function BreakDetailActionCard({ break_ }: { break_: IBreak }) {
         padding: '1.5rem',
         boxShadow: '0 6px 20px rgba(0,0,0,0.2)',
       }}>
-      <CenteredBox>
-        <Typography sx={{ fontWeight: 600 }} variant='subtitle2'>
-          {break_?.kicker}
-        </Typography>
-        <div
-          style={{
-            display: 'flex',
-            padding: '1rem',
-            justifyContent: 'center',
-          }}>
-          {break_.canViewerEditBreak && (
-            <Button variant='outlined'>Endre pausen</Button>
-          )}
+      <CenteredBox sx={{ paddingBottom: 2 }}>
+        {/* <Typography sx={{ fontWeight: 600 }} variant='subtitle2'>
+          {break_?.kicker || dayjs(break_.startingAt).fromNow()}
+        </Typography> */}
 
-          {!break_.isViewerInitiator && (
-            <BreakReplyButtons
-              invitationUuid={break_?.invitation.uuid}
-              onError={(err) => setError(err)}
-            />
-          )}
-        </div>
+        {break_.canViewerEditBreak && (
+          <Button variant='outlined'>Endre pausen</Button>
+        )}
+
+        {break_.invitation?.context == InvitationContext.CANNOT_REPLY && (
+          <Typography textAlign='center' variant='subtitle2'>
+            Du kan dessverre ikke svare på denne invitasjonen.
+          </Typography>
+        )}
+
+        {break_.hasPassed ? (
+          <>
+            {break_.invitation?.context == InvitationContext.HAS_ACCEPTED && (
+              <Typography variant='subtitle2'>Deltatt</Typography>
+            )}
+
+            {break_.invitation?.context === InvitationContext.HAS_IGNORED && (
+              <>
+                <Typography variant='subtitle2'>Ignorert</Typography>
+              </>
+            )}
+
+            {break_.invitation?.context === InvitationContext.HAS_DECLINED && (
+              <>
+                <Typography variant='subtitle2'>Avslått</Typography>
+              </>
+            )}
+          </>
+        ) : (
+          <>
+            {break_.invitation?.context == InvitationContext.CAN_REPLY && (
+              <>
+                <Typography variant='h3'>Vil du delta?</Typography>
+                <BreakReplyButtons
+                  invitationUuid={break_?.invitation.uuid}
+                  onError={(err) => setError(err)}
+                />
+              </>
+            )}
+
+            {break_.invitation?.context == InvitationContext.HAS_ACCEPTED && (
+              <Typography variant='subtitle2'>Godtatt</Typography>
+            )}
+
+            {break_.invitation?.context === InvitationContext.HAS_IGNORED && (
+              <>
+                <Typography variant='subtitle2'>Ignorert</Typography>
+                <Button variant='outlined'>Angre</Button>
+              </>
+            )}
+
+            {break_.invitation?.context === InvitationContext.HAS_DECLINED && (
+              <>
+                <Typography variant='subtitle2'>Avslått</Typography>
+                <Button variant='outlined'>Angre</Button>
+              </>
+            )}
+          </>
+        )}
         {error && (
           <Typography color='error.main' variant='subtitle2'>
             {error}

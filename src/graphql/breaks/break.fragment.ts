@@ -18,6 +18,7 @@ const BREAK_FIELDS = gql`
     uuid
     title
     startingAt
+    hasPassed
     isViewerInitiator
     canViewerEditBreak
     kicker
@@ -27,10 +28,11 @@ const BREAK_FIELDS = gql`
     invitation {
       id
       uuid
+      context
       sender {
         ...BreakUserFields
       }
-      acceptees {
+      confirmed {
         count
         edges {
           node {

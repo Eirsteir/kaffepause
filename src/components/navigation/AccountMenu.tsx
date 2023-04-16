@@ -24,6 +24,11 @@ export default function AccountMenu({ user }: IProps) {
           Pauser
         </Typography>
       </MenuItem>
+      <MenuItem onClick={() => router.push(URLS.INVITATIONS)}>
+        <Typography sx={{ fontWeight: 700 }} variant='subtitle2'>
+          Invitasjoner
+        </Typography>
+      </MenuItem>
       <Divider />
       <MenuItem onClick={() => router.push(`${URLS.USERS}/${user.uuid}`)}>
         <Typography variant='subtitle2'>Profil</Typography>

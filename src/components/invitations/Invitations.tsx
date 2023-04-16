@@ -1,33 +1,33 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 
-import BreakActionCard from '@/components/breaks/BreakActionCard';
 import Divider from '@/components/elements/Divider';
 import Heading from '@/components/elements/Heading';
+import BreakInvitationActionCard from '@/components/invitations/BreakInvitationActionCard';
 import { QueryResult } from '@/components/QueryResult';
-import { useBreaksPresentation } from '@/hooks/Breaks';
+import { useBreakInvitationsPresentation } from '@/hooks/Breaks';
 import URLS from '@/URLS';
 import { Typography } from '@mui/material';
 import Button from '@mui/material/Button';
 
-export default function Breaks() {
+export default function Invitations() {
   const router = useRouter();
-  const { data, loading, error } = useBreaksPresentation();
+  const { data, loading, error } = useBreakInvitationsPresentation();
 
   return (
     <>
       <Head>
-        <title>Dine pauser - Kaffepause</title>
+        <title>Dine invitasjoner - Kaffepause</title>
       </Head>
       <>
-        <Heading>Pauser</Heading>
+        <Heading>Pauseinvitasjoner</Heading>
 
         <QueryResult
-          data={data}
+          data={data?.breakInvitationsPresentation}
           error={error}
           loading={loading}
           loadingComponent={null}>
-          {data?.breaksPresentation.sections.map((section, i) => (
+          {data?.breakInvitationsPresentation.sections.map((section, i) => (
             <div key={i}>
               <Typography
                 sx={{ paddingTop: '1.5rem', paddingBottom: '1.5rem' }}
@@ -38,7 +38,7 @@ export default function Breaks() {
               {section.items.edges
                 .map((edge) => edge.node)
                 .map((item, i) => (
-                  <BreakActionCard break_={item} key={i} />
+                  <BreakInvitationActionCard invitation={item} key={i} />
                 ))}
 
               {section.isEmpty && (

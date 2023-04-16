@@ -1,16 +1,17 @@
-import Box from '@mui/material/Box';
+import Box, { BoxProps } from '@mui/material/Box';
 
-interface CenteredBoxProps {
-  children: React.ReactNode;
+interface CenteredBoxProps extends BoxProps {
+  children?: React.ReactNode;
 }
 
-export default function CenteredBox({ children }: CenteredBoxProps) {
+export default function CenteredBox({ children, ...props }: CenteredBoxProps) {
   return (
     <Box
       alignItems='center'
       display='flex'
       flexDirection='column'
-      justifyContent='center'>
+      justifyContent='center'
+      {...props}>
       {children}
     </Box>
   );

@@ -1,7 +1,9 @@
+import BreakReplyButtons from '@/components/breaks/BreakReplyButtons';
 import AvatarChips from '@/components/elements/AvatarChips';
+import Divider from '@/components/elements/Divider';
 import Link from '@/components/navigation/Link';
 import dayjs from '@/dayjs';
-import { IBreak } from '@/types/Break';
+import { IInvitation, InvitationContext } from '@/types/Break';
 import URLS from '@/URLS';
 import GroupOutlinedIcon from '@mui/icons-material/GroupOutlined';
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
@@ -11,11 +13,14 @@ import CardContent from '@mui/material/CardContent';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 
-type BreakActionCardProps = {
-  break_: IBreak;
+type BreakInvitationActionCardProps = {
+  invitation: IInvitation;
 };
 
-export default function BreakActionCard({ break_ }: BreakActionCardProps) {
+export default function BreakInvitationActionCard({
+  invitation,
+}: BreakInvitationActionCardProps) {
+  const break_ = invitation.subject!;
   return (
     <Link href={`${URLS.BREAKS}/${break_.uuid}`} noLinkStyle>
       <Card
@@ -77,17 +82,25 @@ export default function BreakActionCard({ break_ }: BreakActionCardProps) {
               }}>
               <GroupOutlinedIcon color='primary' fontSize='small' />
               <Box pl={1}>
-                {break_.invitation?.addressees.edges.length ? (
+                {invitation.addressees.edges.length ? (
                   <AvatarChips
-                    users={break_.invitation.addressees.edges.map(
-                      (edge) => edge.node,
-                    )}
+                    users={invitation.addressees.edges.map((edge) => edge.node)}
                   />
                 ) : (
                   <Typography variant='body2'>Ingen inviterte</Typography>
                 )}
               </Box>
             </Box>
+
+            {invitation.context === InvitationContext.CAN_REPLY && (
+              <>
+                <Divider />
+                <BreakReplyButtons
+                  invitationUuid={invitation.uuid}
+                  onError={() => undefined}
+                />
+              </>
+            )}
           </CardContent>
         </CardActionArea>
       </Card>

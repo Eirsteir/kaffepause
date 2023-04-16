@@ -59,7 +59,7 @@ export default function NotificationsMenu({ user }: IProps) {
   const open = Boolean(anchorEl);
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-    fetchNotifications({ variables: { first: 10 } });
+    fetchNotifications({ variables: { first: 15 } });
     setAnchorEl(event.currentTarget);
   };
 

@@ -2,7 +2,9 @@ import LoadingButton from '@/components/elements/LoadingButton';
 import {
   useAcceptBreakInvitation,
   useDeclineBreakInvitation,
+  useIgnoreBreakInvitation,
 } from '@/hooks/Breaks';
+import { Box } from '@mui/material';
 
 type ActionButtonProps = {
   invitationUuid: string;
@@ -60,8 +62,8 @@ export default function BreakReplyButtons({
 }: ActionButtonGroupProps) {
   return (
     <>
-      <DeclineButton invitationUuid={invitationUuid} onError={onError} />
       <AcceptButton invitationUuid={invitationUuid} onError={onError} />
+      <DeclineButton invitationUuid={invitationUuid} onError={onError} />
     </>
   );
 }
