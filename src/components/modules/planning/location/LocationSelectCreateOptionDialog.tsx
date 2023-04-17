@@ -33,7 +33,6 @@ export default function LocationSelectCreateOptionDialog({
   locations,
   initialLocation,
   loading,
-  error,
   onSelect,
 }: LocationSelectCreateOptionDialogProps) {
   const [value, setValue] = React.useState<LocationOptionType | null>({
@@ -49,12 +48,15 @@ export default function LocationSelectCreateOptionDialog({
     addUserLocation,
     { data, loading: addLocationLoading, error: addLocationError },
   ] = useAddUserLocation();
+  const [hasAddedUserLocation, setHasAddedUserLocation] =
+    React.useState<boolean>(false);
 
   const handleClose = () => {
     setDialogValue({
       title: '',
     });
     toggleOpen(false);
+    setHasAddedUserLocation(false);
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -67,7 +69,7 @@ export default function LocationSelectCreateOptionDialog({
       onCompleted: (data) => {
         if (data.addUserLocation.success) {
           onSelect(data.addUserLocation.location);
-          handleClose();
+          setHasAddedUserLocation(true);
         }
       },
     });
@@ -139,9 +141,6 @@ export default function LocationSelectCreateOptionDialog({
               }}
               label='Velg sted'
             />
-            <Typography sx={{ color: 'red' }} variant='caption'>
-              {error}
-            </Typography>
           </>
         )}
         renderOption={(props, option) => (
@@ -154,38 +153,59 @@ export default function LocationSelectCreateOptionDialog({
       />
 
       <Dialog onClose={handleClose} open={open}>
-        <form onSubmit={handleSubmit}>
-          <DialogTitle>Legg til et nytt sted</DialogTitle>
-          <DialogContent>
-            <DialogContentText>
-              Savner du et campus, kantine eller lesesal? Legg den til her!
-            </DialogContentText>
-            <TextField
-              autoFocus
-              id='name'
-              label='Navn'
-              margin='dense'
-              onChange={(event) =>
-                setDialogValue({
-                  ...dialogValue,
-                  title: event.target.value,
-                })
-              }
-              type='text'
-              value={dialogValue.title}
-              variant='standard'
-            />
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={handleClose}>Avbryt</Button>
-            <LoadingButton
-              disabled={!dialogValue.title.trim()}
-              loading={addLocationLoading}
-              type='submit'>
-              Lagre
-            </LoadingButton>
-          </DialogActions>
-        </form>
+        {hasAddedUserLocation ? (
+          <>
+            <DialogTitle>
+              <b>{data.addUserLocation.location.title}</b> ble lagt til som nytt
+              sted!
+            </DialogTitle>
+            <DialogContent>
+              <DialogContentText>
+                Du kan nå sette i gang en pause her og se dine andre steder på
+                profilen din.
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions sx={{ justifyContent: 'center' }}>
+              <Button onClick={handleClose} variant='contained'>
+                Ok
+              </Button>
+            </DialogActions>
+          </>
+        ) : (
+          <form onSubmit={handleSubmit}>
+            <DialogTitle>Legg til et nytt sted</DialogTitle>
+            <DialogContent>
+              <DialogContentText>
+                Savner du et campus, kantine eller lesesal? Legg den til her!
+              </DialogContentText>
+              <TextField
+                autoFocus
+                id='name'
+                label='Navn'
+                margin='dense'
+                onChange={(event) =>
+                  setDialogValue({
+                    ...dialogValue,
+                    title: event.target.value,
+                  })
+                }
+                type='text'
+                value={dialogValue.title}
+                variant='standard'
+              />
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={handleClose}>Avbryt</Button>
+              <LoadingButton
+                disabled={!dialogValue.title.trim()}
+                loading={addLocationLoading}
+                type='submit'
+                variant='contained'>
+                Lagre
+              </LoadingButton>
+            </DialogActions>
+          </form>
+        )}
       </Dialog>
     </React.Fragment>
   );
