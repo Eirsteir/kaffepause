@@ -1,5 +1,5 @@
 import BREAK_FIELDS from '@/graphql/breaks/break.fragment';
-import { LOCATION_CHILD_FIELDS } from '@/graphql/locations.query';
+import { LOCATION_CHILD_FIELDS } from '@/graphql/locations/locations.query';
 import { gql } from '@apollo/client';
 
 const BREAK_HISTORY_QUERY = gql`

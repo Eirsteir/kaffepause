@@ -1,4 +1,4 @@
-import { ILocation } from '@/types/Location';
+import { Location } from '@/types/Location';
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -8,7 +8,7 @@ export const BreakDetailLocationSection = ({
   location,
   canViewerEditBreak,
 }: {
-  location: ILocation | undefined;
+  location: Location | undefined;
   canViewerEditBreak: boolean;
 }) => {
   const resolveButton = () => {

@@ -1,6 +1,6 @@
 import { User as NextAuthUser } from 'next-auth';
 
-import { ILocation } from '@/types/Location';
+import { Location } from '@/types/Location';
 
 export interface UserEdge {
   __typename: string;
@@ -26,7 +26,7 @@ export interface User extends NextAuthUser {
   name: string;
   shortName: string;
   email: string;
-  preferredLocation?: ILocation;
+  preferredLocation?: Location;
   profilePic: string;
   friends: UserConnection;
   isViewerFriend: boolean;

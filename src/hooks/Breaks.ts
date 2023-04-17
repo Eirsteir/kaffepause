@@ -29,8 +29,29 @@ export const useBreakHistory = () => useQuery(BREAK_HISTORY_QUERY);
 export const useNextBreak = (options?) =>
   useQuery(NEXT_BREAK_QUERY, { fetchPolicy: 'network-only', ...options });
 
-export const useIniateBreak = (options) =>
-  useMutation(INITIATE_BREAK_MUTATION, options);
+export const useIniateBreak = (options?) =>
+  useMutation(INITIATE_BREAK_MUTATION, {
+    ...options,
+    update(
+      cache,
+      {
+        data: {
+          initiateBreak: { break_ },
+        },
+      },
+    ) {
+      cache.modify({
+        fields: {
+          nextbreak(existingBreak = {}) {
+            return {
+              ...existingBreak,
+              ...break_,
+            };
+          },
+        },
+      });
+    },
+  });
 
 export const useAcceptBreakInvitation = (options?) =>
   useMutation(ACCEPT_BREAK_INVITATION, options);

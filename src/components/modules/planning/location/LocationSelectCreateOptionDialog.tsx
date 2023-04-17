@@ -1,7 +1,9 @@
 import * as React from 'react';
 
 import BouncingDotsLoader from '@/components/elements/BouncingDotsLoader';
-import { ILocation } from '@/types/Location';
+import LoadingButton from '@/components/elements/LoadingButton';
+import { useAddUserLocation } from '@/hooks/Location';
+import { Location } from '@/types/Location';
 import Autocomplete, { createFilterOptions } from '@mui/material/Autocomplete';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
@@ -19,10 +21,10 @@ interface LocationOptionType {
 
 interface LocationSelectCreateOptionDialogProps {
   locations: readonly LocationOptionType[];
-  initialLocation: ILocation | undefined;
+  initialLocation: Location | undefined;
   loading: boolean;
   error: string;
-  onSelect: (location: ILocation) => void;
+  onSelect: (location: Location) => void;
 }
 
 const filter = createFilterOptions<LocationOptionType>();
@@ -43,6 +45,11 @@ export default function LocationSelectCreateOptionDialog({
     title: '',
   });
 
+  const [
+    addUserLocation,
+    { data, loading: addLocationLoading, error: addLocationError },
+  ] = useAddUserLocation();
+
   const handleClose = () => {
     setDialogValue({
       title: '',
@@ -55,7 +62,15 @@ export default function LocationSelectCreateOptionDialog({
     setValue({
       title: dialogValue.title,
     });
-    handleClose();
+    addUserLocation({
+      variables: { title: dialogValue.title },
+      onCompleted: (data) => {
+        if (data.addUserLocation.success) {
+          onSelect(data.addUserLocation.location);
+          handleClose();
+        }
+      },
+    });
   };
 
   return (
@@ -105,7 +120,7 @@ export default function LocationSelectCreateOptionDialog({
             });
           } else {
             setValue(newValue);
-            onSelect(newValue as ILocation);
+            onSelect(newValue as Location);
           }
         }}
         options={locations}
@@ -163,7 +178,12 @@ export default function LocationSelectCreateOptionDialog({
           </DialogContent>
           <DialogActions>
             <Button onClick={handleClose}>Avbryt</Button>
-            <Button type='submit'>Lagre</Button>
+            <LoadingButton
+              disabled={!dialogValue.title.trim()}
+              loading={addLocationLoading}
+              type='submit'>
+              Lagre
+            </LoadingButton>
           </DialogActions>
         </form>
       </Dialog>

@@ -3,7 +3,7 @@ import { useState } from 'react';
 import LoadingButton from '@/components/elements/LoadingButton';
 import LocationAsynchronousAutocomplete from '@/components/modules/locations/LocationAsynchronousAutocomplete';
 import { useUpdatePreferredLocation } from '@/hooks/User';
-import { ILocation } from '@/types/Location';
+import { Location } from '@/types/Location';
 import { User } from '@/types/User';
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
 import Box from '@mui/material/Box';
@@ -18,7 +18,7 @@ export default function UserLocationSection({
   actorIsUser: boolean;
 }) {
   const [isEditing, setIsEditing] = useState<boolean>(false);
-  const [location, setLocation] = useState<ILocation>();
+  const [location, setLocation] = useState<Location>();
   const [updateLocation, { loading, error }] = useUpdatePreferredLocation();
 
   const onSubmit = () => {

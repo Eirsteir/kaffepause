@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import BouncingDotsLoader from '@/components/elements/BouncingDotsLoader';
 import { useLocationsLazy } from '@/hooks/Location';
-import { ILocation } from '@/types/Location';
+import { Location } from '@/types/Location';
 import { Typography } from '@mui/material';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
@@ -10,10 +10,10 @@ import TextField from '@mui/material/TextField';
 export default function LocationAsynchronousAutocomplete({
   onChange,
 }: {
-  onChange: (value: ILocation) => void;
+  onChange: (value: Location) => void;
 }) {
   const [open, setOpen] = React.useState(false);
-  const [options, setOptions] = React.useState<readonly ILocation[]>([]);
+  const [options, setOptions] = React.useState<readonly Location[]>([]);
 
   const [getLocations, { error }] = useLocationsLazy();
   const loading = open && options.length === 0;

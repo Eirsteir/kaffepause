@@ -4,7 +4,7 @@ import { useState } from 'react';
 import BreakPlannerFriendsSelector from '@/components/modules/planning/friends/BreakPlannerFriendsSelector';
 import BreakPlannerLocationSelector from '@/components/modules/planning/location/BreakPlannerLocationSelector';
 import BreakPlannerTimeSelector from '@/components/modules/planning/time/BreakPlannerTimeSelector';
-import { ILocation } from '@/types/Location';
+import { Location } from '@/types/Location';
 import { User } from '@/types/User';
 import { ApolloError } from '@apollo/client';
 import { Typography } from '@mui/material';
@@ -16,9 +16,9 @@ import StartBreakButton from './StartBreakButton';
 interface BreakPlannerFormProps {
   user: User;
   initialTimeSlot: Dayjs | undefined;
-  initialLocation: ILocation | undefined;
+  initialLocation: Location | undefined;
   initialInvitees: User[] | undefined;
-  onSubmit: (location: ILocation, startTime: Dayjs, invitees: User[]) => void;
+  onSubmit: (location: Location, startTime: Dayjs, invitees: User[]) => void;
   error: ApolloError;
   loading: boolean;
 }
@@ -35,7 +35,7 @@ export default function BreakPlannerForm({
   const [timeSlot, setTimeSlot] = useState<Dayjs | null>(
     initialTimeSlot ?? null,
   );
-  const [location, setLocation] = useState<ILocation | null>(
+  const [location, setLocation] = useState<Location | null>(
     initialLocation ?? null,
   );
   const [invitees, setInvitees] = useState<User[]>(initialInvitees ?? []);

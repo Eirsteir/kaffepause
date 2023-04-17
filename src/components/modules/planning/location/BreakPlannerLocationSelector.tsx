@@ -3,7 +3,7 @@ import { useEffect, useMemo, useState } from 'react';
 import CenteredBox from '@/components/elements/CenteredBox';
 import LocationSelectCreateOptionDialog from '@/components/modules/planning/location/LocationSelectCreateOptionDialog';
 import { useLocations } from '@/hooks/Location';
-import { ILocation } from '@/types/Location';
+import { Location } from '@/types/Location';
 import { User } from '@/types/User';
 import Box from '@mui/material/Box';
 import Tooltip from '@mui/material/Tooltip';
@@ -11,14 +11,14 @@ import Typography from '@mui/material/Typography';
 
 interface BreakPlannerLocationSelectorProps {
   user: User;
-  onSelect: (location: ILocation) => void;
+  onSelect: (location: Location) => void;
 }
 
 export default function BreakPlannerLocationSelector({
   user,
   onSelect,
 }: BreakPlannerLocationSelectorProps) {
-  const [location, setLocation] = useState<ILocation | undefined>(
+  const [location, setLocation] = useState<Location | undefined>(
     user.preferredLocation,
   );
   const [inputError, setInputError] = useState<string>('');
@@ -29,7 +29,7 @@ export default function BreakPlannerLocationSelector({
     [data],
   );
 
-  const handleSelect = (location: ILocation) => {
+  const handleSelect = (location: Location) => {
     if (!location) {
       return setInputError('Du må velge et pausested');
     }

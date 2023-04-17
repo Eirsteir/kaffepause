@@ -1,5 +1,5 @@
-import { ILocation } from '@/types/Location';
-import { UserConnection, User } from '@/types/User';
+import { Location } from '@/types/Location';
+import { User, UserConnection } from '@/types/User';
 
 export enum InvitationContext {
   CAN_REPLY = 'CAN_REPLY',
@@ -31,7 +31,7 @@ export interface IBreak {
   hasPassed: boolean;
   isViewerInitiator: boolean;
   canViewerEditBreak: boolean;
-  location: ILocation;
+  location: Location;
   invitation: IInvitation;
   participants: UserConnection;
 }

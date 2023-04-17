@@ -1,4 +1,4 @@
-import { LOCATION_CHILD_FIELDS } from '@/graphql/locations.query';
+import { LOCATION_CHILD_FIELDS } from '@/graphql/locations/locations.query';
 import { gql } from '@apollo/client';
 
 const BREAK_FIELDS = gql`
