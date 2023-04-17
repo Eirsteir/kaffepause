@@ -56,7 +56,6 @@ export default function BreakPlannerLocationSelector({
 
       <Box sx={{ maxWidth: 250 }}>
         <LocationSelectCreateOptionDialog
-          error={inputError}
           initialLocation={location}
           loading={loading}
           locations={locations}

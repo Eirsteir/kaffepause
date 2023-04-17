@@ -40,15 +40,20 @@ const ActionCard = ({ children }: { children: ReactNode }) => (
 export default function NextBreakActionCard() {
   const { data, loading, error, refetch } = useNextBreak();
 
-  // useEffect(() => {
-  //   const refreshIntervalInMs = new Date(
-  //     data?.break?.startingAt,
-  //   ).getMilliseconds();
-  //   // const interval = setInterval(() => refetch(), refreshIntervalInMs);  // NEEDS fixing calls all the time
-  //   return () => {
-  //     clearInterval(interval);
-  //   };
-  // }, [data, refetch]);
+  useEffect(() => {
+    if (data?.nextBreak?.startingAt) {
+      const startingTime = new Date(data.nextBreak.startingAt).getTime();
+      const currentTime = new Date().getTime();
+      const refreshIntervalInMs = startingTime - currentTime;
+
+      if (refreshIntervalInMs > 0) {
+        const interval = setInterval(() => refetch(), refreshIntervalInMs);
+        return () => clearInterval(interval);
+      } else {
+        refetch();
+      }
+    }
+  }, [data, refetch]);
 
   const url = () =>
     data?.nextBreak ? `${URLS.BREAKS}/${data?.nextBreak?.uuid}` : '#';
