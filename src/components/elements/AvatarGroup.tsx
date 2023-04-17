@@ -1,11 +1,11 @@
 import * as React from 'react';
 
 import Avatar from '@/components/elements/Avatar';
-import { IUser } from '@/types/User';
+import { User } from '@/types/User';
 import MuiAvatarGroup from '@mui/material/AvatarGroup';
 
 interface AvatarGroupProps {
-  users: readonly IUser[];
+  users: readonly User[];
 }
 
 export default function AvatarGroup({ users }: AvatarGroupProps) {

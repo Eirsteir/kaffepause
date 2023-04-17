@@ -23,8 +23,15 @@ export const useTimeSlots = (): [
 };
 
 export const useRefreshData = () => {
+  // Reload server side data
   const router = useRouter();
   return () => {
     router.replace(router.asPath);
   };
+};
+
+export const useParams = () => {
+  // Waiting for useParams() from nextjs v13.3
+  const router = useRouter();
+  return router.query;
 };

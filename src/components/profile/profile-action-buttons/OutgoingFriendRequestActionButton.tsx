@@ -1,11 +1,11 @@
-import ProfileAction from '@/components/modules/profile/profile-action-buttons/ProfileAction';
+import ProfileAction from '@/components/profile/profile-action-buttons/ProfileAction';
 import { useCancelFriendRequest } from '@/hooks/Friends';
-import { IUser } from '@/types/User';
+import { User } from '@/types/User';
 
 import AddFriendActionButton from './AddFriendActionButton';
 
 type Props = {
-  user: IUser;
+  user: User;
 };
 
 export default function OutgoingFriendRequestActionButton({ user }: Props) {

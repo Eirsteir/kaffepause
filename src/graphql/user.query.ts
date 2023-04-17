@@ -16,6 +16,7 @@ export const USER_FIELDS = gql`
       id
       statusType
       verb
+      __typename
     }
     friends {
       totalCount
@@ -29,8 +30,10 @@ export const USER_FIELDS = gql`
           profilePic
           socialContext
           isViewerFriend
+          __typename
         }
       }
+      __typename
     }
     friendshipStatus
     preferredLocation {
@@ -39,6 +42,7 @@ export const USER_FIELDS = gql`
     currentLocation {
       ...LocationChildFields
     }
+    __typename
   }
 `;
 

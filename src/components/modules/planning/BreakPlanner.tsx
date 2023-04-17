@@ -1,11 +1,11 @@
 import Heading from '@/components/elements/Heading';
 import BreakPlannerCreateForm from '@/components/modules/planning/BreakPlannerCreateForm';
-import { IUser } from '@/types/User';
+import { User } from '@/types/User';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
 interface BreakPlannerProps {
-  user: IUser;
+  user: User;
 }
 
 export default function BreakPlanner({ user }: BreakPlannerProps) {

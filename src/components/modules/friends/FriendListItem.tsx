@@ -1,14 +1,14 @@
 import { useRouter } from 'next/router';
 
 import Avatar from '@/components/elements/Avatar';
-import { IUser } from '@/types/User';
+import { User } from '@/types/User';
 import URLS from '@/URLS';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 
 interface FriendListItemProps {
-  friend: IUser;
+  friend: User;
 }
 
 export default function FriendListItem({ friend }: FriendListItemProps) {

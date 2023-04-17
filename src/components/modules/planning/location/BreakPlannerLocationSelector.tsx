@@ -4,13 +4,13 @@ import CenteredBox from '@/components/elements/CenteredBox';
 import LocationSelectCreateOptionDialog from '@/components/modules/planning/location/LocationSelectCreateOptionDialog';
 import { useLocations } from '@/hooks/Location';
 import { ILocation } from '@/types/Location';
-import { IUser } from '@/types/User';
+import { User } from '@/types/User';
 import Box from '@mui/material/Box';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 
 interface BreakPlannerLocationSelectorProps {
-  user: IUser;
+  user: User;
   onSelect: (location: ILocation) => void;
 }
 

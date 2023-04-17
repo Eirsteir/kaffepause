@@ -1,5 +1,5 @@
 import AvatarChips from '@/components/elements/AvatarChips';
-import { IUser } from '@/types/User';
+import { User } from '@/types/User';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
@@ -8,7 +8,7 @@ export const BreakDetailUsersSection = ({
   users,
   canViewerEditBreak,
 }: {
-  users: IUser[];
+  users: User[];
   canViewerEditBreak: boolean;
 }) => {
   const resolveButton = () => {

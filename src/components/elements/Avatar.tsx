@@ -1,10 +1,10 @@
-import { IUser } from '@/types/User';
+import { User } from '@/types/User';
 import { getInitialsFromName } from '@/utils';
 import MuiAvatar, { AvatarProps as MuiAvatarProps } from '@mui/material/Avatar';
 import { grey } from '@mui/material/colors';
 
 interface AvatarProps extends MuiAvatarProps {
-  user: IUser | undefined;
+  user: User | undefined;
   children?: React.ReactElement;
 }
 

@@ -1,18 +1,18 @@
 import Avatar from '@/components/elements/Avatar';
 import CenteredBox from '@/components/elements/CenteredBox';
-import AddFriendActionButton from '@/components/modules/profile/profile-action-buttons/AddFriendActionButton';
-import FriendActionButton from '@/components/modules/profile/profile-action-buttons/FriendActionButton';
-import IncomingFriendRequestActionButton from '@/components/modules/profile/profile-action-buttons/IncomingFriendRequestActionButton';
-import OutgoingFriendRequestActionButton from '@/components/modules/profile/profile-action-buttons/OutgoingFriendRequestActionButton';
 import Link from '@/components/navigation/Link';
-import { FriendshipStatus, IUser } from '@/types/User';
+import AddFriendActionButton from '@/components/profile/profile-action-buttons/AddFriendActionButton';
+import FriendActionButton from '@/components/profile/profile-action-buttons/FriendActionButton';
+import IncomingFriendRequestActionButton from '@/components/profile/profile-action-buttons/IncomingFriendRequestActionButton';
+import OutgoingFriendRequestActionButton from '@/components/profile/profile-action-buttons/OutgoingFriendRequestActionButton';
+import { FriendshipStatus, User } from '@/types/User';
 import { getInitialsFromName } from '@/utils';
 import { Card } from '@mui/material';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 
 interface UserPaperSectionProps {
-  user: IUser;
+  user: User;
   actorIsUser: boolean;
 }
 

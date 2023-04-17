@@ -1,5 +1,5 @@
 import { ILocation } from '@/types/Location';
-import { IUser, IUserConnection } from '@/types/User';
+import { UserConnection, User } from '@/types/User';
 
 export enum InvitationContext {
   CAN_REPLY = 'CAN_REPLY',
@@ -13,11 +13,11 @@ export interface IInvitation {
   __typename: string;
   id: string;
   uuid: string;
-  sender: IUser;
+  sender: User;
   context: InvitationContext;
-  addressees: IUserConnection;
+  addressees: UserConnection;
   addresseeCount: number;
-  acceptees: IUserConnection;
+  acceptees: UserConnection;
   subject?: IBreak;
 }
 
@@ -33,5 +33,5 @@ export interface IBreak {
   canViewerEditBreak: boolean;
   location: ILocation;
   invitation: IInvitation;
-  participants: IUserConnection;
+  participants: UserConnection;
 }

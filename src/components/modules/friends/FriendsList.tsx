@@ -1,10 +1,10 @@
 import FriendListItem from '@/components/modules/friends/FriendListItem';
-import { IUser } from '@/types/User';
+import { User } from '@/types/User';
 import Divider from '@mui/material/Divider';
 import List from '@mui/material/List';
 
 interface FriendsListProps {
-  friends: IUser[];
+  friends: User[];
 }
 
 export default function FriendsList({ friends }: FriendsListProps) {

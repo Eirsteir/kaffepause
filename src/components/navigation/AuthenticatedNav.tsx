@@ -2,10 +2,10 @@ import Search from '@/components/modules/Search';
 import AccountMenu from '@/components/navigation/AccountMenu';
 import BaseNavigation from '@/components/navigation/BaseNavigation';
 import NotificationsMenu from '@/components/navigation/NotificationsMenu';
-import { IUser } from '@/types/User';
+import { User } from '@/types/User';
 
 interface IProps {
-  user: IUser;
+  user: User;
 }
 
 export default function AuthenticatedNav({ user }: IProps) {

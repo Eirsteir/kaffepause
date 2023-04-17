@@ -10,7 +10,7 @@ import {
   useNotifications,
   useNotificationsBagdeCount,
 } from '@/hooks/Notifications';
-import { IUser } from '@/types/User';
+import { User } from '@/types/User';
 import NotificationsOutlinedIcon from '@mui/icons-material/NotificationsOutlined';
 import { Skeleton } from '@mui/lab';
 import { ListItemText } from '@mui/material';
@@ -48,7 +48,7 @@ const LoadingSkeleton = () => (
 );
 
 interface IProps {
-  user: IUser;
+  user: User;
 }
 
 export default function NotificationsMenu({ user }: IProps) {
@@ -139,8 +139,7 @@ export default function NotificationsMenu({ user }: IProps) {
               <Link
                 href={node.url}
                 key={`notification-${node.uuid}`}
-                noLinkStyle
-                prefetch>
+                noLinkStyle>
                 <MenuItem>
                   <Avatar user={node.actor} />
                   <ListItemText

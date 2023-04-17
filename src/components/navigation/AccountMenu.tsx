@@ -1,7 +1,7 @@
 import { signOut } from 'next-auth/react';
 import { useRouter } from 'next/router';
 
-import { IUser } from '@/types/User';
+import { User } from '@/types/User';
 import URLS from '@/URLS';
 import Divider from '@mui/material/Divider';
 import MenuItem from '@mui/material/MenuItem';
@@ -10,7 +10,7 @@ import Typography from '@mui/material/Typography';
 import NavigationMenu from './NavigationMenu';
 
 interface IProps {
-  user: IUser;
+  user: User;
 }
 
 export default function AccountMenu({ user }: IProps) {

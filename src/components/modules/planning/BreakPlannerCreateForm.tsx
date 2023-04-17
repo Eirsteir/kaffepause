@@ -3,10 +3,10 @@ import { Dayjs } from 'dayjs';
 import BreakPlannerForm from '@/components/modules/planning/BreakPlannerForm';
 import { useIniateBreak } from '@/hooks/Breaks';
 import { ILocation } from '@/types/Location';
-import { IUser } from '@/types/User';
+import { User } from '@/types/User';
 
 interface BreakPlannerCreateFormProps {
-  user: IUser;
+  user: User;
 }
 
 export default function BreakPlannerCreateForm({
@@ -25,7 +25,7 @@ export default function BreakPlannerCreateForm({
   const handleSubmit = (
     location: ILocation,
     startTime: Dayjs,
-    invitees: IUser[],
+    invitees: User[],
   ) => {
     initiateBreak({
       variables: {

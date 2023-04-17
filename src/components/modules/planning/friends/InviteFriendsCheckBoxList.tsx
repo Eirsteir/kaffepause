@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import Avatar from '@/components/elements/Avatar';
-import { IUser } from '@/types/User';
+import { User } from '@/types/User';
 import AddCircleOutlineRoundedIcon from '@mui/icons-material/AddCircleOutlineRounded';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import Checkbox from '@mui/material/Checkbox';
@@ -12,10 +12,10 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 
 interface InviteFriendsCheckBoxListProps {
-  initialSelection: IUser[];
-  users: IUser[];
-  onSelect: (user: IUser) => void;
-  onDeselect: (user: IUser) => void;
+  initialSelection: User[];
+  users: User[];
+  onSelect: (user: User) => void;
+  onDeselect: (user: User) => void;
 }
 
 export default function InviteFriendsCheckBoxList({
@@ -24,9 +24,9 @@ export default function InviteFriendsCheckBoxList({
   onDeselect,
   initialSelection,
 }: InviteFriendsCheckBoxListProps) {
-  const [checked, setChecked] = React.useState<IUser[]>([]);
+  const [checked, setChecked] = React.useState<User[]>([]);
 
-  const handleToggle = (user: IUser) => () => {
+  const handleToggle = (user: User) => () => {
     const currentIndex = checked.indexOf(user);
     const newChecked = [...checked];
 

@@ -1,14 +1,14 @@
 import { useRouter } from 'next/router';
 
-import ProfileAction from '@/components/modules/profile/profile-action-buttons/ProfileAction';
+import ProfileAction from '@/components/profile/profile-action-buttons/ProfileAction';
 import { useRemoveFriend } from '@/hooks/Friends';
-import { IUser } from '@/types/User';
+import { User } from '@/types/User';
 import URLS from '@/URLS';
 
 import AddFriendActionButton from './AddFriendActionButton';
 
 type Props = {
-  user: IUser;
+  user: User;
 };
 
 export default function FriendActionButton({ user }: Props) {

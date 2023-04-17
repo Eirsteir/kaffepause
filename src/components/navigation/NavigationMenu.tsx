@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import Avatar from '@/components/elements/Avatar';
-import { IUser } from '@/types/User';
+import { User } from '@/types/User';
 import MenuIcon from '@mui/icons-material/Menu';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
@@ -12,7 +12,7 @@ export default function NavigationMenu({
   user,
   children,
 }: {
-  user?: IUser;
+  user?: User;
   children: React.ReactNode;
 }) {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);

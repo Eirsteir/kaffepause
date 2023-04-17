@@ -5,7 +5,7 @@ import BreakPlannerFriendsSelector from '@/components/modules/planning/friends/B
 import BreakPlannerLocationSelector from '@/components/modules/planning/location/BreakPlannerLocationSelector';
 import BreakPlannerTimeSelector from '@/components/modules/planning/time/BreakPlannerTimeSelector';
 import { ILocation } from '@/types/Location';
-import { IUser } from '@/types/User';
+import { User } from '@/types/User';
 import { ApolloError } from '@apollo/client';
 import { Typography } from '@mui/material';
 import Box from '@mui/material/Box';
@@ -14,11 +14,11 @@ import Grid from '@mui/material/Grid';
 import StartBreakButton from './StartBreakButton';
 
 interface BreakPlannerFormProps {
-  user: IUser;
+  user: User;
   initialTimeSlot: Dayjs | undefined;
   initialLocation: ILocation | undefined;
-  initialInvitees: IUser[] | undefined;
-  onSubmit: (location: ILocation, startTime: Dayjs, invitees: IUser[]) => void;
+  initialInvitees: User[] | undefined;
+  onSubmit: (location: ILocation, startTime: Dayjs, invitees: User[]) => void;
   error: ApolloError;
   loading: boolean;
 }
@@ -38,7 +38,7 @@ export default function BreakPlannerForm({
   const [location, setLocation] = useState<ILocation | null>(
     initialLocation ?? null,
   );
-  const [invitees, setInvitees] = useState<IUser[]>(initialInvitees ?? []);
+  const [invitees, setInvitees] = useState<User[]>(initialInvitees ?? []);
 
   return (
     <Box>
