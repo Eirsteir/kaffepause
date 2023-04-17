@@ -42,7 +42,7 @@ export const useIniateBreak = (options?) =>
     ) {
       cache.modify({
         fields: {
-          nextbreak(existingBreak = {}) {
+          nextBreak(existingBreak = {}) {
             return {
               ...existingBreak,
               ...break_,
