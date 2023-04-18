@@ -9,13 +9,30 @@ export enum InvitationContext {
   HAS_IGNORED = 'HAS_IGNORED',
 }
 
-export interface IInvitation {
+export interface InvitationAddresse {
+  user: User;
+  status: string;
+  statusTitle: string;
+}
+
+export interface InvitationAddresseeEdge {
+  __typename: string;
+  node: InvitationAddresse;
+}
+
+export interface InvitationAddresseeConnection {
+  __typename: string;
+  count?: number;
+  edges: InvitationAddresseeEdge[];
+}
+
+export interface Invitation {
   __typename: string;
   id: string;
   uuid: string;
   sender: User;
   context: InvitationContext;
-  addressees: UserConnection;
+  addressees: InvitationAddresseeConnection;
   addresseeCount: number;
   acceptees: UserConnection;
   subject?: IBreak;
@@ -32,6 +49,6 @@ export interface IBreak {
   isViewerInitiator: boolean;
   canViewerEditBreak: boolean;
   location: Location;
-  invitation: IInvitation;
+  invitation: Invitation;
   participants: UserConnection;
 }

@@ -1,9 +1,10 @@
 import BreakReplyButtons from '@/components/breaks/BreakReplyButtons';
-import AvatarChips from '@/components/elements/AvatarChips';
 import Divider from '@/components/elements/Divider';
+import AvatarChips from '@/components/modules/breaks/ParticipantsAvatarChips';
+import AddresseesAvatarChips from '@/components/modules/invitations/AddresseesAvatarChips';
 import Link from '@/components/navigation/Link';
 import dayjs from '@/dayjs';
-import { IInvitation, InvitationContext } from '@/types/Break';
+import { Invitation, InvitationContext } from '@/types/Break';
 import URLS from '@/URLS';
 import GroupOutlinedIcon from '@mui/icons-material/GroupOutlined';
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
@@ -14,7 +15,7 @@ import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 
 type BreakInvitationActionCardProps = {
-  invitation: IInvitation;
+  invitation: Invitation;
 };
 
 export default function BreakInvitationActionCard({
@@ -83,8 +84,10 @@ export default function BreakInvitationActionCard({
               <GroupOutlinedIcon color='primary' fontSize='small' />
               <Box pl={1}>
                 {invitation.addressees.edges.length ? (
-                  <AvatarChips
-                    users={invitation.addressees.edges.map((edge) => edge.node)}
+                  <AddresseesAvatarChips
+                    addressees={invitation.addressees.edges.map(
+                      (edge) => edge.node,
+                    )}
                   />
                 ) : (
                   <Typography variant='body2'>Ingen inviterte</Typography>

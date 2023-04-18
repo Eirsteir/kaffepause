@@ -11,7 +11,7 @@ type AvatarChipsProps = {
   users: User[];
 };
 
-export default function AvatarChips({ users }: AvatarChipsProps) {
+export default function ParticipantsAvatarChips({ users }: AvatarChipsProps) {
   return (
     <Stack direction='row' spacing={1}>
       {users.map((user, i) => (

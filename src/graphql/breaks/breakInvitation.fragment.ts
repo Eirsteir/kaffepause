@@ -20,18 +20,14 @@ const BREAK_INVITATION_FIELDS = gql`
     sender {
       ...BreakUserFields
     }
-    confirmed {
-      count
-      edges {
-        node {
-          ...BreakUserFields
-        }
-      }
-    }
     addressees {
       edges {
         node {
-          ...BreakUserFields
+          user {
+            ...BreakUserFields
+          }
+          rsvp
+          rsvpTitle
         }
       }
     }

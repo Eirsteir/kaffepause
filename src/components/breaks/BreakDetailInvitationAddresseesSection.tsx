@@ -1,14 +1,16 @@
-import AvatarChips from '@/components/elements/AvatarChips';
+import AvatarChips from '@/components/modules/breaks/ParticipantsAvatarChips';
+import AddresseesAvatarChips from '@/components/modules/invitations/AddresseesAvatarChips';
+import { Invitation } from '@/types/Break';
 import { User } from '@/types/User';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
-export const BreakDetailUsersSection = ({
-  users,
+export const BreakDetailInvitationAddresseesSection = ({
+  addressees,
   canViewerEditBreak,
 }: {
-  users: User[];
+  addressees: Invitation['addressees']['edges']['node'][];
   canViewerEditBreak: boolean;
 }) => {
   const resolveButton = () => {
@@ -16,7 +18,7 @@ export const BreakDetailUsersSection = ({
       return;
     }
 
-    if (users.length) {
+    if (addressees.length) {
       return (
         <Button sx={{ marginTop: 2 }} variant='outlined'>
           Inviter flere
@@ -37,7 +39,7 @@ export const BreakDetailUsersSection = ({
         Inviterte
       </Typography>
 
-      {users.length !== 0 && (
+      {addressees.length !== 0 && (
         <Box
           sx={{
             display: 'flex',
@@ -45,7 +47,7 @@ export const BreakDetailUsersSection = ({
             flexWrap: 'wrap',
             marginTop: '0.5rem',
           }}>
-          <AvatarChips users={users} />
+          <AddresseesAvatarChips addressees={addressees} />
         </Box>
       )}
 

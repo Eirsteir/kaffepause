@@ -1,4 +1,5 @@
-import AvatarChips from '@/components/elements/AvatarChips';
+import AvatarChips from '@/components/modules/breaks/ParticipantsAvatarChips';
+import AddresseesAvatarChips from '@/components/modules/invitations/AddresseesAvatarChips';
 import Link from '@/components/navigation/Link';
 import dayjs from '@/dayjs';
 import { IBreak } from '@/types/Break';
@@ -78,8 +79,8 @@ export default function BreakActionCard({ break_ }: BreakActionCardProps) {
               <GroupOutlinedIcon color='primary' fontSize='small' />
               <Box pl={1}>
                 {break_.invitation?.addressees.edges.length ? (
-                  <AvatarChips
-                    users={break_.invitation.addressees.edges.map(
+                  <AddresseesAvatarChips
+                    addressees={break_.invitation.addressees.edges.map(
                       (edge) => edge.node,
                     )}
                   />

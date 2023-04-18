@@ -2,8 +2,9 @@ import Head from 'next/head';
 
 import BreakDetailActionCard from '@/components/breaks/BreakDetailActionCard';
 import { BreakDetailHeader } from '@/components/breaks/BreakDetailHeader';
+import { BreakDetailInvitationAddresseesSection } from '@/components/breaks/BreakDetailInvitationAddresseesSection';
 import { BreakDetailLocationSection } from '@/components/breaks/BreakDetailLocationSection';
-import { BreakDetailUsersSection } from '@/components/breaks/BreakDetailUsersSection';
+import { BreakDetailParticipantsSection } from '@/components/breaks/BreakDetailParticipantsSection';
 import Divider from '@/components/elements/Divider';
 import PageContainer from '@/components/elements/PageContainer';
 import { QueryResult } from '@/components/QueryResult';
@@ -47,15 +48,26 @@ export default function BreakDetail({ uuid }: BreakProps) {
 
               <Divider />
 
-              <BreakDetailUsersSection
-                canViewerEditBreak={break_?.canViewerEditBreak}
-                users={
+              <BreakDetailInvitationAddresseesSection
+                addressees={
                   break_?.invitation?.addressees.edges.map(
                     (edge) => edge.node,
                   ) ?? []
                 }
+                canViewerEditBreak={break_?.canViewerEditBreak}
               />
               <Divider />
+
+              {break_?.hasPassed && (
+                <>
+                  <BreakDetailParticipantsSection
+                    participants={
+                      break_?.participants.edges.map((edge) => edge.node) ?? []
+                    }
+                  />
+                  <Divider />
+                </>
+              )}
             </Grid>
           </Grid>
         </QueryResult>
