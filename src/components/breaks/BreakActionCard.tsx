@@ -1,3 +1,4 @@
+import ParticipantsAvatarChips from '@/components/modules/breaks/ParticipantsAvatarChips';
 import AvatarChips from '@/components/modules/breaks/ParticipantsAvatarChips';
 import AddresseesAvatarChips from '@/components/modules/invitations/AddresseesAvatarChips';
 import Link from '@/components/navigation/Link';
@@ -78,7 +79,15 @@ export default function BreakActionCard({ break_ }: BreakActionCardProps) {
               }}>
               <GroupOutlinedIcon color='primary' fontSize='small' />
               <Box pl={1}>
-                {break_.invitation?.addressees.edges.length ? (
+                {break_.hasPassed ? (
+                  break_.participants.edges.length ? (
+                    <ParticipantsAvatarChips
+                      users={break_.participants.edges.map((edge) => edge.node)}
+                    />
+                  ) : (
+                    <Typography variant='body2'>Ingen deltakere</Typography>
+                  )
+                ) : break_.invitation?.addressees.edges.length ? (
                   <AddresseesAvatarChips
                     addressees={break_.invitation.addressees.edges.map(
                       (edge) => edge.node,
