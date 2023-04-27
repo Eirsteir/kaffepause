@@ -30,17 +30,12 @@ export default function BreakDetail({ uuid }: BreakProps) {
           error={error}
           loading={loading}
           loadingComponent={null}>
-          <Grid container spacing={0}>
-            <Grid item md={8} xs={12}>
+          <Grid container spacing={5}>
+            <Grid item md={8} order={{ xs: 2, sm: 2, md: 1, lg: 1 }} xs={12}>
               <BreakDetailHeader
                 startingAt={break_?.startingAt}
                 title={break_?.title}
               />
-            </Grid>
-            <Grid item md={4} xs={12}>
-              <BreakDetailActionCard break_={break_} />
-            </Grid>
-            <Grid item md={8} xs={12}>
               <BreakDetailLocationSection
                 canViewerEditBreak={break_?.canViewerEditBreak}
                 location={break_?.location}
@@ -68,6 +63,9 @@ export default function BreakDetail({ uuid }: BreakProps) {
                   <Divider />
                 </>
               )}
+            </Grid>
+            <Grid item md={4} order={{ xs: 1, sm: 1, md: 2, lg: 2 }} xs={12}>
+              <BreakDetailActionCard break_={break_} />
             </Grid>
           </Grid>
         </QueryResult>

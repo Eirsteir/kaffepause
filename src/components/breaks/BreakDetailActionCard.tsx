@@ -15,13 +15,25 @@ export default function BreakDetailActionCard({ break_ }: { break_: IBreak }) {
     <Paper
       elevation={0}
       sx={{
-        padding: '1.5rem',
+        padding: '2rem',
         boxShadow: '0 6px 20px rgba(0,0,0,0.2)',
       }}>
       <CenteredBox sx={{ paddingBottom: 2 }}>
-        <Typography sx={{ fontWeight: 600 }} variant='subtitle2'>
-          {break_?.kicker || dayjs(break_.startingAt).fromNow()}
-        </Typography>
+        {!break_.hasPassed && (
+          <Paper
+            style={{
+              borderRadius: '8px',
+              padding: '3px 8px',
+              backgroundColor: 'primary.main',
+              marginTop: 2,
+              marginBottom: '1.5rem',
+            }}
+            variant='outlined'>
+            <Typography sx={{ fontWeight: 600 }} variant='subtitle2'>
+              {break_?.kicker || dayjs(break_.startingAt).fromNow()}
+            </Typography>
+          </Paper>
+        )}
 
         {break_.canViewerEditBreak && (
           <Button variant='outlined'>Endre pausen</Button>
@@ -55,7 +67,9 @@ export default function BreakDetailActionCard({ break_ }: { break_: IBreak }) {
           <>
             {break_.invitation?.context == InvitationContext.CAN_REPLY && (
               <>
-                <Typography variant='h3'>Vil du delta?</Typography>
+                <Typography pb={1.5} variant='h3'>
+                  Vil du delta?
+                </Typography>
                 <BreakReplyButtons
                   invitationUuid={break_?.invitation.uuid}
                   onError={(err) => setError(err)}

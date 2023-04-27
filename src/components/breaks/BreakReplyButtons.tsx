@@ -1,10 +1,11 @@
+import CenteredBox from '@/components/elements/CenteredBox';
 import LoadingButton from '@/components/elements/LoadingButton';
 import {
   useAcceptBreakInvitation,
   useDeclineBreakInvitation,
   useIgnoreBreakInvitation,
 } from '@/hooks/Breaks';
-import { Box } from '@mui/material';
+import Box from '@mui/material/Box';
 
 type ActionButtonProps = {
   invitationUuid: string;
@@ -46,7 +47,7 @@ function DeclineButton({ invitationUuid, onError }: ActionButtonProps) {
       onClick={onClick}
       sx={{ marginRight: 0.5 }}
       variant='outlined'>
-      Ignorer
+      Avslå
     </LoadingButton>
   );
 }
@@ -61,9 +62,9 @@ export default function BreakReplyButtons({
   onError,
 }: ActionButtonGroupProps) {
   return (
-    <>
+    <CenteredBox flexDirection='row' sx={{ width: '100%' }}>
       <AcceptButton invitationUuid={invitationUuid} onError={onError} />
       <DeclineButton invitationUuid={invitationUuid} onError={onError} />
-    </>
+    </CenteredBox>
   );
 }
