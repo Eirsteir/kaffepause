@@ -31,7 +31,7 @@ const KeyBenefitItem = ({ title, text, Icon }: Props) => (
 
 export default function KeyBenefits() {
   return (
-    <Box sx={{ marginTop: '2rem', padding: '1rem' }}>
+    <Box sx={{ marginTop: '2rem', padding: '1rem', marginBottom: 20 }}>
       <Grid container spacing={2}>
         <Grid item xs={4}>
           <KeyBenefitItem

@@ -1,12 +1,11 @@
-import Hero from './Hero';
-import KeyBenefits from './KeyBenefits';
+import Hero from '@/components/landing/Hero';
+import KeyBenefits from '@/components/landing/KeyBenefits';
 
 export default function Landing() {
-
-    return (
-        <>
-            <Hero />
-            <KeyBenefits />
-        </>
-    )
+  return (
+    <>
+      <Hero />
+      <KeyBenefits />
+    </>
+  );
 }

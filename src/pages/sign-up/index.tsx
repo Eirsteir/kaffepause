@@ -3,6 +3,8 @@ import { useRouter } from 'next/router';
 import * as React from 'react';
 import { useEffect, useState } from 'react';
 
+import Divider from '@/components/elements/Divider';
+import SIGNUP_MUTATION from '@/graphql/signup.mutation';
 import URLS from '@/URLS';
 import { useMutation } from '@apollo/client';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
@@ -18,8 +20,6 @@ import Link from '@mui/material/Link';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 
-import SIGNUP_MUTATION from '../../graphql/signup.mutation';
-
 function Copyright(props: any) {
   return (
     <Typography
@@ -28,8 +28,8 @@ function Copyright(props: any) {
       variant='body2'
       {...props}>
       {'Copyright © '}
-      <Link color='inherit' href='https://mui.com/'>
-        Your Website
+      <Link color='inherit' href='https://kaffepause.com/'>
+        kaffepause
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -88,7 +88,7 @@ export default function SignUp() {
           if (error.errors.nonFieldErrors) {
             setSignUpError(error.errors.nonFieldErrors[0].message);
           } else {
-            setSignUpError('Something went wrong');
+            setSignUpError('Noe gikk galt');
           }
         }
       });
@@ -118,7 +118,7 @@ export default function SignUp() {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component='h1' variant='h5'>
-          Sign up
+          Registrer deg
         </Typography>
         <Box component='form' noValidate onSubmit={onSubmit} sx={{ mt: 3 }}>
           <Grid container spacing={2}>
@@ -128,7 +128,7 @@ export default function SignUp() {
                 autoFocus
                 fullWidth
                 id='firstName'
-                label='First Name'
+                label='Fornavn'
                 name='firstName'
                 onChange={(e) => setFirstName(e.target.value)}
                 required
@@ -140,7 +140,7 @@ export default function SignUp() {
                 autoComplete='family-name'
                 fullWidth
                 id='lastName'
-                label='Last Name'
+                label='Etternavn'
                 name='lastName'
                 onChange={(e) => setLastName(e.target.value)}
                 required
@@ -152,7 +152,7 @@ export default function SignUp() {
                 autoComplete='email'
                 fullWidth
                 id='email'
-                label='Email Address'
+                label='E-post'
                 name='email'
                 onChange={(e) => setEmail(e.target.value)}
                 required
@@ -164,7 +164,7 @@ export default function SignUp() {
                 autoComplete='new-password'
                 fullWidth
                 id='password'
-                label='Password'
+                label='Passord'
                 name='password'
                 onChange={(e) => setPassword(e.target.value)}
                 required
@@ -173,9 +173,47 @@ export default function SignUp() {
               />
             </Grid>
             <Grid item xs={12}>
+              <Typography sx={{ lineHeight: 1 }} variant='caption'>
+                Ved å velge <b>Godta og fortsett</b>, godtar jeg Kaffepauses{' '}
+                <b>Bruksvilkår</b> og bekrefter{' '}
+                <b>Retningslinjer for personvern</b>.
+              </Typography>
+            </Grid>
+            <Grid item xs={12}>
+              <Button
+                disabled={
+                  loading || !email || !firstName || !lastName || !password
+                }
+                fullWidth
+                sx={{ mb: 2 }}
+                type='submit'
+                variant='contained'>
+                Godta og fortsett
+              </Button>
+            </Grid>
+            <Grid container justifyContent='flex-end'>
+              <Grid item>
+                <Link href={URLS.SIGNIN} variant='body2'>
+                  Har du allerede en bruker? Logg inn
+                </Link>
+              </Grid>
+            </Grid>
+            <Grid item xs={12}>
+              <Divider />
+              <Typography sx={{ lineHeight: 1 }} variant='caption'>
+                Kaffepause sender deg medlemstilbud, inspirasjon,
+                markedsføringsmeldinger og push-varslinger. Du kan når som helst
+                velge å ikke motta disse i kontoinnstillingene dine eller
+                direkte fra markedsføringsvarselet.
+              </Typography>
               <FormControlLabel
                 control={<Checkbox color='primary' value='allowExtraEmails' />}
-                label='I want to receive inspiration, marketing promotions and updates via email.'
+                label={
+                  <Typography variant='caption'>
+                    Jeg ønsker ikke å motta markedsføringsmeldinger fra
+                    Kaffepause.
+                  </Typography>
+                }
               />
             </Grid>
           </Grid>
@@ -189,21 +227,6 @@ export default function SignUp() {
           >
             {signUpError}
           </span>
-          <Button
-            disabled={loading || !email || !firstName || !lastName || !password}
-            fullWidth
-            sx={{ mt: 3, mb: 2 }}
-            type='submit'
-            variant='contained'>
-            Sign Up
-          </Button>
-          <Grid container justifyContent='flex-end'>
-            <Grid item>
-              <Link href={URLS.SIGNIN} variant='body2'>
-                Already have an account? Sign in
-              </Link>
-            </Grid>
-          </Grid>
         </Box>
       </Box>
       <Copyright sx={{ mt: 5 }} />
