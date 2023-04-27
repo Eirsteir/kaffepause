@@ -19,9 +19,9 @@ export default function BreakDetailActionCard({ break_ }: { break_: IBreak }) {
         boxShadow: '0 6px 20px rgba(0,0,0,0.2)',
       }}>
       <CenteredBox sx={{ paddingBottom: 2 }}>
-        {/* <Typography sx={{ fontWeight: 600 }} variant='subtitle2'>
+        <Typography sx={{ fontWeight: 600 }} variant='subtitle2'>
           {break_?.kicker || dayjs(break_.startingAt).fromNow()}
-        </Typography> */}
+        </Typography>
 
         {break_.canViewerEditBreak && (
           <Button variant='outlined'>Endre pausen</Button>
@@ -29,7 +29,7 @@ export default function BreakDetailActionCard({ break_ }: { break_: IBreak }) {
 
         {break_.invitation?.context == InvitationContext.CANNOT_REPLY && (
           <Typography textAlign='center' variant='subtitle2'>
-            Du kan dessverre ikke svare på denne invitasjonen.
+            Du kan ikke svare på denne invitasjonen lengre.
           </Typography>
         )}
 
