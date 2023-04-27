@@ -1,13 +1,21 @@
 import { useRouter } from 'next/router';
 
 import Divider from '@/components/elements/Divider';
-import Heading from '@/components/elements/Heading';
 import BreakInvitationActionCard from '@/components/invitations/BreakInvitationActionCard';
 import { QueryResult } from '@/components/QueryResult';
 import { usePendingBreakInvitations } from '@/hooks/Breaks';
 import URLS from '@/URLS';
+import Badge, { BadgeProps } from '@mui/material/Badge';
 import Button from '@mui/material/Button';
+import { styled } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
+
+const StyledBadge = styled(Badge)<BadgeProps>(({ theme }) => ({
+  '& .MuiBadge-badge': {
+    right: -12,
+    top: 6,
+  },
+}));
 
 export default function PendingBreakInvitations() {
   const router = useRouter();
@@ -20,8 +28,14 @@ export default function PendingBreakInvitations() {
       <Typography
         sx={{ paddingTop: '5rem', paddingBottom: '1.5rem' }}
         variant='h1'>
-        Nye invitasjoner
+        <StyledBadge
+          badgeContent=' '
+          color='secondary'
+          invisible={data?.pendingBreakInvitations?.count === 0}>
+          Nye invitasjoner
+        </StyledBadge>
       </Typography>
+
       <QueryResult
         data={data?.pendingBreakInvitations}
         error={error}

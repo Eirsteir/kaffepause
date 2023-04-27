@@ -27,7 +27,7 @@ const themeOptions: ThemeOptions = {
       main: '#264653',
     },
     secondary: {
-      main: '#f8e7e4',
+      main: '#e76f51ff',
     },
     border: {
       main: '#DDD',
