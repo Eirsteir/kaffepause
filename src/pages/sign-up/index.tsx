@@ -131,7 +131,6 @@ export default function SignUp() {
                 label='Fornavn'
                 name='firstName'
                 onChange={(e) => setFirstName(e.target.value)}
-                required
                 value={firstName}
               />
             </Grid>
@@ -143,7 +142,6 @@ export default function SignUp() {
                 label='Etternavn'
                 name='lastName'
                 onChange={(e) => setLastName(e.target.value)}
-                required
                 value={lastName}
               />
             </Grid>
@@ -155,7 +153,6 @@ export default function SignUp() {
                 label='E-post'
                 name='email'
                 onChange={(e) => setEmail(e.target.value)}
-                required
                 value={email}
               />
             </Grid>
@@ -167,7 +164,6 @@ export default function SignUp() {
                 label='Passord'
                 name='password'
                 onChange={(e) => setPassword(e.target.value)}
-                required
                 type='password'
                 value={password}
               />
@@ -181,9 +177,6 @@ export default function SignUp() {
             </Grid>
             <Grid item xs={12}>
               <Button
-                disabled={
-                  loading || !email || !firstName || !lastName || !password
-                }
                 fullWidth
                 sx={{ mb: 2 }}
                 type='submit'

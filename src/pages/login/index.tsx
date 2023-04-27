@@ -26,7 +26,7 @@ function Copyright(props: any) {
       {...props}>
       {'Copyright © '}
       <Link color='inherit' href='https://mui.com/'>
-        Your Website
+        kaffepause
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -81,7 +81,7 @@ export default function Login() {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component='h1' variant='h5'>
-          Sign in
+          Logg inn
         </Typography>
         <Box component='form' noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
           <TextField
@@ -89,10 +89,9 @@ export default function Login() {
             autoFocus
             fullWidth
             id='email'
-            label='Email Address'
+            label='E-post'
             margin='normal'
             name='email'
-            required
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             // className={loginError ? styles.errorInput : ''}
@@ -101,18 +100,14 @@ export default function Login() {
             autoComplete='current-password'
             fullWidth
             id='password'
-            label='Password'
+            label='Passord'
             margin='normal'
             name='password'
             onChange={(e) => setPassword(e.target.value)}
-            required
             type='password'
             value={password}
           />
-          <FormControlLabel
-            control={<Checkbox color='primary' value='remember' />}
-            label='Remember me'
-          />
+
           {loginError && <p>{loginError}</p>}
           <Button
             disabled={isLoading}
@@ -120,17 +115,17 @@ export default function Login() {
             sx={{ mt: 3, mb: 2 }}
             type='submit'
             variant='contained'>
-            Sign In
+            Logg inn
           </Button>
           <Grid container>
             <Grid item xs>
               <Link href='#' variant='body2'>
-                Forgot password?
+                Glemt passord?
               </Link>
             </Grid>
             <Grid item>
               <Link href={URLS.SIGNUP} variant='body2'>
-                {"Don't have an account? Sign Up"}
+                Lag en bruker.
               </Link>
             </Grid>
           </Grid>
