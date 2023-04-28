@@ -1,8 +1,8 @@
 import BreakActionCard from '@/components/breaks/BreakActionCard';
-import { IBreak } from '@/types/Break';
+import { Break } from '@/types/Break';
 
 interface BreakListProps {
-  breaks: IBreak[];
+  breaks: Break[];
 }
 
 export default function BreakList({ breaks }: BreakListProps) {

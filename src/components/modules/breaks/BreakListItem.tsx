@@ -3,7 +3,7 @@ import { useMemo } from 'react';
 import Avatar from '@/components/elements/Avatar';
 import AvatarGroup from '@/components/elements/AvatarGroup';
 import dayjs from '@/dayjs';
-import { IBreak } from '@/types/Break';
+import { Break } from '@/types/Break';
 import { socialTextTruncated } from '@/utils';
 import ListItem from '@mui/material/ListItem';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
@@ -11,7 +11,7 @@ import ListItemText from '@mui/material/ListItemText';
 import Typography from '@mui/material/Typography';
 
 interface BreakListItemProps {
-  break_: IBreak;
+  break_: Break;
 }
 
 export default function BreakListItem({ break_ }: BreakListItemProps) {

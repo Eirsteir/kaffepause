@@ -1,8 +1,10 @@
+import CHANGE_REQUEST_FIELDS from '@/graphql/breaks/changeRequest.fragment';
 import { LOCATION_CHILD_FIELDS } from '@/graphql/locations/locations.query';
 import { gql } from '@apollo/client';
 
 const BREAK_FIELDS = gql`
   ${LOCATION_CHILD_FIELDS}
+  ${CHANGE_REQUEST_FIELDS}
 
   fragment BreakUserFields on User {
     id
@@ -19,11 +21,15 @@ const BREAK_FIELDS = gql`
     title
     startingAt
     hasPassed
+    isExpired
     isViewerInitiator
     canViewerEditBreak
     kicker
     location {
       ...LocationChildFields
+    }
+    initiator {
+      ...BreakUserFields
     }
     invitation {
       id
@@ -53,6 +59,9 @@ const BREAK_FIELDS = gql`
         }
       }
       __typename
+    }
+    changeRequests {
+      ...ChangeRequestFields
     }
     __typename
   }

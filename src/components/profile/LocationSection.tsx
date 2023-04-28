@@ -53,7 +53,7 @@ export default function UserLocationSection({
           <LocationOnOutlinedIcon color='primary' fontSize='small' />
 
           <Typography variant='body1'>
-            {user.preferredLocation?.title || 'Sted ikke oppgitt'}
+            {user.preferredLocation?.title || 'Ikke oppgitt'}
           </Typography>
         </Box>
 

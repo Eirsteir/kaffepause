@@ -8,6 +8,7 @@ import IGNORE_BREAK_INVITATION from '@/graphql/breaks/ignoreBreakInvitation.muta
 import INITIATE_BREAK_MUTATION from '@/graphql/breaks/initiateBreak.mutation';
 import NEXT_BREAK_QUERY from '@/graphql/breaks/nextBreak.query';
 import PENDING_BREAK_INVITATIONS_QUERY from '@/graphql/breaks/pendingBreakInvitations.query';
+import REQUEST_CHANGE_MUTATION from '@/graphql/breaks/requestChange.mutation';
 import { useMutation, useQuery } from '@apollo/client';
 
 export const useBreak = (uuid, options?) =>
@@ -61,3 +62,27 @@ export const useDeclineBreakInvitation = (options?) =>
 
 export const useIgnoreBreakInvitation = (options?) =>
   useMutation(IGNORE_BREAK_INVITATION, options);
+
+export const useRequestChange = (options?) =>
+  useMutation(REQUEST_CHANGE_MUTATION, {
+    ...options,
+    update(
+      cache,
+      {
+        data: {
+          requestChange: { break_ },
+        },
+      },
+    ) {
+      cache.modify({
+        fields: {
+          break_(existingBreak = {}) {
+            return {
+              ...existingBreak,
+              ...break_,
+            };
+          },
+        },
+      });
+    },
+  });

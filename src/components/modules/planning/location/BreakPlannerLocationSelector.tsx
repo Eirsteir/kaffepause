@@ -4,24 +4,22 @@ import CenteredBox from '@/components/elements/CenteredBox';
 import LocationSelectCreateOptionDialog from '@/components/modules/planning/location/LocationSelectCreateOptionDialog';
 import { useLocations } from '@/hooks/Location';
 import { Location } from '@/types/Location';
-import { User } from '@/types/User';
 import Box from '@mui/material/Box';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 
 interface BreakPlannerLocationSelectorProps {
-  user: User;
+  initialLocation: Location | undefined;
   onSelect: (location: Location) => void;
 }
 
 export default function BreakPlannerLocationSelector({
-  user,
+  initialLocation,
   onSelect,
 }: BreakPlannerLocationSelectorProps) {
   const [location, setLocation] = useState<Location | undefined>(
-    user.preferredLocation,
+    initialLocation,
   );
-  const [inputError, setInputError] = useState<string>('');
   const { loading, error, data } = useLocations();
   const locations = useMemo(
     () =>
@@ -30,10 +28,6 @@ export default function BreakPlannerLocationSelector({
   );
 
   const handleSelect = (location: Location) => {
-    if (!location) {
-      return setInputError('Du må velge et pausested');
-    }
-    setInputError('');
     setLocation(location);
     onSelect(location);
   };

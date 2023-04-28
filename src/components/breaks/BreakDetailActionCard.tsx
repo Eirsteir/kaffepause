@@ -1,14 +1,16 @@
 import { useState } from 'react';
 
 import BreakReplyButtons from '@/components/breaks/BreakReplyButtons';
+import ChangeRequestSubSection from '@/components/breaks/ChangeRequestSection';
 import CenteredBox from '@/components/elements/CenteredBox';
+import Divider from '@/components/elements/Divider';
 import dayjs from '@/dayjs';
-import { IBreak, InvitationContext } from '@/types/Break';
+import { Break, InvitationContext } from '@/types/Break';
 import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 
-export default function BreakDetailActionCard({ break_ }: { break_: IBreak }) {
+export default function BreakDetailActionCard({ break_ }: { break_: Break }) {
   const [error, setError] = useState('');
 
   return (
@@ -47,17 +49,17 @@ export default function BreakDetailActionCard({ break_ }: { break_: IBreak }) {
 
         {break_.hasPassed ? (
           <>
-            {break_.invitation?.context == InvitationContext.HAS_ACCEPTED && (
+            {break_.invitation?.context == InvitationContext.ACCEPTED && (
               <Typography variant='subtitle2'>Deltatt</Typography>
             )}
 
-            {break_.invitation?.context === InvitationContext.HAS_IGNORED && (
+            {break_.invitation?.context === InvitationContext.IGNORED && (
               <>
                 <Typography variant='subtitle2'>Ignorert</Typography>
               </>
             )}
 
-            {break_.invitation?.context === InvitationContext.HAS_DECLINED && (
+            {break_.invitation?.context === InvitationContext.DECLINED && (
               <>
                 <Typography variant='subtitle2'>Avslått</Typography>
               </>
@@ -65,30 +67,31 @@ export default function BreakDetailActionCard({ break_ }: { break_: IBreak }) {
           </>
         ) : (
           <>
-            {break_.invitation?.context == InvitationContext.CAN_REPLY && (
-              <>
-                <Typography pb={1.5} variant='h3'>
-                  Vil du delta?
-                </Typography>
-                <BreakReplyButtons
-                  invitationUuid={break_?.invitation.uuid}
-                  onError={(err) => setError(err)}
-                />
-              </>
-            )}
+            {break_.invitation?.context == InvitationContext.CAN_REPLY &&
+              !break_.isViewerInitiator && (
+                <>
+                  <Typography pb={1.5} variant='h3'>
+                    Vil du delta?
+                  </Typography>
+                  <BreakReplyButtons
+                    invitationUuid={break_?.invitation.uuid}
+                    onError={(err) => setError(err)}
+                  />
+                </>
+              )}
 
-            {break_.invitation?.context == InvitationContext.HAS_ACCEPTED && (
+            {break_.invitation?.context == InvitationContext.ACCEPTED && (
               <Typography variant='subtitle2'>Godtatt</Typography>
             )}
 
-            {break_.invitation?.context === InvitationContext.HAS_IGNORED && (
+            {break_.invitation?.context === InvitationContext.IGNORED && (
               <>
                 <Typography variant='subtitle2'>Ignorert</Typography>
                 <Button variant='outlined'>Angre</Button>
               </>
             )}
 
-            {break_.invitation?.context === InvitationContext.HAS_DECLINED && (
+            {break_.invitation?.context === InvitationContext.DECLINED && (
               <>
                 <Typography variant='subtitle2'>Avslått</Typography>
                 <Button variant='outlined'>Angre</Button>
@@ -102,6 +105,15 @@ export default function BreakDetailActionCard({ break_ }: { break_: IBreak }) {
           </Typography>
         )}
       </CenteredBox>
+      <Divider />
+      <ChangeRequestSubSection
+        breakUuid={break_.uuid}
+        changeRequests={break_.changeRequests}
+        initialLocation={break_.location}
+        initialTime={break_.startingAt}
+        initiatorShortName={break_.initiator.shortName}
+        isExpired={break_.isExpired}
+      />
     </Paper>
   );
 }

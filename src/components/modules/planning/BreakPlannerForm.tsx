@@ -51,7 +51,10 @@ export default function BreakPlannerForm({
         </Grid>
 
         <Grid item md={4} sm={6} xs={12}>
-          <BreakPlannerLocationSelector onSelect={setLocation} user={user} />
+          <BreakPlannerLocationSelector
+            initialLocation={user.preferredLocation}
+            onSelect={setLocation}
+          />
         </Grid>
 
         <Grid item md={4} xs={12}>

@@ -12,7 +12,6 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import TextField from '@mui/material/TextField';
-import Typography from '@mui/material/Typography';
 
 interface LocationOptionType {
   inputValue?: string;

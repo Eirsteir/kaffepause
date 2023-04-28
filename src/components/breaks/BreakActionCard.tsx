@@ -3,7 +3,7 @@ import AvatarChips from '@/components/modules/breaks/ParticipantsAvatarChips';
 import AddresseesAvatarChips from '@/components/modules/invitations/AddresseesAvatarChips';
 import Link from '@/components/navigation/Link';
 import dayjs from '@/dayjs';
-import { IBreak } from '@/types/Break';
+import { Break } from '@/types/Break';
 import URLS from '@/URLS';
 import GroupOutlinedIcon from '@mui/icons-material/GroupOutlined';
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
@@ -14,7 +14,7 @@ import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 
 type BreakActionCardProps = {
-  break_: IBreak;
+  break_: Break;
 };
 
 export default function BreakActionCard({ break_ }: BreakActionCardProps) {

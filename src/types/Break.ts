@@ -4,9 +4,9 @@ import { User, UserConnection } from '@/types/User';
 export enum InvitationContext {
   CAN_REPLY = 'CAN_REPLY',
   CANNOT_REPLY = 'CANNOT_REPLY',
-  HAS_ACCEPTED = 'HAS_ACCEPTED',
-  HAS_DECLINED = 'HAS_DECLINED',
-  HAS_IGNORED = 'HAS_IGNORED',
+  ACCEPTED = 'ACCEPTED',
+  DECLINED = 'DECLINED',
+  IGNORED = 'IGNORED',
 }
 
 export interface InvitationAddresse {
@@ -35,10 +35,21 @@ export interface Invitation {
   addressees: InvitationAddresseeConnection;
   addresseeCount: number;
   acceptees: UserConnection;
-  subject?: IBreak;
+  subject?: Break;
 }
 
-export interface IBreak {
+export interface ChangeRequest {
+  uuid: string;
+  created: Date;
+  requestedTime: Date | null;
+  requestedLocation: Location | null;
+  requestedBy: {
+    uuid: User['uuid'];
+    shortName: User['shortName'];
+  };
+}
+
+export interface Break {
   __typename: string;
   id: string;
   uuid: string;
@@ -46,9 +57,12 @@ export interface IBreak {
   startingAt: Date;
   kicker: string;
   hasPassed: boolean;
+  isExpired: boolean;
   isViewerInitiator: boolean;
   canViewerEditBreak: boolean;
   location: Location;
   invitation: Invitation;
   participants: UserConnection;
+  changeRequests: ChangeRequest[];
+  initiator: User;
 }

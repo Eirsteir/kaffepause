@@ -1,12 +1,12 @@
 import ParticipantsAvatarChips from '@/components/modules/breaks/ParticipantsAvatarChips';
-import { IBreak } from '@/types/Break';
+import { Break } from '@/types/Break';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
 export const BreakDetailParticipantsSection = ({
   participants,
 }: {
-  participants: IBreak['participants']['edges']['node'][];
+  participants: Break['participants']['edges']['node'][];
 }) => {
   return (
     <Box sx={{ marginTop: '2rem' }}>
