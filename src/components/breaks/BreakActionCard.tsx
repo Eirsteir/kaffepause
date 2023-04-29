@@ -66,7 +66,7 @@ export default function BreakActionCard({ break_ }: BreakActionCardProps) {
               }}>
               <LocationOnOutlinedIcon color='primary' fontSize='small' />
               <Typography pl={1} variant='body2'>
-                {break_.location?.title || 'Sted ikke oppgitt'}
+                {break_.location?.title || 'Ikke oppgitt'}
               </Typography>
             </Box>
 

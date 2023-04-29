@@ -5,6 +5,7 @@ import dayjs from '@/dayjs';
 import { Break, ChangeRequest } from '@/types/Break';
 import { Location } from '@/types/Location';
 import { User } from '@/types/User';
+import { Tooltip } from '@mui/material';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
@@ -50,9 +51,13 @@ export default function ChangeRequestSubSection({
 
   return (
     <>
-      <Typography sx={{ marginBottom: '1rem' }} variant='h3'>
-        Endringsforslag
-      </Typography>
+      <Tooltip
+        placement='top'
+        title='Hvis noe ikke passer for deg kan du foreslå et nytt tidspunkt eller sted som alle inviterte kan se.'>
+        <Typography sx={{ marginBottom: '1rem' }} variant='h3'>
+          Endringsforslag
+        </Typography>
+      </Tooltip>
       {isExpired ? (
         <Typography mb={1.5} variant='subtitle2'>
           Du kan ikke komme med endringsforslag lengre.

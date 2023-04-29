@@ -11,9 +11,13 @@ import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 
-export default function BreakDetailActionCard({ break_ }: { break_: Break }) {
+export default function BreakDetailInvitationPaper({
+  break_,
+}: {
+  break_: Break;
+}) {
   const [error, setError] = useState('');
-
+  console.log(break_);
   return (
     <Paper
       elevation={0}
@@ -39,19 +43,25 @@ export default function BreakDetailActionCard({ break_ }: { break_: Break }) {
             </CenteredBox>
           </Paper>
         )}
+        <Divider />
 
         {break_.canViewerEditBreak && (
           <Button variant='outlined'>Endre pausen</Button>
         )}
 
         {break_.invitation?.context == InvitationContext.CANNOT_REPLY && (
-          <Typography variant='subtitle2'>
-            Du kan ikke svare på denne invitasjonen lengre.
-          </Typography>
+          <>
+            <Typography variant='subtitle2'>
+              Du kan ikke svare på denne invitasjonen lengre.
+            </Typography>
+          </>
         )}
 
         {break_.hasPassed ? (
           <>
+            <Typography pb={1} variant='h3'>
+              Din status
+            </Typography>
             {break_.invitation?.context == InvitationContext.ACCEPTED && (
               <Typography variant='subtitle2'>Deltatt</Typography>
             )}
@@ -67,10 +77,14 @@ export default function BreakDetailActionCard({ break_ }: { break_: Break }) {
                 <Typography variant='subtitle2'>Avslått</Typography>
               </>
             )}
+
+            {break_.invitation?.context == InvitationContext.CANNOT_REPLY && (
+              <Typography variant='subtitle2'>Ikke svart</Typography>
+            )}
           </>
         ) : (
           <>
-            {break_.invitation?.context == InvitationContext.CAN_REPLY &&
+            {break_.invitation?.context == InvitationContext.CAN_REPLY ? (
               !break_.isViewerInitiator && (
                 <>
                   <Typography pb={1.5} variant='h3'>
@@ -81,24 +95,41 @@ export default function BreakDetailActionCard({ break_ }: { break_: Break }) {
                     onError={(err) => setError(err)}
                   />
                 </>
-              )}
+              )
+            ) : (
+              <Typography pb={1} variant='h3'>
+                Din status
+              </Typography>
+            )}
 
             {break_.invitation?.context == InvitationContext.ACCEPTED && (
               <Typography variant='subtitle2'>Godtatt</Typography>
             )}
 
             {break_.invitation?.context === InvitationContext.IGNORED && (
-              <>
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
                 <Typography variant='subtitle2'>Ignorert</Typography>
-                <Button variant='outlined'>Angre</Button>
-              </>
+                <Button variant='text'>
+                  <Typography
+                    sx={{ textDecoration: 'underline' }}
+                    variant='body2'>
+                    Angre
+                  </Typography>
+                </Button>
+              </Box>
             )}
 
             {break_.invitation?.context === InvitationContext.DECLINED && (
-              <>
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
                 <Typography variant='subtitle2'>Avslått</Typography>
-                <Button variant='outlined'>Angre</Button>
-              </>
+                <Button variant='text'>
+                  <Typography
+                    sx={{ textDecoration: 'underline' }}
+                    variant='body2'>
+                    Angre
+                  </Typography>
+                </Button>
+              </Box>
             )}
           </>
         )}

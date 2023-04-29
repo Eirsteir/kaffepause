@@ -55,13 +55,76 @@ export const useIniateBreak = (options?) =>
   });
 
 export const useAcceptBreakInvitation = (options?) =>
-  useMutation(ACCEPT_BREAK_INVITATION, options);
+  useMutation(ACCEPT_BREAK_INVITATION, {
+    ...options,
+    update(
+      cache,
+      {
+        data: {
+          acceptBreakInvitation: { invitation },
+        },
+      },
+    ) {
+      cache.modify({
+        fields: {
+          break_(existingBreak = {}) {
+            return {
+              ...existingBreak,
+              invitation,
+            };
+          },
+        },
+      });
+    },
+  });
 
 export const useDeclineBreakInvitation = (options?) =>
-  useMutation(DECLINE_BREAK_INVITATION, options);
+  useMutation(DECLINE_BREAK_INVITATION, {
+    ...options,
+    update(
+      cache,
+      {
+        data: {
+          declineBreakInvitation: { invitation },
+        },
+      },
+    ) {
+      cache.modify({
+        fields: {
+          break_(existingBreak = {}) {
+            return {
+              ...existingBreak,
+              invitation,
+            };
+          },
+        },
+      });
+    },
+  });
 
 export const useIgnoreBreakInvitation = (options?) =>
-  useMutation(IGNORE_BREAK_INVITATION, options);
+  useMutation(IGNORE_BREAK_INVITATION, {
+    ...options,
+    update(
+      cache,
+      {
+        data: {
+          ignoreBreakInvitation: { invitation },
+        },
+      },
+    ) {
+      cache.modify({
+        fields: {
+          break_(existingBreak = {}) {
+            return {
+              ...existingBreak,
+              invitation,
+            };
+          },
+        },
+      });
+    },
+  });
 
 export const useRequestChange = (options?) =>
   useMutation(REQUEST_CHANGE_MUTATION, {

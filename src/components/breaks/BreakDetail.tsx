@@ -1,8 +1,8 @@
 import Head from 'next/head';
 
-import BreakDetailActionCard from '@/components/breaks/BreakDetailActionCard';
 import { BreakDetailHeader } from '@/components/breaks/BreakDetailHeader';
 import { BreakDetailInvitationAddresseesSection } from '@/components/breaks/BreakDetailInvitationAddresseesSection';
+import BreakDetailInvitationPaper from '@/components/breaks/BreakDetailInvitationPaper';
 import { BreakDetailLocationSection } from '@/components/breaks/BreakDetailLocationSection';
 import { BreakDetailParticipantsSection } from '@/components/breaks/BreakDetailParticipantsSection';
 import Divider from '@/components/elements/Divider';
@@ -65,7 +65,7 @@ export default function BreakDetail({ uuid }: BreakProps) {
               )}
             </Grid>
             <Grid item md={4} order={{ xs: 1, sm: 1, md: 2, lg: 2 }} xs={12}>
-              <BreakDetailActionCard break_={break_} />
+              <BreakDetailInvitationPaper break_={break_} />
             </Grid>
           </Grid>
         </QueryResult>

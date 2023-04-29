@@ -1,6 +1,7 @@
 import { Dayjs } from 'dayjs';
 import { useState } from 'react';
 
+import Divider from '@/components/elements/Divider';
 import LoadingButton from '@/components/elements/LoadingButton';
 import BreakPlannerLocationSelector from '@/components/modules/planning/location/BreakPlannerLocationSelector';
 import BreakPlannerTimeSelector from '@/components/modules/planning/time/BreakPlannerTimeSelector';
@@ -69,6 +70,18 @@ export default function ChangeRequestCreateDialog({
           {initiatorShortName} kan vurdere det.
         </DialogContentText>
 
+        <Typography variant='subtitle2'>
+          Gjeldende tid og sted for pausen:{' '}
+          <span style={{ textDecoration: 'underline' }}>
+            {initialTime && `kl. ${dayjs(initialTime).format('HH:mm')}`}
+            {initialLocation && `på/i ${initialLocation.title}`}
+          </span>
+        </Typography>
+        {/* <Typography variant='body2'>
+          
+        </Typography> */}
+
+        <Divider />
         <Typography variant='subtitle2'>Forslaget ditt:</Typography>
 
         <Grid container justifyContent='start' p={2} spacing={2}>
