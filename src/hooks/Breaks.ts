@@ -73,6 +73,12 @@ export const useAcceptBreakInvitation = (options?) =>
               invitation,
             };
           },
+          nextBreak(existingBreak = {}) {
+            return {
+              ...existingBreak,
+              invitation,
+            };
+          },
         },
       });
     },

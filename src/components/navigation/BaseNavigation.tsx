@@ -22,7 +22,7 @@ export default function BaseNavigation({ children }: Props) {
           justifyContent: 'center',
         }}>
         <Toolbar>
-          <Box sx={{ flexGrow: 1 }}>
+          <Box sx={{ flex: '1 1 0px' }}>
             <Typography
               component='a'
               href={URLS.LANDING}
