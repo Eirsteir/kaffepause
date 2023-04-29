@@ -62,9 +62,9 @@ export default function BreakReplyButtons({
   onError,
 }: ActionButtonGroupProps) {
   return (
-    <CenteredBox flexDirection='row' sx={{ width: '100%' }}>
+    <Box flexDirection='row' sx={{ width: '100%' }}>
       <AcceptButton invitationUuid={invitationUuid} onError={onError} />
       <DeclineButton invitationUuid={invitationUuid} onError={onError} />
-    </CenteredBox>
+    </Box>
   );
 }

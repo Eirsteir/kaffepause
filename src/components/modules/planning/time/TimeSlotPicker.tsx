@@ -19,6 +19,7 @@ const TimeSlotPicker: React.FC<TimeSlotPickerProps> = ({
 }) => {
   const [timeSlots, timeSlot, _] = useTimeSlots();
   const [value, setValue] = useState<Dayjs>(initialTimeSlot || timeSlot);
+
   const [page, setPage] = useState<number>(1);
 
   const PER_PAGE = 6;
@@ -50,7 +51,7 @@ const TimeSlotPicker: React.FC<TimeSlotPickerProps> = ({
             <Button
               disableElevation
               onClick={() => handleSelect(timeSlot)}
-              variant={value === timeSlot ? 'contained' : 'outlined'}>
+              variant={value.isSame(timeSlot) ? 'contained' : 'outlined'}>
               {timeSlot.format('HH:mm')}
             </Button>
           </Grid>

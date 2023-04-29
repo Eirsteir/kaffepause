@@ -139,6 +139,7 @@ export default function LocationSelectCreateOptionDialog({
                 ),
               }}
               label='Velg sted'
+              size='small'
             />
           </>
         )}

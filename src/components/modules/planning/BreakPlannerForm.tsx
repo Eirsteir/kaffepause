@@ -65,7 +65,7 @@ export default function BreakPlannerForm({
       <StartBreakButton
         loading={loading}
         onClick={() => onSubmit(location, timeSlot, invitees)}
-        title={invitees.length ? 'Send invitasjon' : 'Planlegg pausen'}
+        title='Planlegg pausen'
       />
 
       {error && <Typography color='error.main'>{error.message}</Typography>}

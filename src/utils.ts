@@ -32,7 +32,9 @@ function nextTimeQuarterHour(time = new Date()) {
 }
 
 export const generateTimeSlots = (): Dayjs[] => {
-  const interval = 15; // TODO: constant
+  const interval = parseInt(
+    process.env.NEXT_PUBLIC_BREAK_PLANNER_TIME_SLOT_INVERVAL_IN_MINUTES,
+  );
   const times: Dayjs[] = [];
   let start = nextTimeQuarterHour();
   const end = dayjs().endOf('day');

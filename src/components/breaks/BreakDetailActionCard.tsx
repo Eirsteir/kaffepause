@@ -6,6 +6,7 @@ import CenteredBox from '@/components/elements/CenteredBox';
 import Divider from '@/components/elements/Divider';
 import dayjs from '@/dayjs';
 import { Break, InvitationContext } from '@/types/Break';
+import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
@@ -20,7 +21,7 @@ export default function BreakDetailActionCard({ break_ }: { break_: Break }) {
         padding: '2rem',
         boxShadow: '0 6px 20px rgba(0,0,0,0.2)',
       }}>
-      <CenteredBox sx={{ paddingBottom: 2 }}>
+      <Box>
         {!break_.hasPassed && (
           <Paper
             style={{
@@ -31,9 +32,11 @@ export default function BreakDetailActionCard({ break_ }: { break_: Break }) {
               marginBottom: '1.5rem',
             }}
             variant='outlined'>
-            <Typography sx={{ fontWeight: 600 }} variant='subtitle2'>
-              {break_?.kicker || dayjs(break_.startingAt).fromNow()}
-            </Typography>
+            <CenteredBox>
+              <Typography sx={{ fontWeight: 600 }} variant='subtitle2'>
+                {break_?.kicker || dayjs(break_.startingAt).fromNow()}
+              </Typography>
+            </CenteredBox>
           </Paper>
         )}
 
@@ -42,7 +45,7 @@ export default function BreakDetailActionCard({ break_ }: { break_: Break }) {
         )}
 
         {break_.invitation?.context == InvitationContext.CANNOT_REPLY && (
-          <Typography textAlign='center' variant='subtitle2'>
+          <Typography variant='subtitle2'>
             Du kan ikke svare på denne invitasjonen lengre.
           </Typography>
         )}
@@ -104,7 +107,7 @@ export default function BreakDetailActionCard({ break_ }: { break_: Break }) {
             {error}
           </Typography>
         )}
-      </CenteredBox>
+      </Box>
       <Divider />
       <ChangeRequestSubSection
         breakUuid={break_.uuid}
