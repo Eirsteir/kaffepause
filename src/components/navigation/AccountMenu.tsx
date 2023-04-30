@@ -33,7 +33,7 @@ export default function AccountMenu({ user }: IProps) {
       <MenuItem onClick={() => router.push(`${URLS.USERS}/${user.uuid}`)}>
         <Typography variant='subtitle2'>Profil</Typography>
       </MenuItem>
-      <MenuItem onClick={dummyAction}>
+      <MenuItem onClick={() => router.push(URLS.ACCOUNT)}>
         <Typography variant='subtitle2'>Konto</Typography>
       </MenuItem>
       <Divider />

@@ -5,6 +5,7 @@ const URLS = {
   USERS: '/users',
   BREAKS: '/breaks',
   INVITATIONS: '/invites',
+  ACCOUNT: '/account',
 };
 
 export default URLS;

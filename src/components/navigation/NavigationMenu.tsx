@@ -29,7 +29,7 @@ export default function NavigationMenu({
   return (
     <React.Fragment>
       <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
-        <Tooltip title='Profile menu'>
+        <Tooltip title='Profilmeny'>
           <IconButton
             aria-controls={open ? 'account-menu' : undefined}
             aria-expanded={open ? 'true' : undefined}
