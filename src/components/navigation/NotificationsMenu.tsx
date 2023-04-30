@@ -7,6 +7,7 @@ import Link from '@/components/navigation/Link';
 import { QueryResult } from '@/components/QueryResult';
 import dayjs from '@/dayjs';
 import {
+  useMarkAllNotificationsAsSeen,
   useNotifications,
   useNotificationsBagdeCount,
 } from '@/hooks/Notifications';
@@ -53,13 +54,17 @@ interface IProps {
 
 export default function NotificationsMenu({ user }: IProps) {
   const { data: notificationBadgeCountData } = useNotificationsBagdeCount();
-  const [fetchNotifications, { data, loading, error }] = useNotifications({});
+  const [fetchNotifications, { data, loading, error }] = useNotifications();
+  const [markAllAsSeen] = useMarkAllNotificationsAsSeen();
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-    fetchNotifications({ variables: { first: 15 } });
+    fetchNotifications({
+      variables: { first: 15 },
+      onCompleted: markAllAsSeen,
+    });
     setAnchorEl(event.currentTarget);
   };
 

@@ -3,7 +3,7 @@ import * as React from 'react';
 
 import SearchBar from '@/components/elements/SearchInputField';
 import { useSearchUsers } from '@/hooks/User';
-import { UserEdge, User } from '@/types/User';
+import { User, UserEdge } from '@/types/User';
 import URLS from '@/URLS';
 import { CircularProgress } from '@mui/material';
 import Autocomplete from '@mui/material/Autocomplete';
@@ -96,10 +96,7 @@ export default function Search() {
         return (
           <>
             <li {...props}>
-              <Grid
-                alignItems='center'
-                container
-                sx={{ paddingTop: '.5rem', paddingBottom: '.5rem' }}>
+              <Grid alignItems='center' container>
                 <Grid item sx={{ display: 'flex', width: 44 }}>
                   <Avatar sx={{ width: 32, height: 32 }} user={option} />
                 </Grid>

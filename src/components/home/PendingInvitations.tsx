@@ -31,7 +31,7 @@ export default function PendingBreakInvitations() {
         <StyledBadge
           badgeContent=' '
           color='secondary'
-          invisible={data?.pendingBreakInvitations?.count === 0}>
+          invisible={!data || data?.pendingBreakInvitations?.count === 0}>
           Nye invitasjoner
         </StyledBadge>
       </Typography>

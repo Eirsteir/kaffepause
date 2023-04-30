@@ -8,7 +8,6 @@ import Tooltip from '@mui/material/Tooltip';
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
   borderRadius: theme.shape.borderRadius,
-
   marginLeft: 0,
   width: '10%',
   [theme.breakpoints.up('sm')]: {
@@ -18,7 +17,6 @@ const Search = styled('div')(({ theme }) => ({
 }));
 
 const SearchIconWrapper = styled('div')(({ theme }) => ({
-  padding: theme.spacing(0, 2),
   height: '100%',
   position: 'absolute',
   display: 'flex',
@@ -38,7 +36,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     [theme.breakpoints.up('sm')]: {
       width: '10ch',
       '&:focus': {
-        width: '20ch',
+        width: '15ch',
       },
     },
     '&:focus': {
@@ -60,8 +58,7 @@ export default function SearchBar(params) {
             aria-controls='search-bar'
             aria-haspopup='true'
             sx={{
-              padding: 1,
-              zIndex: 99999,
+              zIndex: 10,
             }}>
             <SearchIcon />
           </IconButton>
