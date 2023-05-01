@@ -3,6 +3,7 @@ import * as React from 'react';
 
 import Avatar from '@/components/elements/Avatar';
 import Badge from '@/components/elements/Badge';
+import ShowMoreButton from '@/components/elements/ShowMoreButton';
 import Link from '@/components/navigation/Link';
 import { QueryResult } from '@/components/QueryResult';
 import dayjs from '@/dayjs';
@@ -62,7 +63,7 @@ export default function NotificationsMenu({ user }: IProps) {
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     fetchNotifications({
-      variables: { first: 15 },
+      variables: { first: 5 },
       onCompleted: markAllAsSeen,
     });
     setAnchorEl(event.currentTarget);
@@ -138,29 +139,32 @@ export default function NotificationsMenu({ user }: IProps) {
           error={error}
           loading={loading}
           loadingComponent={<LoadingSkeleton />}>
-          {(data?.notifications?.edges ?? []).map((edge) => {
-            const node = edge.node;
-            return (
-              <Link
-                href={node.url}
-                key={`notification-${node.uuid}`}
-                noLinkStyle>
-                <MenuItem>
-                  <Avatar user={node.actor} />
-                  <ListItemText
-                    primary={
-                      <Typography
-                        sx={{ whiteSpace: 'normal' }}
-                        variant='subtitle2'>
-                        {node.text}
-                      </Typography>
-                    }
-                    secondary={dayjs(node.created).fromNow()}
-                  />
-                </MenuItem>
-              </Link>
-            );
-          })}
+          <>
+            {(data?.notifications?.edges ?? []).map((edge) => {
+              const node = edge.node;
+              return (
+                <Link
+                  href={node.url}
+                  key={`notification-${node.uuid}`}
+                  noLinkStyle>
+                  <MenuItem>
+                    <Avatar user={node.actor} />
+                    <ListItemText
+                      primary={
+                        <Typography
+                          sx={{ whiteSpace: 'normal' }}
+                          variant='subtitle2'>
+                          {node.text}
+                        </Typography>
+                      }
+                      secondary={dayjs(node.created).fromNow()}
+                    />
+                  </MenuItem>
+                </Link>
+              );
+            })}
+            <ShowMoreButton />
+          </>
         </QueryResult>
       </Menu>
     </React.Fragment>

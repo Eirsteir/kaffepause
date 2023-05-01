@@ -18,7 +18,7 @@ export default function FriendsSection({ user }: FriendsSectionProps) {
 
   return (
     <Box>
-      <Typography variant='h2'>Dine venner</Typography>
+      <Typography variant='h2'>Venner</Typography>
       <FriendsList friends={friends} />
     </Box>
   );

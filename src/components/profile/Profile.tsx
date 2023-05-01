@@ -32,7 +32,7 @@ export default function Profile({ userId, actorIsUser }: ProfileProps) {
         </title>
       </Head>
       <PageContainer>
-        <QueryResult data={data} error={error} loading={loading}>
+        <QueryResult data={data?.user} error={error} loading={loading}>
           <Grid container spacing={10}>
             <Grid item md={4} xs={12}>
               <UserPaperSection actorIsUser={actorIsUser} user={data?.user} />

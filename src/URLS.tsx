@@ -6,6 +6,7 @@ const URLS = {
   BREAKS: '/breaks',
   INVITATIONS: '/invites',
   ACCOUNT: '/account',
+  GROUPS: '/groups',
 };
 
 export default URLS;
