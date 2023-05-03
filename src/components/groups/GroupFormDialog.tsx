@@ -1,23 +1,26 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 
+import Avatar from '@/components/elements/Avatar';
+import LoadingButton from '@/components/elements/LoadingButton';
+import { useCreateGroup } from '@/hooks/Groups';
+import { User } from '@/types/User';
 import {
   Autocomplete,
   Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
+  IconButton,
+  List,
+  ListItem,
+  ListItemAvatar,
+  ListItemText,
   TextField,
   Typography,
 } from '@mui/material';
+import Dialog, { DialogProps } from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 import { styled } from '@mui/system';
-
-const Container = styled('div')({
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'center',
-  alignItems: 'center',
-});
 
 const Form = styled('form')({
   display: 'flex',
@@ -27,78 +30,68 @@ const Form = styled('form')({
   maxWidth: '40rem',
 });
 
-const SearchWrapper = styled('div')({
-  display: 'flex',
-  alignItems: 'center',
-  width: '100%',
-});
-
-const MembersList = styled('ul')({
-  margin: 0,
-  padding: 0,
-  listStyle: 'none',
-});
-
-const ListItem = styled('li')({
-  display: 'flex',
-  alignItems: 'center',
-  gap: '0.5rem',
-  marginBottom: '0.5rem',
-});
-
-const MemberAvatar = styled('div')({
-  width: '3rem',
-  height: '3rem',
-  borderRadius: '50%',
-  backgroundColor: '#ddd',
-});
-
-const MemberName = styled(Typography)({
-  fontWeight: 'bold',
-});
-
 export default function GroupFormDialog({
   open,
   onClose,
+  user,
 }: {
+  user: User;
   open: boolean;
   onClose: () => void;
 }) {
+  const [createGroup, { loading, error }] = useCreateGroup();
+  const friends = useMemo(
+    () =>
+      user !== undefined ? user.friends.edges.map((edge) => edge.node) : [],
+    [user],
+  );
+
   const [name, setName] = useState('');
-  const [members, setMembers] = useState([]);
+  const [members, setMembers] = useState<User[]>([]);
 
   const handleAddMember = (event, value) => {
-    if (!members.includes(value)) {
+    if (value && !members.includes(value)) {
       setMembers([...members, value]);
     }
   };
 
-  const handleRemoveMember = (member) => {
-    setMembers(members.filter((m) => m !== member));
+  const handleRemoveMember = (member: User) => {
+    setMembers((current) => current.filter((m) => m.uuid !== member.uuid));
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
     // handle form submission here
-    onClose();
+    // onClose();
+    createGroup({
+      variables: { name: name, members: members.map((m) => m.uuid) },
+      onCompleted: () => {
+        alert('Gruppe opprettet!');
+        onClose();
+      },
+    });
   };
 
   return (
-    <Dialog onClose={onClose} open={open}>
+    <Dialog fullWidth={true} maxWidth='sm' onClose={onClose} open={open}>
       <DialogTitle>Lag ny gruppe</DialogTitle>
       <DialogContent>
         <Form onSubmit={handleSubmit}>
+          <Typography variant='h3'>Navn</Typography>
+
           <TextField
-            label='Gruppenavn'
+            label='Lag et gruppenavn'
             onChange={(e) => setName(e.target.value)}
-            required
             value={name}
             variant='outlined'
           />
+          <Typography variant='h3'>Medlemmer</Typography>
           <Autocomplete
             freeSolo
-            onInputChange={handleAddMember}
-            options={['Alice', 'Bob', 'Charlie', 'David']}
+            getOptionLabel={(option) => option.name}
+            noOptionsText='Legg til venner for å legge dem til i gruppen'
+            onChange={handleAddMember}
+            options={friends}
             renderInput={(params) => (
               <TextField
                 {...params}
@@ -108,28 +101,43 @@ export default function GroupFormDialog({
             )}
           />
           {members.length > 0 && (
-            <MembersList>
+            <List>
               {members.map((member, index) => (
-                <ListItem key={index}>
-                  <MemberAvatar />
-                  <MemberName>{member}</MemberName>
-                  <Button
-                    onClick={() => handleRemoveMember(member)}
-                    size='small'
-                    variant='outlined'>
-                    Fjern
-                  </Button>
+                <ListItem
+                  key={index}
+                  secondaryAction={
+                    // <IconButton aria-label='delete' edge='end' onClick={() => handleRemoveMember(member)} size='small'>
+                    //   <DeleteIcon />
+                    // </IconButton>
+                    <Button
+                      onClick={() => handleRemoveMember(member)}
+                      size='small'
+                      variant='outlined'>
+                      Fjern
+                    </Button>
+                  }>
+                  <ListItemAvatar>
+                    <Avatar user={member} />
+                  </ListItemAvatar>
+                  <ListItemText
+                    primary={member.name}
+                    // secondary={secondary ? 'Secondary text' : null}
+                  />
                 </ListItem>
               ))}
-            </MembersList>
+            </List>
           )}
         </Form>
+        {error && <Typography color='error.main'>{error.message}</Typography>}
       </DialogContent>
       <DialogActions>
         <Button onClick={onClose}>Avbryt</Button>
-        <Button onClick={handleSubmit} variant='contained'>
+        <LoadingButton
+          loading={loading}
+          onClick={handleSubmit}
+          variant='contained'>
           Opprett gruppe
-        </Button>
+        </LoadingButton>
       </DialogActions>
     </Dialog>
   );

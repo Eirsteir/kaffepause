@@ -7,19 +7,21 @@ import GroupFormDialog from '@/components/groups/GroupFormDialog';
 import ListSection from '@/components/modules/ListSection';
 import { QueryResult } from '@/components/QueryResult';
 import { useMyGroups } from '@/hooks/Groups';
+import { useMe } from '@/hooks/User';
 import { Group } from '@/types/Group';
 import URLS from '@/URLS';
 import AddIcon from '@mui/icons-material/Add';
 import { Box, Button } from '@mui/material';
 
 export default function Groups() {
+  const { me: user } = useMe(); // isAuthenticated, loading, error,
   const { data, loading, error } = useMyGroups();
   const [open, toggleOpen] = useState<boolean>(false);
 
   return (
     <>
       <Head>
-        <title>Dine grupper - Kaffepause</title>
+        <title>Grupper - Kaffepause</title>
       </Head>
       <>
         <Heading>Gruppeoversikt</Heading>
@@ -47,7 +49,11 @@ export default function Groups() {
         </QueryResult>
       </>
 
-      <GroupFormDialog onClose={() => toggleOpen(false)} open={open} />
+      <GroupFormDialog
+        onClose={() => toggleOpen(false)}
+        open={open}
+        user={user}
+      />
     </>
   );
 }

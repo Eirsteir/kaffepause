@@ -4,4 +4,4 @@ import { useMutation, useQuery } from '@apollo/client';
 
 export const useMyGroups = () => useQuery(MY_GROUPS_QUERY);
 
-export const useCreateGroups = () => useMutation(CREATE_GROUP_MUTATION);
+export const useCreateGroup = () => useMutation(CREATE_GROUP_MUTATION);
