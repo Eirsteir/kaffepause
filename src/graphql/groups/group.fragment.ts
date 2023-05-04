@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 
 const GROUP_FIELDS = gql`
-  fragment Groupfields on Group {
+  fragment GroupFields on Group {
     id
     uuid
     name

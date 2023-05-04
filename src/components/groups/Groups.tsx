@@ -2,6 +2,7 @@ import Head from 'next/head';
 import { useState } from 'react';
 
 import Heading from '@/components/elements/Heading';
+import PageContainer from '@/components/elements/PageContainer';
 import GroupCard from '@/components/groups/GroupCard';
 import GroupFormDialog from '@/components/groups/GroupFormDialog';
 import ListSection from '@/components/modules/ListSection';
@@ -23,7 +24,7 @@ export default function Groups() {
       <Head>
         <title>Grupper - Kaffepause</title>
       </Head>
-      <>
+      <PageContainer>
         <Heading>Gruppeoversikt</Heading>
         <Button
           onClick={() => toggleOpen(true)}
@@ -41,13 +42,13 @@ export default function Groups() {
             emptyStateActionText='Lag en gruppe nå'
             emptyStateActionUrl={URLS.GROUPS}
             emptyStateText='Du er ikke med i noen grupper enda'
-            heading='Dine grupper'
+            // heading='Dine grupper'
             isEmpty={data?.myGroups.length === 0}
             items={data?.myGroups}
             ListCard={({ item }: { item: Group }) => <GroupCard group={item} />}
           />
         </QueryResult>
-      </>
+      </PageContainer>
 
       <GroupFormDialog
         onClose={() => toggleOpen(false)}

@@ -1,5 +1,6 @@
 import Avatar from '@/components/elements/Avatar';
 import Card from '@/components/elements/Card';
+import GroupMembersList from '@/components/groups/GroupMembersList';
 import Link from '@/components/navigation/Link';
 import dayjs from '@/dayjs';
 import { Group } from '@/types/Group';
@@ -39,21 +40,7 @@ export default function GroupCard({ group }: GroupCardProps) {
               }}>
               <GroupOutlinedIcon color='primary' fontSize='small' />
               <Box pl={1}>
-                <Stack direction='row' spacing={1}>
-                  {group.members.map((user, i) => (
-                    <Link
-                      href={`${URLS.USERS}/${user.uuid}`}
-                      key={i}
-                      noLinkStyle>
-                      <Chip
-                        avatar={<Avatar user={user} />}
-                        clickable
-                        label={user.name}
-                        variant='outlined'
-                      />
-                    </Link>
-                  ))}
-                </Stack>
+                <GroupMembersList members={group.members} />
               </Box>
             </Box>
           </CardContent>

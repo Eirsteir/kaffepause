@@ -30,11 +30,13 @@ export default function ListSection({
   console.log(items);
   return (
     <>
-      <Typography
-        sx={{ paddingTop: '1.5rem', paddingBottom: '1.5rem' }}
-        variant='h2'>
-        {heading}
-      </Typography>
+      {heading && (
+        <Typography
+          sx={{ paddingTop: '1.5rem', paddingBottom: '1.5rem' }}
+          variant='h2'>
+          {heading}
+        </Typography>
+      )}
 
       {items?.map((item, i) => (
         <ListCard item={item} key={i} />

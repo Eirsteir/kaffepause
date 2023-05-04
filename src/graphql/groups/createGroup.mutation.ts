@@ -9,7 +9,7 @@ const CREATE_GROUP_MUTATION = gql`
       success
       errors
       group {
-        ...Groupfields
+        ...GroupFields
       }
     }
   }

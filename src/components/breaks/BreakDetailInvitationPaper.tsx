@@ -17,7 +17,7 @@ export default function BreakDetailInvitationPaper({
   break_: Break;
 }) {
   const [error, setError] = useState('');
-  console.log(break_);
+
   return (
     <Paper
       elevation={0}

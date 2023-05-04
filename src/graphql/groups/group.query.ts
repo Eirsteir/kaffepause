@@ -1,13 +1,14 @@
 import GROUP_FIELDS from '@/graphql/groups/group.fragment';
 import { gql } from '@apollo/client';
 
-const MY_GROUPS_QUERY = gql`
+const GROUP_QUERY = gql`
   ${GROUP_FIELDS}
-  query myGroups {
-    myGroups {
+
+  query group($uuid: UUID!) {
+    group(uuid: $uuid) {
       ...GroupFields
     }
   }
 `;
 
-export default MY_GROUPS_QUERY;
+export default GROUP_QUERY;
