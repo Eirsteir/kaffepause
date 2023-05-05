@@ -1,12 +1,12 @@
 import Head from 'next/head';
 
-import { QueryResult } from '@/components/QueryResult';
 import PageContainer from '@/components/elements/PageContainer';
 import FriendingPossibilitiesSection from '@/components/profile/FriendingPossibilitiesSection';
 import FriendsSection from '@/components/profile/FriendsSection';
 import UserLocationSection from '@/components/profile/LocationSection';
 import UserPaperSection from '@/components/profile/UserPaperSection';
 import UserSection from '@/components/profile/UserSection';
+import { QueryResult } from '@/components/QueryResult';
 import { useUser } from '@/hooks/User';
 import { User } from '@/types/User';
 import MUIDivider from '@mui/material/Divider';

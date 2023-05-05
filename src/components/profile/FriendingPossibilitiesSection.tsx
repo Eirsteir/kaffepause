@@ -8,7 +8,7 @@ import { Skeleton, Stack } from '@mui/material';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
-export default function FriendingPossibilitiesSection({}) {
+export default function FriendingPossibilitiesSection() {
   const { data, loading, error } = useFriendingPossibilities();
   const friendingPossibilities = useMemo(
     () =>
@@ -26,7 +26,7 @@ export default function FriendingPossibilitiesSection({}) {
 
   return (
     <Box>
-      <Typography variant='h2'>Foreslåtte venner</Typography>
+      <Typography variant='h2'>Venneforespørsler</Typography>
       <QueryResult
         data={data}
         error={error}
