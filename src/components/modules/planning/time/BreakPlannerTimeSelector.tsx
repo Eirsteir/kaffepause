@@ -16,7 +16,7 @@ export default function BreakPlannerTimeSelector({
   initialTimeSlot,
 }: BreakPlannerTimeSelectorProps) {
   return (
-    <CenteredBox>
+    <Box>
       <Tooltip
         placement='top'
         title='Når du vil ha pause bestemmer selvsagt du.'>
@@ -25,9 +25,7 @@ export default function BreakPlannerTimeSelector({
         </Typography>
       </Tooltip>
 
-      <Box>
-        <TimeSlotPicker initialTimeSlot={initialTimeSlot} onSelect={onSelect} />
-      </Box>
-    </CenteredBox>
+      <TimeSlotPicker initialTimeSlot={initialTimeSlot} onSelect={onSelect} />
+    </Box>
   );
 }

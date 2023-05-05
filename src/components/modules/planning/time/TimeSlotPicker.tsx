@@ -7,6 +7,8 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import Pagination from '@mui/material/Pagination';
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 interface TimeSlotPickerProps {
   onSelect: (timeSlot: Dayjs) => void;
@@ -17,12 +19,18 @@ const TimeSlotPicker: React.FC<TimeSlotPickerProps> = ({
   onSelect,
   initialTimeSlot,
 }) => {
+  const matchesXsBreakPoint = useMediaQuery('(max-width:450px)', {
+    noSsr: true,
+  });
+
+  console.log(matchesXsBreakPoint);
+
   const [timeSlots, timeSlot, _] = useTimeSlots();
   const [value, setValue] = useState<Dayjs>(initialTimeSlot || timeSlot);
 
   const [page, setPage] = useState<number>(1);
 
-  const PER_PAGE = 6;
+  const PER_PAGE = matchesXsBreakPoint ? 6 : 8;
   const count = Math.ceil(timeSlots.length / PER_PAGE);
   const _DATA = usePagination(timeSlots, PER_PAGE);
 
@@ -43,11 +51,10 @@ const TimeSlotPicker: React.FC<TimeSlotPickerProps> = ({
       alignItems='center'
       display='flex'
       flexDirection='column'
-      justifyContent='center'
-      sx={{ maxWidth: 250 }}>
+      justifyContent='center'>
       <Grid container spacing={1}>
         {_DATA.currentData().map((timeSlot: Dayjs, i: number) => (
-          <Grid item key={i} sx={{ textAlign: 'center' }} xs={4}>
+          <Grid item key={i} sm={3} sx={{ textAlign: 'center' }} xs={4}>
             <Button
               disableElevation
               onClick={() => handleSelect(timeSlot)}

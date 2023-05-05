@@ -42,7 +42,7 @@ export default function BreakPlannerForm({
 
   return (
     <Box>
-      <Grid container justifyContent='center' spacing={0}>
+      <Grid container spacing={8}>
         <Grid item md={4} sm={6} xs={12}>
           <BreakPlannerTimeSelector
             initialTimeSlot={initialTimeSlot}

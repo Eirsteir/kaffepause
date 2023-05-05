@@ -39,7 +39,7 @@ export default function BreakPlannerLocationSelector({
   }, [onSelect, location]);
 
   return (
-    <CenteredBox>
+    <>
       <Tooltip
         placement='top'
         title='Legg til et sted så blir det lettere å koordinere pausene.'>
@@ -48,7 +48,7 @@ export default function BreakPlannerLocationSelector({
         </Typography>
       </Tooltip>
 
-      <Box sx={{ maxWidth: 250 }}>
+      <Box>
         <LocationSelectCreateOptionDialog
           initialLocation={location}
           loading={loading}
@@ -65,6 +65,6 @@ export default function BreakPlannerLocationSelector({
           </Typography>
         )}
       </Box>
-    </CenteredBox>
+    </>
   );
 }

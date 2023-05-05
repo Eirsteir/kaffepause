@@ -102,7 +102,7 @@ export default function LocationSelectCreateOptionDialog({
           return option.title;
         }}
         handleHomeEndKeys
-        id='free-solo-dialog-demo'
+        id='break-location-selector-dialog-demo'
         loading={loading}
         loadingText={<BouncingDotsLoader fontSize={8} />}
         onChange={(event, newValue) => {
@@ -149,6 +149,7 @@ export default function LocationSelectCreateOptionDialog({
           </li>
         )}
         selectOnFocus
+        sx={{ width: '100%' }}
         value={value}
       />
 

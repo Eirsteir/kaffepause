@@ -3,6 +3,7 @@ import { useMemo, useState } from 'react';
 import CenteredBox from '@/components/elements/CenteredBox';
 import InviteFriendsCheckBoxList from '@/components/modules/planning/friends/InviteFriendsCheckBoxList';
 import { User } from '@/types/User';
+import { FormControlLabel, Switch } from '@mui/material';
 import Autocomplete from '@mui/material/Autocomplete';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
@@ -40,40 +41,49 @@ export default function BreakPlannerFriendsSelector({
   };
 
   return (
-    <CenteredBox>
+    <>
       <Tooltip
         placement='top'
         title='Planlegger du en pause med venner vil de få en invitasjon.'>
-        <Typography sx={{ marginBottom: '1rem' }} variant='h3'>
+        <Typography
+          sx={{ marginBottom: '1rem', textAlign: 'start' }}
+          variant='h3'>
           Med hvem?
         </Typography>
       </Tooltip>
 
-      <Autocomplete
-        getOptionLabel={(option) => option.name}
-        id='friends-selector'
-        isOptionEqualToValue={(option, value) => option.uuid === value.uuid}
-        limitTags={2}
-        multiple
-        noOptionsText='Legg til venner for å invitere'
-        onChange={(event, values) => {
-          setSelection(values);
-          onSelect(values);
-        }}
-        options={friends}
-        renderInput={(params) => (
-          <TextField {...params} placeholder='Søk venner' size='small' />
-        )}
-        sx={{ width: '100%', maxWidth: 250, margin: 'auto' }}
-        value={selection}
+      <FormControlLabel
+        control={<Switch defaultChecked size='small' />}
+        label='Grupper'
       />
 
-      <InviteFriendsCheckBoxList
-        initialSelection={selection}
-        onDeselect={handleDeselect}
-        onSelect={handleSelect}
-        users={friends}
-      />
-    </CenteredBox>
+      <CenteredBox>
+        <Autocomplete
+          getOptionLabel={(option) => option.name}
+          id='friends-selector'
+          isOptionEqualToValue={(option, value) => option.uuid === value.uuid}
+          limitTags={2}
+          multiple
+          noOptionsText='Legg til venner for å invitere'
+          onChange={(event, values) => {
+            setSelection(values);
+            onSelect(values);
+          }}
+          options={friends}
+          renderInput={(params) => (
+            <TextField {...params} placeholder='Søk venner' size='small' />
+          )}
+          sx={{ width: '100%', margin: 'auto' }}
+          value={selection}
+        />
+
+        <InviteFriendsCheckBoxList
+          initialSelection={selection}
+          onDeselect={handleDeselect}
+          onSelect={handleSelect}
+          users={friends}
+        />
+      </CenteredBox>
+    </>
   );
 }
