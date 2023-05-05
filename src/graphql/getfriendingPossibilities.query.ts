@@ -12,7 +12,7 @@ const GET_FRIENDING_POSSIBILITIES_QUERY = gql`
           shortName
           username
           friendshipStatus
-          isViewerFriend
+          socialContext
         }
       }
       pageInfo {

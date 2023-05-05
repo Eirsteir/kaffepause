@@ -10,7 +10,7 @@ export default function Heading({
   return (
     <Typography
       sx={{
-        paddingTop: '2.25rem',
+        // paddingTop: '2.25rem',
         paddingBottom: noGutterBottom ? '.5rem' : '3rem',
       }}
       variant='h1'>

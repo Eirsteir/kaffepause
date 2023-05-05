@@ -1,9 +1,11 @@
+import { useRouter } from 'next/router';
 import { useMemo, useState } from 'react';
 
 import Avatar from '@/components/elements/Avatar';
 import LoadingButton from '@/components/elements/LoadingButton';
 import { useCreateGroup } from '@/hooks/Groups';
 import { User } from '@/types/User';
+import URLS from '@/URLS';
 import {
   Autocomplete,
   Button,
@@ -39,6 +41,7 @@ export default function GroupFormDialog({
   open: boolean;
   onClose: () => void;
 }) {
+  const router = useRouter();
   const [createGroup, { loading, error }] = useCreateGroup();
   const friends = useMemo(
     () =>
@@ -61,13 +64,14 @@ export default function GroupFormDialog({
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // handle form submission here
-    // onClose();
+
     createGroup({
       variables: { name: name, members: members.map((m) => m.uuid) },
-      onCompleted: () => {
-        alert('Gruppe opprettet!');
-        onClose();
+      onCompleted: (data) => {
+        if (data.createGroup.success) {
+          alert('Gruppe opprettet!');
+          router.push(`${URLS.GROUPS}/${data.createGroup.group.uuid}`);
+        }
       },
     });
   };

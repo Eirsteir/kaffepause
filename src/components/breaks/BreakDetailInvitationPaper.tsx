@@ -43,11 +43,6 @@ export default function BreakDetailInvitationPaper({
             </CenteredBox>
           </Paper>
         )}
-        <Divider />
-
-        {break_.canViewerEditBreak && (
-          <Button variant='outlined'>Endre pausen</Button>
-        )}
 
         {break_.invitation?.context == InvitationContext.CANNOT_REPLY && (
           <>
@@ -55,6 +50,12 @@ export default function BreakDetailInvitationPaper({
               Du kan ikke svare på denne invitasjonen lengre.
             </Typography>
           </>
+        )}
+
+        <Divider />
+
+        {break_.canViewerEditBreak && (
+          <Button variant='outlined'>Endre pausen</Button>
         )}
 
         {break_.hasPassed ? (

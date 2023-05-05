@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 
 import Divider from '@/components/elements/Divider';
 import Heading from '@/components/elements/Heading';
+import PageContainer from '@/components/elements/PageContainer';
 import BreakInvitationActionCard from '@/components/invitations/BreakInvitationActionCard';
 import { QueryResult } from '@/components/QueryResult';
 import { useBreakInvitationsPresentation } from '@/hooks/Breaks';
@@ -19,7 +20,7 @@ export default function Invitations() {
       <Head>
         <title>Dine invitasjoner - Kaffepause</title>
       </Head>
-      <>
+      <PageContainer>
         <Heading>Pauseinvitasjoner</Heading>
 
         <QueryResult
@@ -56,7 +57,7 @@ export default function Invitations() {
             </div>
           ))}
         </QueryResult>
-      </>
+      </PageContainer>
     </>
   );
 }

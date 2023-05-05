@@ -1,5 +1,6 @@
 import Card from '@/components/elements/Card';
 import Heading from '@/components/elements/Heading';
+import PageContainer from '@/components/elements/PageContainer';
 import Link from '@/components/navigation/Link';
 import { QueryResult } from '@/components/QueryResult';
 import { useMyAccount } from '@/hooks/Accounts';
@@ -36,7 +37,7 @@ export default function Account() {
   const account = accountData?.myAccount;
 
   return (
-    <>
+    <PageContainer>
       <Heading noGutterBottom>Konto</Heading>
       <QueryResult data={account} error={accountError} loading={accountLoading}>
         <Typography gutterBottom variant='subtitle1'>
@@ -60,6 +61,6 @@ export default function Account() {
           />
         </Grid>
       </QueryResult>
-    </>
+    </PageContainer>
   );
 }
