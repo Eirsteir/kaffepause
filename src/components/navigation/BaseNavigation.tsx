@@ -10,10 +10,10 @@ type Props = {
 
 export default function BaseNavigation({ children }: Props) {
   return (
-    <Box sx={{ flexGrow: 1, height: '80px', background: 'transparent' }}>
+    <Box sx={{ flexGrow: 1, height: '80px' }}>
       <AppBar
         elevation={0}
-        position='static'
+        // position='static'
         sx={{
           boxShadow: 'rgba(0,0,0,0.08) 0 1px 1px',
           height: '80px',
