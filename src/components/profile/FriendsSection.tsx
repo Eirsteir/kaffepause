@@ -18,7 +18,9 @@ export default function FriendsSection({ user }: FriendsSectionProps) {
 
   return (
     <Box>
-      <Typography variant='h2'>Venner</Typography>
+      <Typography sx={{ paddingBottom: '1.5rem' }} variant='h2'>
+        Venner
+      </Typography>
       <FriendsList friends={friends} />
     </Box>
   );

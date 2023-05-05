@@ -1,19 +1,19 @@
 import { useMemo } from 'react';
 
+import ShowMoreButton from '@/components/elements/ShowMoreButton';
 import FriendsList from '@/components/modules/friends/FriendsList';
 import { QueryResult } from '@/components/QueryResult';
-import { useFriendingPossibilities } from '@/hooks/Friends';
-import { User } from '@/types/User';
+import { useFriendRecommendations } from '@/hooks/Friends';
 import { Skeleton, Stack } from '@mui/material';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
-export default function FriendingPossibilitiesSection() {
-  const { data, loading, error } = useFriendingPossibilities();
+export default function FriendRecommendationsSection() {
+  const { data, loading, error } = useFriendRecommendations();
   const friendingPossibilities = useMemo(
     () =>
       data !== undefined
-        ? data.friendingPossibilities.edges.map((edge) => edge.node)
+        ? data.friendRecommendations.edges.map((edge) => edge.node)
         : [],
     [data],
   );
@@ -27,7 +27,7 @@ export default function FriendingPossibilitiesSection() {
   return (
     <Box>
       <Typography sx={{ paddingBottom: '1.5rem' }} variant='h2'>
-        Venneforespørsler
+        Foreslåtte venner
       </Typography>
       <QueryResult
         data={data}
@@ -35,6 +35,7 @@ export default function FriendingPossibilitiesSection() {
         loading={loading}
         loadingComponent={loadingComponent()}>
         <FriendsList friends={friendingPossibilities} />
+        <ShowMoreButton />
       </QueryResult>
     </Box>
   );

@@ -2,6 +2,7 @@ import Head from 'next/head';
 
 import PageContainer from '@/components/elements/PageContainer';
 import FriendingPossibilitiesSection from '@/components/profile/FriendingPossibilitiesSection';
+import FriendRecommendationsSection from '@/components/profile/FriendRecommendationsSection';
 import FriendsSection from '@/components/profile/FriendsSection';
 import UserLocationSection from '@/components/profile/LocationSection';
 import UserPaperSection from '@/components/profile/UserPaperSection';
@@ -48,7 +49,8 @@ export default function Profile({ userId, actorIsUser }: ProfileProps) {
                 <>
                   <FriendsSection user={data?.user} />
                   <Divider />
-                  {/* <BreakSection /> */}
+                  <FriendRecommendationsSection user={data?.user} />
+                  <Divider />
                   <FriendingPossibilitiesSection user={data?.user} />
                 </>
               )}
