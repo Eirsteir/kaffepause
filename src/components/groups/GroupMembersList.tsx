@@ -116,12 +116,13 @@ export default function GroupMembersList({
   };
 
   return (
-    <Stack direction='row' spacing={1}>
+    <Stack direction={{ xs: 'column', sm: 'row' }} spacing={1}>
       {group.members.map((member, i) => (
         <Chip
           avatar={<Avatar user={member} />}
           key={i}
           label={member.name}
+          sx={{ textAlign: 'start' }}
           variant='outlined'
           {...resolveChipProps(member)}
         />

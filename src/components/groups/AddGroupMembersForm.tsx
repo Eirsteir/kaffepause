@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 
 import Avatar from '@/components/elements/Avatar';
 import CenteredBox from '@/components/elements/CenteredBox';
@@ -8,8 +8,6 @@ import { Group } from '@/types/Group';
 import { User } from '@/types/User';
 import {
   Button,
-  Divider,
-  Grid,
   List,
   ListItem,
   ListItemAvatar,
@@ -18,14 +16,12 @@ import {
 } from '@mui/material';
 
 interface AddGroupMembersFormProps {
-  size?: 'small' | 'medium';
   onChange: (value: User) => void;
   members: Group['members'];
   handleRemove: (value: User) => void;
 }
 
 export default function AddGroupMembersForm({
-  size = 'medium',
   onChange,
   members,
   handleRemove,
@@ -36,7 +32,7 @@ export default function AddGroupMembersForm({
     <>
       <SearchUsers onSearchCompletedCallback={setOptions} onSelect={onChange} />
       {members.length > 0 ? (
-        <List dense={size === 'small'}>
+        <List dense>
           {members.map((member, index) => (
             <ListItem
               key={index}

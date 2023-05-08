@@ -36,7 +36,7 @@ export default function GroupFormDialog({
   const [name, setName] = useState('');
   const [members, setMembers] = useState<User[]>([]);
 
-  const handleAddMember = (event, value) => {
+  const handleAddMember = (value: User | null) => {
     if (value && !members.includes(value)) {
       setMembers([...members, value]);
     }
@@ -78,7 +78,6 @@ export default function GroupFormDialog({
             handleRemove={handleRemoveMember}
             members={members}
             onChange={handleAddMember}
-            user={user}
           />
         </Form>
         {error && <Typography color='error.main'>{error.message}</Typography>}

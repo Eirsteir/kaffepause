@@ -9,7 +9,7 @@ interface IProps {
 
 export default function Home({ user }: IProps) {
   return (
-    <PageContainer fullWidth>
+    <PageContainer>
       <BreakPlanner user={user} />
       <PendingBreakInvitations />
     </PageContainer>

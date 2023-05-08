@@ -47,6 +47,9 @@ export default function SearchUsers({
 
     if (inputValue === '') {
       setOptions(value ? [value] : []);
+      if (onSearchCompletedCallback) {
+        onSearchCompletedCallback([]);
+      }
       return undefined;
     }
 
@@ -77,17 +80,14 @@ export default function SearchUsers({
 
   return (
     <Autocomplete
-      filterOptions={(x) => x}
-      filterSelectedOptions
       freeSolo
       getOptionLabel={(option) =>
         typeof option === 'string' ? option : option.name
       }
       id='search-bar'
-      includeInputInList
       loading={false}
-      // loadingText={null}
-      // noOptionsText={null}
+      loadingText={null}
+      noOptionsText={null}
       onChange={handleSelectUser}
       onInputChange={handleInputChange}
       options={options}

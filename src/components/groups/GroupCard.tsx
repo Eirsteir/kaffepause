@@ -37,7 +37,7 @@ export default function GroupCard({ group }: GroupCardProps) {
             }}>
             <GroupOutlinedIcon color='primary' fontSize='small' />
             <Box pl={1}>
-              <GroupMembersList members={group.members} />
+              <GroupMembersList group={group} />
             </Box>
           </Box>
         </CardContent>
