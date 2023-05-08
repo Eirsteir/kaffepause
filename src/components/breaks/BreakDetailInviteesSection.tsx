@@ -1,15 +1,18 @@
 import AvatarChips from '@/components/modules/breaks/ParticipantsAvatarChips';
 import AddresseesAvatarChips from '@/components/modules/invitations/AddresseesAvatarChips';
+import GroupAvatarChip from '@/components/modules/invitations/GroupAvatarChip';
 import { Invitation } from '@/types/Break';
 import { User } from '@/types/User';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
-export const BreakDetailInvitationAddresseesSection = ({
+export const BreakDetailInviteesSection = ({
+  recipientGroup,
   addressees,
   canViewerEditBreak,
 }: {
+  recipientGroup: Invitation['recipientGroup'];
   addressees: Invitation['addressees']['edges']['node'][];
   canViewerEditBreak: boolean;
 }) => {
@@ -39,17 +42,19 @@ export const BreakDetailInvitationAddresseesSection = ({
         Inviterte
       </Typography>
 
-      {addressees.length !== 0 && (
-        <Box
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-            flexWrap: 'wrap',
-            marginTop: '0.5rem',
-          }}>
+      <Box
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          flexWrap: 'wrap',
+          marginTop: '0.5rem',
+        }}>
+        {addressees.length !== 0 && (
           <AddresseesAvatarChips addressees={addressees} />
-        </Box>
-      )}
+        )}
+
+        {recipientGroup && <GroupAvatarChip group={recipientGroup} />}
+      </Box>
 
       {resolveButton()}
     </Box>

@@ -1,5 +1,6 @@
 import { User as NextAuthUser } from 'next-auth';
 
+import { Group } from '@/types/Group';
 import { Location } from '@/types/Location';
 
 export interface UserEdge {
@@ -32,4 +33,5 @@ export interface User extends NextAuthUser {
   isViewerFriend: boolean;
   friendshipStatus: FriendshipStatus;
   socialContext: string;
+  groups: Group[];
 }

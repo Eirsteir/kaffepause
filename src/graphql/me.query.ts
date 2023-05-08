@@ -26,16 +26,10 @@ const ME_QUERY = gql`
         uuid
         title
       }
-      currentLocation {
+      groups {
         id
         uuid
-        title
-      }
-      currentStatus {
-        id
-        statusType
-        verb
-        created
+        name
       }
     }
   }

@@ -4,7 +4,7 @@ import { gql } from '@apollo/client';
 const CREATE_GROUP_MUTATION = gql`
   ${GROUP_FIELDS}
 
-  mutation createGroup($name: String!, $members: [UUID]) {
+  mutation createGroup($name: String!, $members: [UUID]!) {
     createGroup(name: $name, members: $members) {
       success
       errors

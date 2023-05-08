@@ -140,7 +140,7 @@ export default function NotificationsMenu({ user }: IProps) {
           loading={loading}
           loadingComponent={<LoadingSkeleton />}>
           <>
-            {(data?.notifications?.edges ?? []).map((edge) => {
+            {data?.notifications?.edges.map((edge) => {
               const node = edge.node;
               return (
                 <Link
@@ -163,7 +163,12 @@ export default function NotificationsMenu({ user }: IProps) {
                 </Link>
               );
             })}
-            <ShowMoreButton />
+            {data?.notifications?.edges.length === 0 && (
+              <Typography p={2} variant='subtitle2'>
+                Du er up to speed!
+              </Typography>
+            )}
+            {data?.notifications?.edges.length !== 0 && <ShowMoreButton />}
           </>
         </QueryResult>
       </Menu>

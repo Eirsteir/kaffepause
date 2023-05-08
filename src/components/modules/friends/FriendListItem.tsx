@@ -15,15 +15,21 @@ export default function FriendListItem({ friend }: FriendListItemProps) {
   const router = useRouter();
   const onClick = () => router.push(`${URLS.USERS}/${friend.uuid}`);
 
+  const secondaryText = () => {
+    const locationText = friend.preferredLocation?.title;
+    const socialText = friend.socialContext;
+    if (locationText) {
+      return locationText + ' | ' + socialText;
+    }
+    return socialText;
+  };
+
   return (
     <ListItemButton onClick={onClick} sx={{ borderRadius: '8px' }}>
       <ListItemAvatar>
         <Avatar user={friend} />
       </ListItemAvatar>
-      <ListItemText
-        primary={friend.name}
-        secondary={friend.preferredLocation?.title}
-      />
+      <ListItemText primary={friend.name} secondary={secondaryText()} />
     </ListItemButton>
   );
 }

@@ -5,12 +5,8 @@ import PageContainer from '@/components/elements/PageContainer';
 import GroupDetailCardSection from '@/components/groups/detail/GroupDetailCardSection';
 import GroupDetailHeader from '@/components/groups/detail/GroupDetailHeader';
 import GroupMembersSection from '@/components/groups/detail/GroupMembersSection';
-import { DetailHeader } from '@/components/layouts/DetailHeader';
-import Link from '@/components/navigation/Link';
 import { QueryResult } from '@/components/QueryResult';
-import dayjs from '@/dayjs';
 import { useGroup } from '@/hooks/Groups';
-import URLS from '@/URLS';
 import { Grid } from '@mui/material';
 
 type GroupDetailProps = {
@@ -35,7 +31,7 @@ export default function GroupDetail({ uuid }: GroupDetailProps) {
           <Grid container spacing={5}>
             <Grid item md={8} order={{ xs: 2, sm: 2, md: 1, lg: 1 }} xs={12}>
               <GroupDetailHeader group={group} />
-              <GroupMembersSection members={group?.members} />
+              <GroupMembersSection group={group} />
               <Divider />
             </Grid>
             <Grid item md={4} order={{ xs: 1, sm: 1, md: 2, lg: 2 }} xs={12}>

@@ -7,7 +7,6 @@ export default function Card({ children, ...props }: MuiCardProps) {
       elevation={0}
       sx={{
         ...sx,
-        padding: 2,
         boxShadow: '0 6px 20px rgba(0,0,0,0.2)', // TODO: set in theme?
       }}
       {...rest}>

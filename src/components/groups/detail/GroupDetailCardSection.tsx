@@ -3,7 +3,7 @@ import { Button, CardContent, Typography } from '@mui/material';
 
 export default function GroupDetailCardSection() {
   return (
-    <Card>
+    <Card sx={{ padding: 2 }}>
       <CardContent>
         <Typography pb={1} variant='subtitle2'>
           Medlem siden 1. mai 2023

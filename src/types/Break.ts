@@ -1,3 +1,4 @@
+import { Group } from '@/types/Group';
 import { Location } from '@/types/Location';
 import { User, UserConnection } from '@/types/User';
 
@@ -36,6 +37,7 @@ export interface Invitation {
   addresseeCount: number;
   acceptees: UserConnection;
   subject?: Break;
+  recipientGroup: Group | null;
 }
 
 export interface ChangeRequest {

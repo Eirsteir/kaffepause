@@ -19,18 +19,16 @@ const TimeSlotPicker: React.FC<TimeSlotPickerProps> = ({
   onSelect,
   initialTimeSlot,
 }) => {
-  const matchesXsBreakPoint = useMediaQuery('(max-width:450px)', {
+  const matchesBreakPoint = useMediaQuery('(max-width:450px)', {
     noSsr: true,
   });
-
-  console.log(matchesXsBreakPoint);
 
   const [timeSlots, timeSlot, _] = useTimeSlots();
   const [value, setValue] = useState<Dayjs>(initialTimeSlot || timeSlot);
 
   const [page, setPage] = useState<number>(1);
 
-  const PER_PAGE = matchesXsBreakPoint ? 6 : 8;
+  const PER_PAGE = matchesBreakPoint ? 6 : 8;
   const count = Math.ceil(timeSlots.length / PER_PAGE);
   const _DATA = usePagination(timeSlots, PER_PAGE);
 

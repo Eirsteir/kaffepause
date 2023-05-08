@@ -50,6 +50,11 @@ const BREAK_FIELDS = gql`
         }
       }
       addresseeCount
+      recipientGroup {
+        id
+        uuid
+        name
+      }
     }
     participants {
       count

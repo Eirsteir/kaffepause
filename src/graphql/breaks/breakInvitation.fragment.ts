@@ -31,6 +31,18 @@ const BREAK_INVITATION_FIELDS = gql`
         }
       }
     }
+    recipientGroup {
+      id
+      uuid
+      name
+      members {
+        id
+        uuid
+        name
+        shortName
+        profilePic
+      }
+    }
     addresseeCount
     subject {
       id

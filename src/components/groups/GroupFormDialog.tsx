@@ -1,26 +1,15 @@
 import { useRouter } from 'next/router';
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 
-import Avatar from '@/components/elements/Avatar';
 import LoadingButton from '@/components/elements/LoadingButton';
+import AddGroupMembersForm from '@/components/groups/AddGroupMembersForm';
 import { useCreateGroup } from '@/hooks/Groups';
 import { User } from '@/types/User';
 import URLS from '@/URLS';
-import {
-  Autocomplete,
-  Button,
-  IconButton,
-  List,
-  ListItem,
-  ListItemAvatar,
-  ListItemText,
-  TextField,
-  Typography,
-} from '@mui/material';
-import Dialog, { DialogProps } from '@mui/material/Dialog';
+import { Button, TextField, Typography } from '@mui/material';
+import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { styled } from '@mui/system';
 
@@ -43,11 +32,6 @@ export default function GroupFormDialog({
 }) {
   const router = useRouter();
   const [createGroup, { loading, error }] = useCreateGroup();
-  const friends = useMemo(
-    () =>
-      user !== undefined ? user.friends.edges.map((edge) => edge.node) : [],
-    [user],
-  );
 
   const [name, setName] = useState('');
   const [members, setMembers] = useState<User[]>([]);
@@ -90,47 +74,12 @@ export default function GroupFormDialog({
             variant='outlined'
           />
           <Typography variant='h3'>Medlemmer</Typography>
-          <Autocomplete
-            freeSolo
-            getOptionLabel={(option) => option.name}
-            noOptionsText='Legg til venner for å legge dem til i gruppen'
+          <AddGroupMembersForm
+            handleRemove={handleRemoveMember}
+            members={members}
             onChange={handleAddMember}
-            options={friends}
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                label='Legg til medlemmer'
-                variant='outlined'
-              />
-            )}
+            user={user}
           />
-          {members.length > 0 && (
-            <List>
-              {members.map((member, index) => (
-                <ListItem
-                  key={index}
-                  secondaryAction={
-                    // <IconButton aria-label='delete' edge='end' onClick={() => handleRemoveMember(member)} size='small'>
-                    //   <DeleteIcon />
-                    // </IconButton>
-                    <Button
-                      onClick={() => handleRemoveMember(member)}
-                      size='small'
-                      variant='outlined'>
-                      Fjern
-                    </Button>
-                  }>
-                  <ListItemAvatar>
-                    <Avatar user={member} />
-                  </ListItemAvatar>
-                  <ListItemText
-                    primary={member.name}
-                    // secondary={secondary ? 'Secondary text' : null}
-                  />
-                </ListItem>
-              ))}
-            </List>
-          )}
         </Form>
         {error && <Typography color='error.main'>{error.message}</Typography>}
       </DialogContent>

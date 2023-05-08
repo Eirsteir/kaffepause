@@ -1,8 +1,11 @@
 import Head from 'next/head';
 
 import { BreakDetailHeader } from '@/components/breaks/BreakDetailHeader';
-import { BreakDetailInvitationAddresseesSection } from '@/components/breaks/BreakDetailInvitationAddresseesSection';
 import BreakDetailInvitationPaper from '@/components/breaks/BreakDetailInvitationPaper';
+import {
+  BreakDetailInvitationAddresseesSection,
+  BreakDetailInviteesSection,
+} from '@/components/breaks/BreakDetailInviteesSection';
 import { BreakDetailLocationSection } from '@/components/breaks/BreakDetailLocationSection';
 import { BreakDetailParticipantsSection } from '@/components/breaks/BreakDetailParticipantsSection';
 import Divider from '@/components/elements/Divider';
@@ -43,13 +46,14 @@ export default function BreakDetail({ uuid }: BreakProps) {
 
               <Divider />
 
-              <BreakDetailInvitationAddresseesSection
+              <BreakDetailInviteesSection
                 addressees={
                   break_?.invitation?.addressees.edges.map(
                     (edge) => edge.node,
                   ) ?? []
                 }
                 canViewerEditBreak={break_?.canViewerEditBreak}
+                recipientGroup={break_?.invitation?.recipientGroup}
               />
               <Divider />
 

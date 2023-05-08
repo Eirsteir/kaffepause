@@ -132,6 +132,10 @@ export default function BreakDetailInvitationPaper({
                 </Button>
               </Box>
             )}
+
+            {break_.invitation?.context == InvitationContext.CANNOT_REPLY && (
+              <Typography variant='subtitle2'>Ikke svart</Typography>
+            )}
           </>
         )}
         {error && (
