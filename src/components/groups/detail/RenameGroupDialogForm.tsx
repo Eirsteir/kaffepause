@@ -2,39 +2,29 @@ import * as React from 'react';
 
 import LoadingButton from '@/components/elements/LoadingButton';
 import AddGroupMembersForm from '@/components/groups/AddGroupMembersForm';
-import { useAddGroupMembers } from '@/hooks/Groups';
+import { useAddGroupMembers, useEditGroupName } from '@/hooks/Groups';
 import { Group } from '@/types/Group';
 import { User } from '@/types/User';
-import AddIcon from '@mui/icons-material/Add';
-import { Box, Typography } from '@mui/material';
+import EditIcon from '@mui/icons-material/Edit';
+import { Box, TextField, Typography } from '@mui/material';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
-export default function AddMembersDialogForm({ group }: { group: Group }) {
+export default function RenameGroupDialogForm({ group }: { group: Group }) {
   const [open, setOpen] = React.useState(false);
-
-  const [users, setUsers] = React.useState<User[]>([]);
-  const [addGroupMembers, { loading, error }] = useAddGroupMembers();
-
-  const handleAddMember = (value) => {
-    if (value && !users.includes(value)) {
-      setUsers([...users, value]);
-    }
-  };
-
-  const handleRemoveMember = (newUser: User) => {
-    setUsers((current) => current.filter((u) => u.uuid !== newUser.uuid));
-  };
+  const [name, setName] = React.useState<string>('');
+  const [editGroupName, { loading, error }] = useEditGroupName();
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    addGroupMembers({
-      variables: { groupUuid: group.uuid, userUuids: users.map((u) => u.uuid) },
+    editGroupName({
+      variables: { groupUuid: group.uuid, name: name },
       onCompleted: () => {
-        alert('Brukerne ble lagt til!');
+        alert('Gruppen ble oppdatert!');
         handleClose();
       },
     });
@@ -45,25 +35,36 @@ export default function AddMembersDialogForm({ group }: { group: Group }) {
   };
 
   const handleClose = () => {
-    setUsers([]);
+    setName('');
     setOpen(false);
   };
+
   return (
     <Box pb={1}>
       <Button
         onClick={handleClickOpen}
-        startIcon={<AddIcon />}
+        startIcon={<EditIcon />}
         variant='outlined'>
-        Legg til medlemmer
+        Endre navnet på gruppen
       </Button>
+
       <Dialog fullWidth={true} maxWidth='sm' onClose={handleClose} open={open}>
-        <DialogTitle>Legg til personer</DialogTitle>
+        <DialogTitle>Endre navnet på gruppen</DialogTitle>
         <DialogContent>
+          <DialogContentText>
+            Hvis du endrer navnet på en gruppe, endres det for alle.
+          </DialogContentText>
           <Box mt={2}>
-            <AddGroupMembersForm
-              handleRemove={handleRemoveMember}
-              members={users}
-              onChange={handleAddMember}
+            <TextField
+              inputProps={{
+                autoCapitalize: 'sentences',
+              }}
+              label='Navn på gruppen'
+              onChange={(e) => setName(e.target.value)}
+              size='small'
+              sx={{ width: '100%' }}
+              value={name}
+              variant='outlined'
             />
           </Box>
         </DialogContent>
@@ -73,7 +74,7 @@ export default function AddMembersDialogForm({ group }: { group: Group }) {
             loading={loading}
             onClick={handleSubmit}
             variant='contained'>
-            Legg til medlemmer
+            Lagre
           </LoadingButton>
         </DialogActions>
         {error && <Typography color='error.main'>{error.message}</Typography>}

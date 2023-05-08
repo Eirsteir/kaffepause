@@ -1,6 +1,7 @@
 import Head from 'next/head';
 
 import Divider from '@/components/elements/Divider';
+import EditableText from '@/components/elements/EditableText';
 import PageContainer from '@/components/elements/PageContainer';
 import GroupDetailCardSection from '@/components/groups/detail/GroupDetailCardSection';
 import GroupDetailHeader from '@/components/groups/detail/GroupDetailHeader';

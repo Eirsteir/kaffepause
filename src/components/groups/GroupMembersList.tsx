@@ -8,7 +8,17 @@ import { Group } from '@/types/Group';
 import { User } from '@/types/User';
 import URLS from '@/URLS';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import { Chip, IconButton, Stack, Typography } from '@mui/material';
+import PersonIcon from '@mui/icons-material/Person';
+import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
+import ScheduleSendIcon from '@mui/icons-material/ScheduleSend';
+import {
+  Chip,
+  IconButton,
+  ListItemIcon,
+  ListItemText,
+  Stack,
+  Typography,
+} from '@mui/material';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 
@@ -45,31 +55,54 @@ function GroupMemberMenu({
       </IconButton>
       <Menu
         anchorEl={anchorEl}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'right',
+        }}
         id='basic-menu'
         MenuListProps={{
           'aria-labelledby': 'basic-button',
         }}
         onClose={handleClose}
-        open={open}>
+        open={open}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'right',
+        }}>
         {!isMemberActor && (
           <MenuItem
             onClick={() =>
               router.push(`${URLS.LANDING}?prefillUsers=${user.uuid}`)
             }>
-            <Typography variant='subtitle2'>Inviter til pause</Typography>
+            <ListItemIcon>
+              <ScheduleSendIcon fontSize='small' />
+            </ListItemIcon>
+            <ListItemText>
+              <Typography variant='subtitle2'>Inviter til pause</Typography>
+            </ListItemText>
           </MenuItem>
         )}
         <MenuItem onClick={() => router.push(`${URLS.USERS}/${user.uuid}`)}>
-          <Typography variant='subtitle2'>Vis profil</Typography>
+          <ListItemIcon>
+            <PersonIcon fontSize='small' />
+          </ListItemIcon>
+          <ListItemText>
+            <Typography variant='subtitle2'>Vis profil</Typography>
+          </ListItemText>
         </MenuItem>
         <MenuItem
           onClick={() => {
             onRemoveMember();
             handleClose();
           }}>
-          <Typography variant='subtitle2'>
-            {isMemberActor ? 'Forlat gruppe' : 'Fjern medlem'}
-          </Typography>
+          <ListItemIcon>
+            <PersonRemoveIcon fontSize='small' />
+          </ListItemIcon>
+          <ListItemText>
+            <Typography variant='subtitle2'>
+              {isMemberActor ? 'Forlat gruppe' : 'Fjern medlem'}
+            </Typography>
+          </ListItemText>
         </MenuItem>
       </Menu>
     </div>

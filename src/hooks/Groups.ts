@@ -1,5 +1,6 @@
 import ADD_GROUP_MEMBERS_MUTATION from '@/graphql/groups/addGroupMembers.mutation';
 import CREATE_GROUP_MUTATION from '@/graphql/groups/createGroup.mutation';
+import EDIT_GROUP_NAME_MUTATION from '@/graphql/groups/editGroupName.mutation';
 import GROUP_QUERY from '@/graphql/groups/group.query';
 import MY_GROUPS_QUERY from '@/graphql/groups/myGroups.query';
 import REMOVE_GROUP_MEMBER_MUTATION from '@/graphql/groups/removeGroupMember.mutation';
@@ -43,6 +44,29 @@ export const useAddGroupMembers = () =>
       {
         data: {
           addGroupMembers: { group },
+        },
+      },
+    ) {
+      cache.modify({
+        fields: {
+          group(existingGroup = {}) {
+            return {
+              ...existingGroup,
+              ...group,
+            };
+          },
+        },
+      });
+    },
+  });
+
+export const useEditGroupName = () =>
+  useMutation(EDIT_GROUP_NAME_MUTATION, {
+    update(
+      cache,
+      {
+        data: {
+          editGroupName: { group },
         },
       },
     ) {

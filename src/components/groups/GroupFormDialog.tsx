@@ -68,6 +68,9 @@ export default function GroupFormDialog({
           <Typography variant='h3'>Navn</Typography>
 
           <TextField
+            inputProps={{
+              autoCapitalize: 'sentences',
+            }}
             label='Lag et gruppenavn'
             onChange={(e) => setName(e.target.value)}
             value={name}

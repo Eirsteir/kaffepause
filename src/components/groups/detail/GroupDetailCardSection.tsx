@@ -1,7 +1,9 @@
 import Card from '@/components/elements/Card';
 import Divider from '@/components/elements/Divider';
 import AddMembersDialogForm from '@/components/groups/detail/AddMembersDialogForm';
-import { CardContent, Typography } from '@mui/material';
+import RenameGroupDialogForm from '@/components/groups/detail/RenameGroupDialogForm';
+import EditIcon from '@mui/icons-material/Edit';
+import { Button, CardContent, Typography } from '@mui/material';
 
 export default function GroupDetailCardSection({ group }: { group: Group }) {
   return (
@@ -10,6 +12,7 @@ export default function GroupDetailCardSection({ group }: { group: Group }) {
         <Typography variant='subtitle2'>Medlem siden 1. mai 2023</Typography>
         <Divider />
         <AddMembersDialogForm group={group} />
+        <RenameGroupDialogForm group={group} />
       </CardContent>
     </Card>
   );
