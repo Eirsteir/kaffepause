@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router';
 import * as React from 'react';
 
+import Avatar from '@/components/elements/Avatar';
 import SearchBar from '@/components/elements/SearchInputField';
 import { useSearchUsers } from '@/hooks/User';
 import { User, UserEdge } from '@/types/User';
@@ -11,8 +12,6 @@ import Divider from '@mui/material/Divider';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { debounce } from '@mui/material/utils';
-
-import Avatar from '../elements/Avatar';
 
 // https://nextjs.org/docs/api-reference/next/router#resetting-state-after-navigation
 export default function Search() {
@@ -32,7 +31,7 @@ export default function Search() {
               callback(searchUsers.edges.map((edge: UserEdge) => edge.node)),
           });
         },
-        400,
+        100,
       ),
     [search],
   );

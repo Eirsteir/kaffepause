@@ -1,8 +1,7 @@
-import { gql } from "@apollo/client";
-
+import { gql } from '@apollo/client';
 
 const SEARCH_USERS = gql`
-query search($query: String!, $first: Int) {
+  query search($query: String!, $first: Int) {
     searchUsers(query: $query, first: $first) {
       count
       totalCount
@@ -12,23 +11,7 @@ query search($query: String!, $first: Int) {
           id
           uuid
           name
-          username
-          socialContext
-          isViewerFriend
           friendshipStatus
-          friends {
-            count
-          }
-          preferredLocation {
-            id
-            uuid
-            title
-          }
-          currentLocation {
-            id
-            uuid
-            title
-          }
         }
       }
       pageInfo {
@@ -39,6 +22,6 @@ query search($query: String!, $first: Int) {
       }
     }
   }
-`
+`;
 
 export default SEARCH_USERS;

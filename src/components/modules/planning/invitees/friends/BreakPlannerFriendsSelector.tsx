@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react';
 
 import CenteredBox from '@/components/elements/CenteredBox';
-import InviteFriendsCheckBoxList from '@/components/modules/planning/invitees/friends/InviteFriendsCheckBoxList';
+import UserCheckBoxList from '@/components/modules/users/UserCheckBoxList';
 import { User } from '@/types/User';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
@@ -57,7 +57,7 @@ export default function BreakPlannerFriendsSelector({
         value={selection}
       />
 
-      <InviteFriendsCheckBoxList
+      <UserCheckBoxList
         initialSelection={selection}
         onDeselect={handleDeselect}
         onSelect={handleSelect}

@@ -9,15 +9,16 @@ import { User } from '@/types/User';
 import { Box, Button, Typography } from '@mui/material';
 
 interface EditGroupMembersFormProps {
+  user: User;
   group: Group;
   onClose: () => void;
 }
 export default function EditGroupMembersForm({
+  user,
   group,
   onClose,
 }: EditGroupMembersFormProps) {
-  const { me, loading: meLoading, error: meError } = useMe();
-  const [editGroupMembers, { loading, error }] = useRemoveGroupMember();
+''  const [editGroupMembers, { loading, error }] = useRemoveGroupMember();
   const [members, setMembers] = useState<Group['members']>(group.members);
 
   const handleAddMember = (event, value) => {

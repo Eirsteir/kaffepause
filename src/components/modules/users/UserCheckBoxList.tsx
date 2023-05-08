@@ -11,19 +11,19 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 
-interface InviteFriendsCheckBoxListProps {
-  initialSelection: User[];
+interface UserCheckBoxListProps {
+  initialSelection?: User[];
   users: User[];
   onSelect: (user: User) => void;
   onDeselect: (user: User) => void;
 }
 
-export default function InviteFriendsCheckBoxList({
+export default function UserCheckBoxList({
   users,
   onSelect,
   onDeselect,
   initialSelection,
-}: InviteFriendsCheckBoxListProps) {
+}: UserCheckBoxListProps) {
   const [checked, setChecked] = React.useState<User[]>([]);
 
   const handleToggle = (user: User) => () => {
@@ -40,10 +40,11 @@ export default function InviteFriendsCheckBoxList({
     setChecked(newChecked);
   };
 
-  React.useEffect(
-    () => setChecked(initialSelection),
-    [setChecked, initialSelection],
-  );
+  React.useEffect(() => {
+    if (initialSelection) {
+      setChecked(initialSelection);
+    }
+  }, [setChecked, initialSelection]);
 
   return (
     <List

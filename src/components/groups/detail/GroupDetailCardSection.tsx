@@ -1,14 +1,15 @@
 import Card from '@/components/elements/Card';
-import { Button, CardContent, Typography } from '@mui/material';
+import Divider from '@/components/elements/Divider';
+import AddMembersDialogForm from '@/components/groups/detail/AddMembersDialogForm';
+import { CardContent, Typography } from '@mui/material';
 
-export default function GroupDetailCardSection() {
+export default function GroupDetailCardSection({ group }: { group: Group }) {
   return (
     <Card sx={{ padding: 2 }}>
       <CardContent>
-        <Typography pb={1} variant='subtitle2'>
-          Medlem siden 1. mai 2023
-        </Typography>
-        <Button variant='contained'>Forlat gruppe</Button>
+        <Typography variant='subtitle2'>Medlem siden 1. mai 2023</Typography>
+        <Divider />
+        <AddMembersDialogForm group={group} />
       </CardContent>
     </Card>
   );

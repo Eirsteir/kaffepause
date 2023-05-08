@@ -1,3 +1,4 @@
+import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import * as React from 'react';
 
@@ -12,9 +13,11 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 
 function GroupMemberMenu({
+  isMemberActor,
   user,
   onRemoveMember,
 }: {
+  isMemberActor: boolean;
   user: User;
   onRemoveMember: () => void;
 }) {
@@ -48,12 +51,14 @@ function GroupMemberMenu({
         }}
         onClose={handleClose}
         open={open}>
-        <MenuItem
-          onClick={() =>
-            router.push(`${URLS.LANDING}?prefillUsers=${user.uuid}`)
-          }>
-          <Typography variant='subtitle2'>Inviter til pause</Typography>
-        </MenuItem>
+        {!isMemberActor && (
+          <MenuItem
+            onClick={() =>
+              router.push(`${URLS.LANDING}?prefillUsers=${user.uuid}`)
+            }>
+            <Typography variant='subtitle2'>Inviter til pause</Typography>
+          </MenuItem>
+        )}
         <MenuItem onClick={() => router.push(`${URLS.USERS}/${user.uuid}`)}>
           <Typography variant='subtitle2'>Vis profil</Typography>
         </MenuItem>
@@ -62,7 +67,9 @@ function GroupMemberMenu({
             onRemoveMember();
             handleClose();
           }}>
-          <Typography variant='subtitle2'>Fjern medlem</Typography>
+          <Typography variant='subtitle2'>
+            {isMemberActor ? 'Forlat gruppe' : 'Fjern medlem'}
+          </Typography>
         </MenuItem>
       </Menu>
     </div>
@@ -75,12 +82,15 @@ export default function GroupMembersList({
   group: Group;
   detail?: boolean;
 }) {
-  const [removeGroupMember, { loading, error }] = useRemoveGroupMember();
+  const { data: session } = useSession();
+
+  const [removeGroupMember, { loading }] = useRemoveGroupMember();
 
   const onRemoveGroupMember = (member: User) => {
     removeGroupMember({
       variables: { groupUuid: group.uuid, memberUuid: member.uuid },
       onCompleted: () => alert('Brukeren ble fjernet fra gruppen.'),
+      onError: (error) => alert(error.message),
     });
   };
 
@@ -89,6 +99,7 @@ export default function GroupMembersList({
       return {
         deleteIcon: (
           <GroupMemberMenu
+            isMemberActor={session?.user?.uuid == member.uuid}
             onRemoveMember={() => onRemoveGroupMember(member)}
             user={member}
           />
@@ -106,13 +117,13 @@ export default function GroupMembersList({
 
   return (
     <Stack direction='row' spacing={1}>
-      {group.members.map((user, i) => (
+      {group.members.map((member, i) => (
         <Chip
-          avatar={<Avatar user={user} />}
+          avatar={<Avatar user={member} />}
           key={i}
-          label={user.name}
+          label={member.name}
           variant='outlined'
-          {...resolveChipProps(user)}
+          {...resolveChipProps(member)}
         />
       ))}
     </Stack>

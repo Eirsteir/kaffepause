@@ -35,7 +35,7 @@ export default function GroupDetail({ uuid }: GroupDetailProps) {
               <Divider />
             </Grid>
             <Grid item md={4} order={{ xs: 1, sm: 1, md: 2, lg: 2 }} xs={12}>
-              <GroupDetailCardSection />
+              <GroupDetailCardSection group={group} />
             </Grid>
           </Grid>
         </QueryResult>

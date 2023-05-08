@@ -1,22 +1,25 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 
 import Avatar from '@/components/elements/Avatar';
+import CenteredBox from '@/components/elements/CenteredBox';
+import SearchUsers from '@/components/groups/SearchUsers';
+import UserCheckBoxList from '@/components/modules/users/UserCheckBoxList';
 import { Group } from '@/types/Group';
 import { User } from '@/types/User';
 import {
-  Autocomplete,
   Button,
+  Divider,
+  Grid,
   List,
   ListItem,
   ListItemAvatar,
   ListItemText,
-  TextField,
+  Typography,
 } from '@mui/material';
 
 interface AddGroupMembersFormProps {
   size?: 'small' | 'medium';
-  onChange: (event, value) => void;
-  user: User;
+  onChange: (value: User) => void;
   members: Group['members'];
   handleRemove: (value: User) => void;
 }
@@ -24,34 +27,15 @@ interface AddGroupMembersFormProps {
 export default function AddGroupMembersForm({
   size = 'medium',
   onChange,
-  user,
   members,
   handleRemove,
 }: AddGroupMembersFormProps) {
-  const friends = useMemo(
-    () =>
-      user !== undefined ? user.friends.edges.map((edge) => edge.node) : [],
-    [user],
-  );
+  const [options, setOptions] = useState<User[]>([]);
 
   return (
     <>
-      <Autocomplete
-        freeSolo
-        getOptionLabel={(option) => option.name}
-        noOptionsText='Legg til venner for å legge dem til i gruppen'
-        onChange={onChange}
-        options={friends}
-        renderInput={(params) => (
-          <TextField
-            {...params}
-            label='Søk etter venner'
-            size={size}
-            variant='outlined'
-          />
-        )}
-      />
-      {members.length > 0 && (
+      <SearchUsers onSearchCompletedCallback={setOptions} onSelect={onChange} />
+      {members.length > 0 ? (
         <List dense={size === 'small'}>
           {members.map((member, index) => (
             <ListItem
@@ -67,13 +51,21 @@ export default function AddGroupMembersForm({
               <ListItemAvatar>
                 <Avatar user={member} />
               </ListItemAvatar>
-              <ListItemText
-                primary={member.name}
-                // secondary={secondary ? 'Secondary text' : null}
-              />
+              <ListItemText primary={member.name} />
             </ListItem>
           ))}
         </List>
+      ) : (
+        <CenteredBox m={4}>
+          <Typography variant='body2'>Ingen brukere er valgt enda</Typography>
+        </CenteredBox>
+      )}
+      {options.length > 0 && (
+        <UserCheckBoxList
+          onDeselect={handleRemove}
+          onSelect={onChange}
+          users={options}
+        />
       )}
     </>
   );

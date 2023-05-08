@@ -1,3 +1,4 @@
+import ADD_GROUP_MEMBERS_MUTATION from '@/graphql/groups/addGroupMembers.mutation';
 import CREATE_GROUP_MUTATION from '@/graphql/groups/createGroup.mutation';
 import GROUP_QUERY from '@/graphql/groups/group.query';
 import MY_GROUPS_QUERY from '@/graphql/groups/myGroups.query';
@@ -19,6 +20,29 @@ export const useRemoveGroupMember = () =>
       {
         data: {
           removeGroupMember: { group },
+        },
+      },
+    ) {
+      cache.modify({
+        fields: {
+          group(existingGroup = {}) {
+            return {
+              ...existingGroup,
+              ...group,
+            };
+          },
+        },
+      });
+    },
+  });
+
+export const useAddGroupMembers = () =>
+  useMutation(ADD_GROUP_MEMBERS_MUTATION, {
+    update(
+      cache,
+      {
+        data: {
+          addGroupMembers: { group },
         },
       },
     ) {

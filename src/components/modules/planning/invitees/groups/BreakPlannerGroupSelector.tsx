@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react';
 
 import CenteredBox from '@/components/elements/CenteredBox';
-import InviteFriendsCheckBoxList from '@/components/modules/planning/invitees/friends/InviteFriendsCheckBoxList';
+import UserCheckBoxList from '@/components/modules/users/UserCheckBoxList';
 import InviteGroupCheckBoxList from '@/components/modules/planning/invitees/groups/InviteGroupCheckBoxList';
 import { Group } from '@/types/Group';
 import { User } from '@/types/User';
