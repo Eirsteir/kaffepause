@@ -21,7 +21,13 @@ export const Footer: FC = (): ReactElement => {
           </Grid>
           <Grid item xs={12}>
             <Typography color='text.secondary' variant='subtitle2'>
-              Hjem - Personvern - Kontakt
+              Laget med {'<'}3 av Eirik Steira - Støtt meg gjerne{'<'}3
+            </Typography>
+          </Grid>
+          <Grid item xs={12}>
+            <Typography color='text.secondary' variant='subtitle2'>
+              Send meg en dm på insta eller lag et issue på github hvis du har
+              forslag til endringer!
             </Typography>
           </Grid>
         </Grid>

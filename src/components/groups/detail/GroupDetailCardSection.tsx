@@ -2,8 +2,7 @@ import Card from '@/components/elements/Card';
 import Divider from '@/components/elements/Divider';
 import AddMembersDialogForm from '@/components/groups/detail/AddMembersDialogForm';
 import RenameGroupDialogForm from '@/components/groups/detail/RenameGroupDialogForm';
-import EditIcon from '@mui/icons-material/Edit';
-import { Button, CardContent, Typography } from '@mui/material';
+import { CardContent, Typography } from '@mui/material';
 
 export default function GroupDetailCardSection({ group }: { group: Group }) {
   return (

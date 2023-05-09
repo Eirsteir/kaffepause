@@ -37,6 +37,7 @@ export const QueryResult = ({
     }
   }
   if (!data) {
+    // 404
     return <Typography>{emptyText || 'Ingenting å vise...'}</Typography>;
   }
   if (data) {

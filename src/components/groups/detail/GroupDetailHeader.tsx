@@ -7,7 +7,7 @@ import URLS from '@/URLS';
 export default function GroupDetailHeader({ group }: { group: Group }) {
   const renderSubtitle = () => (
     <>
-      Opprettet {dayjs(group?.created).format('LLL')} av{' '}
+      Opprettet {dayjs(group?.created).format('LL')} av{' '}
       <Link href={`${URLS.USERS}/${group.creator.uuid}`}>
         {group.creator.shortName}
       </Link>

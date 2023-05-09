@@ -19,5 +19,5 @@ export default function LandingPage() {
     console.log(error);
   }
 
-  return <>{isAuthenticated ? <Home user={me} /> : <Landing />}</>;
+  return isAuthenticated ? <Home user={me} /> : <Landing />;
 }

@@ -1,14 +1,9 @@
-import { Container } from '@mui/material';
-import Box from '@mui/material/Box';
+import type { PropsWithChildren } from 'react';
 
-export default function PageContainer({
-  children,
-}: {
-  children: React.ReactNode | React.ReactNode[];
-}) {
-  return (
-    <Container disableGutters maxWidth='lg' sx={{ paddingTop: '2.25rem' }}>
-      {children}
-    </Container>
-  );
-}
+import { Container } from '@mui/material';
+
+export const PageContainer = ({ children }: PropsWithChildren) => (
+  <Container maxWidth='lg' sx={{ paddingTop: '2.25rem' }}>
+    {children}
+  </Container>
+);

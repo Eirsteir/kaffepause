@@ -13,6 +13,7 @@ import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
 import ScheduleSendIcon from '@mui/icons-material/ScheduleSend';
 import {
   Chip,
+  Divider,
   IconButton,
   ListItemIcon,
   ListItemText,
@@ -90,6 +91,7 @@ function GroupMemberMenu({
             <Typography variant='subtitle2'>Vis profil</Typography>
           </ListItemText>
         </MenuItem>
+        <Divider />
         <MenuItem
           onClick={() => {
             onRemoveMember();

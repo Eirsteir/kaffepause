@@ -1,14 +1,11 @@
 import Head from 'next/head';
+import type { PropsWithChildren } from 'react';
 
 import Footer from '@/components/Footer';
 import Navigation from '@/components/navigation/Navigation';
 import styles from '@/styles/Layout.module.css';
 
-type Props = {
-  children?: React.ReactNode;
-};
-
-export default function Layout({ children }: Props) {
+export default function Layout({ children }: PropsWithChildren) {
   return (
     <>
       <Head>
