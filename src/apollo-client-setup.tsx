@@ -15,9 +15,7 @@ const httpLink = createHttpLink({
 });
 
 const authLink = setContext(async (_, { headers }) => {
-  const { token } = await fetch(
-    process.env.NEXT_PUBLIC_NEXTAUTH_URL + 'api/auth/token',
-  ).then((res) => res.json());
+  const { token } = await fetch('api/auth/token').then((res) => res.json());
 
   const accessToken = token?.account.access_token;
 
