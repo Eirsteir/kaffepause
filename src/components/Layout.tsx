@@ -17,7 +17,7 @@ export default function Layout({ children }: PropsWithChildren) {
       <main className={styles.main}>
         <Navigation />
         <div>{children}</div>
-        {/* <Footer /> */}
+        <Footer />
       </main>
     </>
   );

@@ -13,21 +13,12 @@ export const Footer: FC = (): ReactElement => {
         borderTop: '1px solid #DDDDDD',
       }}>
       <Container maxWidth='lg'>
-        <Grid alignItems='center' container direction='column'>
+        <Grid alignItems='center' container spacing={0}>
           <Grid item xs={12}>
-            <Typography color='text.secondary' variant='subtitle2'>
-              @ {new Date().getFullYear()} Kaffepause.
-            </Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <Typography color='text.secondary' variant='subtitle2'>
-              Laget med {'<'}3 av Eirik Steira - Støtt meg gjerne{'<'}3
-            </Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <Typography color='text.secondary' variant='subtitle2'>
-              Send meg en dm på insta eller lag et issue på github hvis du har
-              forslag til endringer!
+            <Typography color='text.primary' variant='subtitle2'>
+              © 2023 Kaffepause · Laget med 💙 av meg. Jeg setter (utrolig) stor
+              pris på tilbakemeldinger! Kontakt meg gjerne på Instagram eller
+              GitHub.
             </Typography>
           </Grid>
         </Grid>
