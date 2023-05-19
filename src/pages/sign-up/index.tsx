@@ -66,13 +66,11 @@ export default function SignUp() {
     },
     onCompleted: ({ register }) => handleSignUpCompleted(register),
     onError: (err) => {
-      console.log(err);
       setSignUpError('Noe gikk galt, prøv igjen senere');
     },
   });
 
   const handleSignUpCompleted = (register: any) => {
-    console.log(register);
     if (register.success) {
       signIn('email-login', {
         email: email,
@@ -82,13 +80,12 @@ export default function SignUp() {
         if (res && res.ok && res.status === 200) router.push(URLS.LANDING);
         else {
           const error = JSON.parse(res.error);
-          console.log(error);
           setEmail(error.email);
 
           if (error.errors.nonFieldErrors) {
             setSignUpError(error.errors.nonFieldErrors[0].message);
           } else {
-            setSignUpError('Noe gikk galt');
+            setSignUpError('Feil epost eller passord');
           }
         }
       });
@@ -101,6 +98,7 @@ export default function SignUp() {
 
   const onSubmit = (e) => {
     e.preventDefault();
+    setSignUpError('');
     register();
   };
 

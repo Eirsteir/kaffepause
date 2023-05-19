@@ -52,6 +52,7 @@ export default function Login() {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setIsLoading(true);
+    setLoginError('');
 
     signIn('email-login', {
       email: email,
@@ -62,7 +63,9 @@ export default function Login() {
       if (res && res.ok && res.status === 200) router.push(URLS.LANDING);
       else {
         setIsLoading(false);
-        setLoginError('Noe gikk galt');
+        setLoginError(
+          'Her var noe feil! Prøv igjen med riktig epost og passord.',
+        );
       }
     });
   };
@@ -108,7 +111,9 @@ export default function Login() {
             value={password}
           />
 
-          {loginError && <p>{loginError}</p>}
+          {loginError && (
+            <Typography variant='subtitle2'>{loginError}</Typography>
+          )}
           <Button
             disabled={isLoading}
             fullWidth

@@ -7,25 +7,41 @@ import Typography from '@mui/material/Typography';
 
 export default function Hero() {
   return (
-    <Box alignItems='center' display='flex' justifyContent='center' minHeight='80vh' sx={{ justifyContent: 'space-evenly' }}>
+    <Box
+      alignItems='center'
+      display='flex'
+      justifyContent='center'
+      minHeight='80vh'
+      sx={{ justifyContent: 'space-evenly' }}>
       <Grid container spacing={2}>
         <Grid item sm={8} xs={12}>
-          <Box sx={{ paddingLeft: '5rem', paddingRight: '5rem' }}>
-            <Typography align='left' component='div' sx={{ fontWeight: 900 }} variant='h2'>
+          <Box>
+            <Typography
+              align='left'
+              component='div'
+              sx={{ fontWeight: 900 }}
+              variant='h2'>
               Planlegg perfekte kaffepauser med venner
             </Typography>
             <Typography align='left' component='div' variant='subtitle1'>
-              Enten du trenger en rask koffeinboost eller vil ta igjen tapt tid med vennene dine over en kopp kaffe, vil vårt verktøy gjøre det enkelt å
-              planlegge perfekte kaffepauser.
+              Enten du trenger en rask koffeinboost eller vil ta igjen tapt tid
+              med vennene dine over en kopp kaffe, vil vårt verktøy gjøre det
+              enkelt å planlegge perfekte kaffepauser.
             </Typography>
 
             <Link href={URLS.SIGNIN}>
-              <Button disableElevation sx={{ marginTop: '1rem' }} variant='contained'>
+              <Button
+                disableElevation
+                sx={{ marginTop: '1rem' }}
+                variant='contained'>
                 Ta en pause
               </Button>
             </Link>
             <Link href={URLS.SIGNUP}>
-              <Button disableElevation sx={{ marginTop: '1rem', marginLeft: '1rem' }} variant='contained'>
+              <Button
+                disableElevation
+                sx={{ marginTop: '1rem', marginLeft: '1rem' }}
+                variant='contained'>
                 Lag en bruker
               </Button>
             </Link>
