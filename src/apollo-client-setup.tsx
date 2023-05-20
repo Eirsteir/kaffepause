@@ -1,4 +1,5 @@
 import { getToken } from 'next-auth/jwt';
+import { getCsrfToken } from 'next-auth/react';
 import { PropsWithChildren, useMemo } from 'react';
 
 import {
@@ -12,19 +13,23 @@ import { setContext } from '@apollo/client/link/context';
 
 const httpLink = createHttpLink({
   uri: process.env.NEXT_PUBLIC_API_URL,
-  fetchOptions: {
-    mode: 'no-cors',
-  },
+  // fetchOptions: {
+  //   mode: 'no-cors',
+  // },
+  credentials: 'include',
 });
 
 const authLink = setContext(async (_, { headers }) => {
   const { token } = await fetch('api/auth/token').then((res) => res.json());
+  const csrftoken = await getCsrfToken();
 
   const accessToken = token?.account.access_token;
 
   return {
     headers: {
       authorization: accessToken ? `JWT ${accessToken}` : null,
+      'x-xsrf-token': csrftoken ? csrftoken : '',
+      'X-CSRFToken': csrftoken ? csrftoken : '', // todo: vet ikke hvilken django trenger
       ...headers,
     },
   };
