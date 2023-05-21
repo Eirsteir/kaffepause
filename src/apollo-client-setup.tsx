@@ -21,15 +21,14 @@ const httpLink = createHttpLink({
 
 const authLink = setContext(async (_, { headers }) => {
   const { token } = await fetch('api/auth/token').then((res) => res.json());
-  // const csrftoken = await getCsrfToken();
-
+  const csrftoken = await getCsrfToken();
   const accessToken = token?.account.access_token;
 
   return {
     headers: {
       authorization: accessToken ? `JWT ${accessToken}` : null,
       // 'x-xsrf-token': csrftoken ? csrftoken : '',
-      // 'X-CSRFToken': csrftoken ? csrftoken : '', // todo: vet ikke hvilken django trenger
+      'X-CSRFToken': csrftoken ? csrftoken : '', // todo: vet ikke hvilken django trenger
       ...headers,
     },
   };
