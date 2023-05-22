@@ -27,8 +27,8 @@ const authLink = setContext(async (_, { headers }) => {
   return {
     headers: {
       authorization: accessToken ? `JWT ${accessToken}` : null,
-      // 'x-xsrf-token': csrftoken ? csrftoken : '',
-      'X-CSRFToken': csrftoken ? csrftoken : '', // todo: vet ikke hvilken django trenger
+      'X-CSRFToken': csrftoken ? csrftoken : '',
+      'x-csrftoken': csrftoken ? csrftoken : '',
       ...headers,
     },
   };
