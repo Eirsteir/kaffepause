@@ -1,5 +1,6 @@
 import neo4j from 'neo4j-driver';
 import NextAuth from 'next-auth/next';
+import GitHubProvider from 'next-auth/providers/github';
 
 import { Neo4jAdapter } from '@next-auth/neo4j-adapter';
 
@@ -15,6 +16,11 @@ const neo4jSession = driver.session();
 // https://authjs.dev/reference/configuration/auth-options
 export default NextAuth({
   // https://authjs.dev/reference/providers/oauth-builtin
-  providers: [],
+  providers: [
+    GitHubProvider({
+      clientId: process.env.GITHUB_ID,
+      clientSecret: process.env.GITHUB_SECRET,
+    }),
+  ],
   adapter: Neo4jAdapter(neo4jSession),
 });
