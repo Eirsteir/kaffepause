@@ -9,7 +9,6 @@ import UPDATE_PREFERRED_LOCATION_MUTATION from '@/graphql/updatePreferredLocatio
 import USER_QUERY from '@/graphql/user.query';
 import { User } from '@/types/User';
 import {
-  ApolloError,
   LazyQueryHookOptions,
   OperationVariables,
   useLazyQuery,
@@ -17,29 +16,27 @@ import {
   useQuery,
 } from '@apollo/client';
 
-type Me = {
-  isAuthenticated: boolean;
-  loading: boolean;
-  error: ApolloError | undefined;
-  me: User;
-};
-
-export const useMe = (): Me => {
-  const { isAuthenticated, loading: isAuthLoading } = useIsAuthenticated();
-  const { loading, error, data } = useQuery(ME_QUERY, {
-    skip: !isAuthenticated || isAuthLoading,
+export const useAuthenticatedUser = () => {
+  const { isAuthenticated } = useIsAuthenticated();
+  const { data, loading, error } = useQuery(ME_QUERY, {
+    skip: !isAuthenticated,
     onError: (error) => {
       console.error('me query error: ', error);
       signOut();
     },
   });
+  return { isAuthenticated, user: data?.user, loading, error };
+};
 
-  return {
-    isAuthenticated,
-    loading: loading || isAuthLoading,
-    error,
-    me: data?.me,
-  };
+export const useMe = () => {
+  const { isAuthenticated } = useIsAuthenticated();
+  return useQuery(ME_QUERY, {
+    skip: !isAuthenticated,
+    onError: (error) => {
+      console.error('me query error: ', error);
+      signOut();
+    },
+  });
 };
 
 export const useIsAuthenticated = () => {

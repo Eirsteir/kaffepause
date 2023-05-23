@@ -1,16 +1,14 @@
 import PageContainer from '@/components/elements/PageContainer';
 import PendingBreakInvitations from '@/components/home/PendingInvitations';
 import BreakPlanner from '@/components/modules/planning/BreakPlanner';
-import { User } from '@/types/User';
+import { useMe } from '@/hooks/User';
 
-interface IProps {
-  user: User;
-}
+export default function Home() {
+  const { data, loading, error } = useMe();
 
-export default function Home({ user }: IProps) {
   return (
     <PageContainer>
-      <BreakPlanner user={user} />
+      <BreakPlanner user={data?.me} />
       <PendingBreakInvitations />
     </PageContainer>
   );

@@ -22,41 +22,39 @@ export const authOptions: NextAuthOptions = {
       },
       secret: process.env.NEXTAUTH_SECRET,
       async authorize(credentials) {
-        const {
-          data: { tokenAuth },
-        } = await apolloClient.mutate({
-          mutation: SIGNIN_MUTATION,
-          variables: {
-            email: credentials?.email,
-            password: credentials?.password,
-          },
-        });
+        const { email, password } = credentials as {
+          email: string;
+          password: string;
+        };
 
-        if (tokenAuth.success) {
-          const context = {
-            headers: {
-              authorization: `JWT ${tokenAuth.token}`,
+        const { data } = await apolloClient
+          .mutate({
+            mutation: SIGNIN_MUTATION,
+            variables: {
+              email: email,
+              password: password,
             },
-          };
-
-          const {
-            data: { me },
-          } = await apolloClient.query({
-            query: ME_QUERY,
-            context: context,
+          })
+          .catch((error) => {
+            console.error('Something went wrong during login mutation', error);
+            throw new Error(
+              'Noe gikk galt da vi prøvde å logge deg inn. Prøv igjen senere.',
+            );
           });
 
-          if (me) {
-            return {
-              success: true,
-              access_token: tokenAuth.token,
-              refresh_token: tokenAuth.refreshToken,
-              user: { ...me },
-            };
-          }
-        }
+        console.log('data', data);
+        const { tokenAuth } = data;
 
-        return null;
+        if (tokenAuth.success) {
+          return {
+            access_token: tokenAuth.token,
+            refresh_token: tokenAuth.refreshToken,
+            user: tokenAuth.user,
+          };
+        } else {
+          console.log('tokenAuth', tokenAuth.errors.nonFieldErrors);
+          throw new Error('Feil epost eller passord. Prøv igjen.');
+        }
       },
     }),
   ],

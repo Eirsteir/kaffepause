@@ -13,22 +13,18 @@ import { setContext } from '@apollo/client/link/context';
 
 const httpLink = createHttpLink({
   uri: process.env.NEXT_PUBLIC_API_URL,
-  // fetchOptions: {
-  //   mode: 'no-cors',
-  // },
   credentials: 'include',
 });
 
 const authLink = setContext(async (_, { headers }) => {
-  const { token } = await fetch('api/auth/token').then((res) => res.json());
-  const csrftoken = await getCsrfToken();
-  const accessToken = token?.account.access_token;
+  // const { token } = await fetch('api/auth/token').then((res) => res.json());
+  // const csrftoken = await getCsrfToken();
+  // const accessToken = token?.account.access_token;
 
   return {
     headers: {
-      authorization: accessToken ? `JWT ${accessToken}` : null,
-      'X-CSRFToken': csrftoken ? csrftoken : '',
-      'x-csrftoken': csrftoken ? csrftoken : '',
+      // authorization: accessToken ? `JWT ${accessToken}` : null,
+      // 'x-csrftoken': csrftoken ? csrftoken : '',
       ...headers,
     },
   };
@@ -55,7 +51,7 @@ const apolloClient = new ApolloClient({
 });
 
 export const ApolloProviderWrapper = ({ children }: PropsWithChildren) => {
-  const client = useMemo(() => apolloClient, [getToken]);
+  const client = useMemo(() => apolloClient, [getToken, getCsrfToken]);
 
   return <ApolloProvider client={client}>{children}</ApolloProvider>;
 };
