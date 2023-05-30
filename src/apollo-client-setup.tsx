@@ -19,7 +19,7 @@ const httpLink = createHttpLink({
 const authLink = setContext(async (_, { headers }) => {
   const { token } = await fetch('api/auth/token').then((res) => res.json());
   // const csrftoken = await getCsrfToken();
-  console.log('header: ', token);
+
   return {
     headers: {
       authorization: token ? `JWT ${token}` : null,
