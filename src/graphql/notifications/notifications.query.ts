@@ -17,7 +17,7 @@ const NOTIFICATIONS_QUERY = gql`
             uuid
             name
             shortName
-            profilePic
+            image
             __typename
           }
           __typename

@@ -9,6 +9,7 @@ const FRIEND_RECOMMENDATIONS_QUERY = gql`
           uuid
           name
           shortName
+          image
           isViewerFriend
           socialContext
           preferredLocation {

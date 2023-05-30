@@ -17,13 +17,12 @@ const httpLink = createHttpLink({
 });
 
 const authLink = setContext(async (_, { headers }) => {
-  // const { token } = await fetch('api/auth/token').then((res) => res.json());
+  const { token } = await fetch('api/auth/token').then((res) => res.json());
   // const csrftoken = await getCsrfToken();
-  // const accessToken = token?.account.access_token;
-
+  console.log('header: ', token);
   return {
     headers: {
-      // authorization: accessToken ? `JWT ${accessToken}` : null,
+      authorization: token ? `JWT ${token}` : null,
       // 'x-csrftoken': csrftoken ? csrftoken : '',
       ...headers,
     },

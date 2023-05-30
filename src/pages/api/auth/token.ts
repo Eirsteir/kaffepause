@@ -1,12 +1,11 @@
-import { NextApiRequest, NextApiResponse } from 'next'
-import { getToken } from 'next-auth/jwt'
-
+import { NextApiRequest, NextApiResponse } from 'next';
+import { getToken } from 'next-auth/jwt';
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse
+  res: NextApiResponse,
 ) {
-  const token = await getToken({ req })
+  const token = await getToken({ req, raw: true });
 
-  res.json({ token })
+  res.json({ token });
 }

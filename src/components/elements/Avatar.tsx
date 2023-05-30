@@ -14,7 +14,7 @@ export default function Avatar({ user, children, ...props }: AvatarProps) {
     <MuiAvatar
       alt={`profile-picture-${user?.name}`}
       key={`avatar-${user?.name}`}
-      src={user?.profilePic ?? undefined}
+      src={user?.image ?? undefined}
       sx={{
         bgColor: grey[500],
         ...styles,

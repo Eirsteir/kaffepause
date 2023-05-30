@@ -9,7 +9,7 @@ const BREAK_FIELDS = gql`
   fragment BreakUserFields on User {
     id
     uuid
-    profilePic
+    image
     shortName
     name
     __typename
