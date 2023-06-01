@@ -9,8 +9,9 @@ export const Footer: FC = (): ReactElement => {
       sx={{
         width: '100%',
         paddingBottom: '2rem',
+        marginTop: '4rem',
         bottom: 0,
-        position: 'absolute',
+        position: 'relative',
       }}>
       <Container maxWidth='lg'>
         <Divider />
