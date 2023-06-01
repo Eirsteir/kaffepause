@@ -16,9 +16,8 @@ export const Footer: FC = (): ReactElement => {
         <Grid alignItems='center' container spacing={0}>
           <Grid item xs={12}>
             <Typography color='text.primary' variant='subtitle2'>
-              © 2023 Kaffepause · Laget med 💙 av meg. Jeg setter (utrolig) stor
-              pris på tilbakemeldinger! Kontakt meg gjerne på Instagram eller
-              GitHub.
+              © 2023 Kaffepause · Laget med 💙 av meg. Jeg setter stor pris på
+              tilbakemeldinger! Kontakt meg gjerne på Instagram eller GitHub.
             </Typography>
           </Grid>
         </Grid>

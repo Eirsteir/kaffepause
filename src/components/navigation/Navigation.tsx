@@ -1,3 +1,5 @@
+import { useSession } from 'next-auth/react';
+
 import AuthenticatedNav from '@/components/navigation/AuthenticatedNav';
 import BaseNavigation from '@/components/navigation/BaseNavigation';
 import UnauthedAccountMenu from '@/components/navigation/UnauthedAccountMenu';
@@ -6,6 +8,7 @@ import { useHasMounted } from '@/hooks/utils';
 
 export default function Navigation() {
   const { isAuthenticated, user, loading } = useAuthenticatedUser();
+  const { data: session, status } = useSession();
 
   const hasMounted = useHasMounted();
   if (!hasMounted) {
@@ -16,8 +19,8 @@ export default function Navigation() {
   // return <LoadingNavBar />;
   // }
 
-  if (isAuthenticated) {
-    return <AuthenticatedNav user={user} />;
+  if (isAuthenticated && session && session.user) {
+    return <AuthenticatedNav user={session.user} />;
   }
 
   return (

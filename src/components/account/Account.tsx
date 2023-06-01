@@ -34,14 +34,14 @@ function AccountGridItem({
 }
 
 export default function Account() {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
 
-  const {
-    data: accountData,
-    loading: accountLoading,
-    error: accountError,
-  } = useMyAccount();
-  const account = accountData?.myAccount;
+  // const {
+  //   data: accountData,
+  //   loading: accountLoading,
+  //   error: accountError,
+  // } = useMyAccount();
+  // const account = accountData?.myAccount;
 
   return (
     <>
@@ -51,11 +51,11 @@ export default function Account() {
       <PageContainer>
         <Heading noGutterBottom>Konto</Heading>
         <QueryResult
-          data={account}
-          error={accountError}
-          loading={accountLoading}>
+          data={session?.user}
+          error={undefined}
+          loading={status === 'loading'}>
           <Typography gutterBottom variant='subtitle1'>
-            <b>{session?.user?.name}</b>, {account?.email} •{' '}
+            <b>{session?.user?.name}</b>, {session?.user?.email} •{' '}
             <Link href={`${URLS.USERS}/${session?.user?.uuid}`}>
               <b>Gå til profil</b>
             </Link>
@@ -66,7 +66,7 @@ export default function Account() {
               title='Personlige opplysninger'
             />
             <AccountGridItem
-              subTitle='Passord, innlogginger etc.'
+              subTitle='Konto, sosiale instillinger osv etc.'
               title='Innlogging og sikkerhet'
             />
             <AccountGridItem

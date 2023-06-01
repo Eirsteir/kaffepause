@@ -49,11 +49,7 @@ const LoadingSkeleton = () => (
   </>
 );
 
-interface IProps {
-  user: User;
-}
-
-export default function NotificationsMenu({ user }: IProps) {
+export default function NotificationsMenu() {
   const { data: notificationBadgeCountData } = useNotificationsBagdeCount();
   const [fetchNotifications, { data, loading, error }] = useNotifications();
   const [markAllAsSeen] = useMarkAllNotificationsAsSeen();
