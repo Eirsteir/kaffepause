@@ -14,10 +14,12 @@ export default function Layout({ children }: PropsWithChildren) {
         <meta content='width=device-width, initial-scale=1' name='viewport' />
         <link href='/favicon.ico' rel='icon' />
       </Head>
-      <main className={styles.main}>
-        <Navigation />
-        <div>{children}</div>
-        <Footer />
+      <main>
+        <div className={styles.main}>
+          <Navigation />
+          <div>{children}</div>
+          <Footer />
+        </div>
       </main>
     </>
   );
