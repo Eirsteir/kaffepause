@@ -46,7 +46,7 @@ export default function Invitations() {
                 <>
                   <Typography mb={1.5}>{section.emptyStateText}</Typography>
                   <Button
-                    onClick={() => router.push(URLS.LANDING)}
+                    onClick={() => router.push(URLS.HOME)}
                     variant='contained'>
                     {section.emptyStateActionText}
                   </Button>

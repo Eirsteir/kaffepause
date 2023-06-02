@@ -1,5 +1,6 @@
 import jsonwebtoken from 'jsonwebtoken';
 import neo4j from 'neo4j-driver';
+import type { NextAuthOptions } from 'next-auth';
 import { JWT } from 'next-auth/jwt';
 import NextAuth from 'next-auth/next';
 import GitHubProvider from 'next-auth/providers/github';
@@ -16,7 +17,7 @@ const driver = neo4j.driver(
 
 const neo4jSession = driver.session();
 
-export default NextAuth({
+const authOptions: NextAuthOptions = {
   providers: [
     GitHubProvider({
       clientId: process.env.GITHUB_ID,
@@ -59,4 +60,6 @@ export default NextAuth({
       return session;
     },
   },
-});
+};
+
+export default NextAuth(authOptions);

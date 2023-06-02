@@ -60,7 +60,7 @@ export default function Login() {
       // callbackUrl: `${window.location.origin}/`
       redirect: false,
     }).then((res) => {
-      if (res && res.ok && res.status === 200) router.push(URLS.LANDING);
+      if (res && res.ok && res.status === 200) router.push(URLS.HOME);
       else {
         setIsLoading(false);
         setLoginError(

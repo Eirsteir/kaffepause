@@ -15,7 +15,7 @@ export default function FriendActionButton({ user }: Props) {
   const router = useRouter();
   const onClick = () =>
     router.push({
-      pathname: URLS.LANDING,
+      pathname: URLS.HOME,
       query: { prefillIniviteesWith: [user.uuid] },
     });
 

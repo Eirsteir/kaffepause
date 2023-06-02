@@ -24,7 +24,7 @@ export default function BaseNavigation({ children }: Props) {
             <Box sx={{ flex: '1 1 0px' }}>
               <Typography
                 component='a'
-                href={URLS.LANDING}
+                href={URLS.HOME}
                 sx={{ fontWeight: 600 }}
                 variant='h5'>
                 kaffepause

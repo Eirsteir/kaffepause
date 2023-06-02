@@ -73,7 +73,7 @@ function GroupMemberMenu({
         {!isMemberActor && (
           <MenuItem
             onClick={() =>
-              router.push(`${URLS.LANDING}?prefillUsers=${user.uuid}`)
+              router.push(`${URLS.HOME}?prefillUsers=${user.uuid}`)
             }>
             <ListItemIcon>
               <ScheduleSendIcon fontSize='small' />
