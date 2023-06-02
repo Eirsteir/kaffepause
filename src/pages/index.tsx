@@ -5,7 +5,7 @@ import Landing from '@/components/landing/Landing';
 import { useHasMounted } from '@/hooks/utils';
 
 export default function LandingPage() {
-  const { data: session, status } = useSession();
+  const { status } = useSession();
   const hasMounted = useHasMounted();
 
   if (!hasMounted) {
