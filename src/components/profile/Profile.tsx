@@ -12,18 +12,19 @@ import { useUser } from '@/hooks/User';
 import { User } from '@/types/User';
 import MUIDivider from '@mui/material/Divider';
 import Grid from '@mui/material/Grid';
+import { useMemo } from 'react';
 
 interface ProfileProps {
   userId: User['uuid'];
-  actorIsUser: boolean;
 }
 
 const Divider = () => (
   <MUIDivider sx={{ marginTop: '2rem', marginBottom: '2rem' }} />
 );
 
-export default function Profile({ userId, actorIsUser }: ProfileProps) {
+export default function Profile({ userId }: ProfileProps) {
   const { data, loading, error } = useUser(userId); // todo: fix loading state
+  const actorIsUser = useMemo(() => data?.user?.uuid === userId, [data, userId])]);
 
   return (
     <>

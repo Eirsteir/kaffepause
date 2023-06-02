@@ -22,7 +22,7 @@ const authLink = setContext(async (_, { headers }) => {
 
   return {
     headers: {
-      authorization: token ? `JWT ${token}` : null,
+      authorization: token ? `Bearer ${token}` : null,
       // 'x-csrftoken': csrftoken ? csrftoken : '',
       ...headers,
     },

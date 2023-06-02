@@ -163,11 +163,7 @@ export default function SignUp() {
               />
             </Grid>
           </Grid>
-          <span
-          // className={styles.error}
-          >
-            {error?.message}
-          </span>
+
           <span
           // className={styles.error}
           >
