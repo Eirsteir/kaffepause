@@ -1,9 +1,7 @@
 import { getServerSession } from 'next-auth';
-import { useSession } from 'next-auth/react';
 
 import Home from '@/components/home/Home';
 import Landing from '@/components/landing/Landing';
-import { useHasMounted } from '@/hooks/utils';
 import { authOptions } from '@/pages/api/auth/[...nextauth]';
 
 export default function LandingPage({
