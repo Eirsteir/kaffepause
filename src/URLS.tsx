@@ -1,6 +1,5 @@
 const URLS = {
   LANDING: '/',
-  HOME: '/home', // /planner?
   SIGNIN: '/login',
   SIGNUP: '/sign-up',
   USERS: '/users',

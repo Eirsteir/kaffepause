@@ -17,11 +17,11 @@ const driver = neo4j.driver(
 
 const neo4jSession = driver.session();
 
-const authOptions: NextAuthOptions = {
+export const authOptions: NextAuthOptions = {
   providers: [
     GitHubProvider({
-      clientId: process.env.GITHUB_ID,
-      clientSecret: process.env.GITHUB_SECRET,
+      clientId: process.env.GITHUB_ID!,
+      clientSecret: process.env.GITHUB_SECRET!,
     }),
   ],
   adapter: Neo4jAdapter(neo4jSession),

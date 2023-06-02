@@ -7,7 +7,6 @@ import { useAuthenticatedUser } from '@/hooks/User';
 import { useHasMounted } from '@/hooks/utils';
 
 export default function Navigation() {
-  const { isAuthenticated, user, loading } = useAuthenticatedUser();
   const { data: session, status } = useSession();
 
   const hasMounted = useHasMounted();
@@ -19,7 +18,7 @@ export default function Navigation() {
   // return <LoadingNavBar />;
   // }
 
-  if (isAuthenticated && session && session.user) {
+  if (status === 'authenticated' && session.user) {
     return <AuthenticatedNav user={session.user} />;
   }
 
