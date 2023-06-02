@@ -11,6 +11,7 @@ const SEARCH_USERS = gql`
           id
           uuid
           name
+          image
           friendshipStatus
         }
       }

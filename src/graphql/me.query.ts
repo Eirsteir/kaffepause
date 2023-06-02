@@ -7,8 +7,7 @@ const ME_QUERY = gql`
       uuid
       name
       shortName
-      profilePic
-      locale
+      image
       friends {
         totalCount
         edges {
@@ -17,7 +16,7 @@ const ME_QUERY = gql`
             uuid
             name
             shortName
-            profilePic
+            image
           }
         }
       }

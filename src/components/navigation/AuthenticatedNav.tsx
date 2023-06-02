@@ -1,10 +1,12 @@
+import { User } from 'next-auth';
+
 import Search from '@/components/modules/Search';
 import AccountMenu from '@/components/navigation/AccountMenu';
 import BaseNavigation from '@/components/navigation/BaseNavigation';
 import NextBreakActionCard from '@/components/navigation/NextBreakActionCard';
 import NotificationsMenu from '@/components/navigation/NotificationsMenu';
-import { User } from '@/types/User';
 import Box from '@mui/material/Box';
+
 interface IProps {
   user: User;
 }
@@ -24,7 +26,7 @@ export default function AuthenticatedNav({ user }: IProps) {
           justifyContent: 'end',
         }}>
         <Search />
-        <NotificationsMenu user={user} />
+        <NotificationsMenu />
         <AccountMenu user={user} />
       </Box>
     </BaseNavigation>

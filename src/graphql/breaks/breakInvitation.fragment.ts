@@ -7,7 +7,7 @@ const BREAK_INVITATION_FIELDS = gql`
   fragment BreakUserFields on User {
     id
     uuid
-    profilePic
+    image
     shortName
     name
     __typename
@@ -40,7 +40,7 @@ const BREAK_INVITATION_FIELDS = gql`
         uuid
         name
         shortName
-        profilePic
+        image
       }
     }
     addresseeCount

@@ -6,18 +6,11 @@ export const USER_FIELDS = gql`
   fragment UserFields on User {
     id
     uuid
-    username
     name
     shortName
-    profilePic
+    image
     isViewerFriend
     socialContext
-    currentStatus {
-      id
-      statusType
-      verb
-      __typename
-    }
     friends {
       totalCount
       edges {
@@ -26,8 +19,7 @@ export const USER_FIELDS = gql`
           uuid
           name
           shortName
-          username
-          profilePic
+          image
           socialContext
           isViewerFriend
           __typename
@@ -37,9 +29,6 @@ export const USER_FIELDS = gql`
     }
     friendshipStatus
     preferredLocation {
-      ...LocationChildFields
-    }
-    currentLocation {
       ...LocationChildFields
     }
     __typename

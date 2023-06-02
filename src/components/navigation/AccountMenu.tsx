@@ -1,7 +1,7 @@
+import { User } from 'next-auth';
 import { signOut } from 'next-auth/react';
 import { useRouter } from 'next/router';
 
-import { User } from '@/types/User';
 import URLS from '@/URLS';
 import Divider from '@mui/material/Divider';
 import MenuItem from '@mui/material/MenuItem';
@@ -35,7 +35,7 @@ export default function AccountMenu({ user }: IProps) {
         </Typography>
       </MenuItem>
       <Divider />
-      <MenuItem onClick={() => router.push(`${URLS.USERS}/${user.uuid}`)}>
+      <MenuItem onClick={() => router.push(`${URLS.USERS}/${user.id}`)}>
         <Typography variant='subtitle2'>Profil</Typography>
       </MenuItem>
       <MenuItem onClick={() => router.push(URLS.ACCOUNT)}>

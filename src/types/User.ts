@@ -28,7 +28,7 @@ export interface User extends NextAuthUser {
   shortName: string;
   email: string;
   preferredLocation?: Location;
-  profilePic: string;
+  image: string;
   friends: UserConnection;
   isViewerFriend: boolean;
   friendshipStatus: FriendshipStatus;

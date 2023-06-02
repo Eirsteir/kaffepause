@@ -25,7 +25,7 @@ export const useAuthenticatedUser = () => {
       signOut();
     },
   });
-  return { isAuthenticated, user: data?.user, loading, error };
+  return { isAuthenticated, user: data?.me, loading, error };
 };
 
 export const useMe = () => {

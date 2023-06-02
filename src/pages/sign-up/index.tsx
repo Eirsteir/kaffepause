@@ -1,12 +1,8 @@
-import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/router';
-import * as React from 'react';
 import { useEffect, useState } from 'react';
 
 import Divider from '@/components/elements/Divider';
-import SIGNUP_MUTATION from '@/graphql/signup.mutation';
 import URLS from '@/URLS';
-import { useMutation } from '@apollo/client';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
@@ -55,51 +51,10 @@ export default function SignUp() {
     }
   }, [router]);
 
-  const [register, { loading, error, reset }] = useMutation(SIGNUP_MUTATION, {
-    variables: {
-      name: firstName + ' ' + lastName,
-      email: email,
-      username: firstName + ' ' + lastName, // TODO
-      preferredLocationUuid: null, //"1fe910a8-5574-435a-8378-24885d1c0bbe",
-      password1: password,
-      password2: password, // workaround
-    },
-    onCompleted: ({ register }) => handleSignUpCompleted(register),
-    onError: (err) => {
-      setSignUpError('Noe gikk galt, prøv igjen senere');
-    },
-  });
-
-  const handleSignUpCompleted = (register: any) => {
-    if (register.success) {
-      signIn('email-login', {
-        email: email,
-        password: password,
-        redirect: false,
-      }).then((res) => {
-        if (res && res.ok && res.status === 200) router.push(URLS.LANDING);
-        else {
-          const error = JSON.parse(res.error);
-          setEmail(error.email);
-
-          if (error.errors.nonFieldErrors) {
-            setSignUpError(error.errors.nonFieldErrors[0].message);
-          } else {
-            setSignUpError('Feil epost eller passord');
-          }
-        }
-      });
-    } else {
-      // TODO: handle errors
-      // setSignUpError(register.errors)
-      alert('Noe gikk galt', register.errors);
-    }
-  };
-
   const onSubmit = (e) => {
     e.preventDefault();
     setSignUpError('');
-    register();
+    // register();
   };
 
   return (

@@ -11,7 +11,7 @@ const GROUP_FIELDS = gql`
       uuid
       name
       shortName
-      profilePic
+      image
       __typename
     }
     members {
@@ -19,7 +19,7 @@ const GROUP_FIELDS = gql`
       uuid
       name
       shortName
-      profilePic
+      image
       __typename
     }
     __typename

@@ -1,12 +1,27 @@
-import PageContainer from '@/components/elements/PageContainer';
+import Divider from '@/components/elements/Divider';
+import About from '@/components/landing/About';
 import Hero from '@/components/landing/Hero';
-import KeyBenefits from '@/components/landing/KeyBenefits';
+import InfoSection1 from '@/components/landing/InfoSection1';
+import InfoSection2 from '@/components/landing/InfoSection2';
+import InfoSection3 from '@/components/landing/InfoSection3';
+import Pitcher from '@/components/landing/Pitcher';
+import { Container } from '@mui/material';
 
 export default function Landing() {
   return (
-    <PageContainer>
+    <Container maxWidth='lg'>
       <Hero />
-      <KeyBenefits />
-    </PageContainer>
+      {/* <KeyBenefits /> */}
+      <Divider />
+      <InfoSection1 />
+      <Divider />
+      <InfoSection2 />
+      <Divider />
+      <InfoSection3 />
+      <Divider />
+      <About />
+      <Divider />
+      <Pitcher />
+    </Container>
   );
 }
