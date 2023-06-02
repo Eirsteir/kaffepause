@@ -7,3 +7,5 @@ export default function ProfilePage() {
   const { uuid } = router.query;
   return <Profile userId={uuid} />;
 }
+
+ProfilePage.requireAuth = true;

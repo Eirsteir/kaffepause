@@ -45,7 +45,7 @@ export default function AccountMenu({ user }: IProps) {
       <MenuItem onClick={dummyAction}>
         <Typography variant='subtitle2'>Hjelp</Typography>
       </MenuItem>
-      <MenuItem onClick={() => signOut()}>
+      <MenuItem onClick={() => signOut({ callbackUrl: URLS.LANDING })}>
         <Typography variant='subtitle2'>Logg ut</Typography>
       </MenuItem>
     </NavigationMenu>

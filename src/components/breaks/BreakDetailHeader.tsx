@@ -1,4 +1,4 @@
-import { DetailHeader } from '@/components/layouts/DetailHeader';
+import { DetailHeader } from '@/components/DetailHeader';
 import dayjs from '@/dayjs';
 
 export const BreakDetailHeader = ({

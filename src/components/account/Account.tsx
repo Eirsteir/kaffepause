@@ -6,7 +6,6 @@ import Heading from '@/components/elements/Heading';
 import PageContainer from '@/components/elements/PageContainer';
 import Link from '@/components/navigation/Link';
 import { QueryResult } from '@/components/QueryResult';
-import { useMyAccount } from '@/hooks/Accounts';
 import URLS from '@/URLS';
 import { CardActionArea, CardContent, Grid, Typography } from '@mui/material';
 
@@ -34,6 +33,7 @@ function AccountGridItem({
 }
 
 export default function Account() {
+  console.log('Hei');
   const { data: session, status } = useSession();
 
   // const {
@@ -56,7 +56,7 @@ export default function Account() {
           loading={status === 'loading'}>
           <Typography gutterBottom variant='subtitle1'>
             <b>{session?.user?.name}</b>, {session?.user?.email} •{' '}
-            <Link href={`${URLS.USERS}/${session?.user?.uuid}`}>
+            <Link href={`${URLS.USERS}/${session?.user?.id}`}>
               <b>Gå til profil</b>
             </Link>
           </Typography>

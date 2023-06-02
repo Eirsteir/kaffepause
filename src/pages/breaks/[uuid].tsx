@@ -8,3 +8,5 @@ export default function BreakDetailPage() {
 
   return <BreakDetail uuid={uuid}></BreakDetail>;
 }
+
+BreakDetailPage.requireAuth = true;

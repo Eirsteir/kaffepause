@@ -8,3 +8,5 @@ export default function GroupDetailPage() {
 
   return <GroupDetail uuid={uuid} />;
 }
+
+GroupDetailPage.requireAuth = true;

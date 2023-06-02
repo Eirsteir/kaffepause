@@ -5,6 +5,7 @@ import { JWT } from 'next-auth/jwt';
 import NextAuth from 'next-auth/next';
 import GitHubProvider from 'next-auth/providers/github';
 
+import URLS from '@/URLS';
 import { Neo4jAdapter } from '@next-auth/neo4j-adapter';
 
 const driver = neo4j.driver(
@@ -59,6 +60,9 @@ export const authOptions: NextAuthOptions = {
       session.user.id = token.id;
       return session;
     },
+  },
+  pages: {
+    signIn: URLS.SIGNIN, // Displays signin buttons
   },
 };
 

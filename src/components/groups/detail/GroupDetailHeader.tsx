@@ -1,4 +1,4 @@
-import { DetailHeader } from '@/components/layouts/DetailHeader';
+import { DetailHeader } from '@/components/DetailHeader';
 import Link from '@/components/navigation/Link';
 import dayjs from '@/dayjs';
 import { Group } from '@/types/Group';
