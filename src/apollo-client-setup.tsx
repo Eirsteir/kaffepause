@@ -17,12 +17,10 @@ const httpLink = createHttpLink({
 
 const authLink = setContext(async (_, { headers }) => {
   const { token } = await fetch('api/auth/token').then((res) => res.json());
-  // const csrftoken = await getCsrfToken();
 
   return {
     headers: {
       authorization: token ? `Bearer ${token}` : null,
-      // 'x-csrftoken': csrftoken ? csrftoken : '',
       ...headers,
     },
   };

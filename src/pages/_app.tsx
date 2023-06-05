@@ -3,7 +3,7 @@ import { SessionProvider } from 'next-auth/react';
 import type { AppProps } from 'next/app';
 
 import { ApolloProviderWrapper } from '@/apollo-client-setup';
-import Layout from '@/components/Layout';
+import Layout from '@/components/layouts/Layout';
 import { ProtectedLayout } from '@/components/layouts/protectedLayouts';
 import { theme } from '@/theme';
 import { ThemeProvider } from '@mui/material/styles';

@@ -5,6 +5,7 @@ import InfoSection1 from '@/components/landing/InfoSection1';
 import InfoSection2 from '@/components/landing/InfoSection2';
 import InfoSection3 from '@/components/landing/InfoSection3';
 import Pitcher from '@/components/landing/Pitcher';
+import DefaultLayout from '@/components/layouts/defaultLayout';
 import { Container } from '@mui/material';
 
 export default function Landing() {
@@ -25,3 +26,7 @@ export default function Landing() {
     </Container>
   );
 }
+
+Landing.getLayout = function getLayout(page) {
+  return <DefaultLayout>{page}</DefaultLayout>;
+};

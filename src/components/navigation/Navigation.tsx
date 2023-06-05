@@ -1,11 +1,12 @@
-import { getServerSession, Session } from 'next-auth';
+import { useSession } from 'next-auth/react';
 
 import AuthenticatedNav from '@/components/navigation/AuthenticatedNav';
 import BaseNavigation from '@/components/navigation/BaseNavigation';
 import UnauthedAccountMenu from '@/components/navigation/UnauthedAccountMenu';
-import { authOptions } from '@/pages/api/auth/[...nextauth]';
 
-export default function Navigation({ session }: { session: Session | null }) {
+export default function Navigation() {
+  const { data: session } = useSession();
+
   if (session && session.user) {
     return <AuthenticatedNav user={session.user} />;
   }
@@ -15,14 +16,4 @@ export default function Navigation({ session }: { session: Session | null }) {
       <UnauthedAccountMenu />
     </BaseNavigation>
   );
-}
-
-export async function getServerSideProps(context) {
-  const session = await getServerSession(context.req, context.res, authOptions);
-
-  return {
-    props: {
-      session,
-    },
-  };
 }

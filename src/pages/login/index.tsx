@@ -1,8 +1,9 @@
 import { getServerSession } from 'next-auth';
-import { getProviders, getSession, signIn, useSession } from 'next-auth/react';
+import { getProviders, signIn } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
+import DefaultLayout from '@/components/layouts/defaultLayout';
 import { authOptions } from '@/pages/api/auth/[...nextauth]';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
@@ -100,3 +101,7 @@ export async function getServerSideProps(context) {
     },
   };
 }
+
+Login.getLayout = function getLayout(page) {
+  return <DefaultLayout>{page}</DefaultLayout>;
+};
