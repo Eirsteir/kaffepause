@@ -1,14 +1,14 @@
 import { getProviders, getSession, signIn, useSession } from 'next-auth/react';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
+import GitHubIcon from '@mui/icons-material/GitHub';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import { CssBaseline, Divider, TextField } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
-import CssBaseline from '@mui/material/CssBaseline';
 import Typography from '@mui/material/Typography';
 
 export default function Login() {
@@ -32,10 +32,11 @@ export default function Login() {
   };
 
   return (
-    <Container component='main' maxWidth='xs'>
-      {/* <CssBaseline /> */}
+    <Container component='main' maxWidth='sm'>
+      <CssBaseline />
       <Box
         sx={{
+          marginTop: 8,
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
@@ -44,11 +45,37 @@ export default function Login() {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component='h1' variant='h5'>
-          Logg inn
+          Logg inn eller registrer deg
         </Typography>
         <Box sx={{ mt: 1 }}>
-          <Button onClick={handleSignIn} variant='outlined'>
-            Logg inn
+          <TextField
+            autoComplete='email'
+            autoFocus
+            fullWidth
+            id='email'
+            label='E-post'
+            margin='normal'
+            name='email'
+          />
+          <Button
+            fullWidth
+            onClick={handleSignIn}
+            sx={{ mt: 3, mb: 2 }}
+            type='submit'
+            variant='contained'>
+            Fortsett
+          </Button>
+          <Divider>
+            <Typography variant='subtitle2'>eller</Typography>
+          </Divider>
+          <Button
+            fullWidth
+            onClick={handleSignIn}
+            startIcon={<GitHubIcon />}
+            sx={{ mt: 3, mb: 2 }}
+            type='submit'
+            variant='outlined'>
+            Fortsett med Github
           </Button>
         </Box>
       </Box>
