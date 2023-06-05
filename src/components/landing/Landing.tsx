@@ -1,3 +1,5 @@
+import type { ReactElement } from 'react';
+
 import Divider from '@/components/elements/Divider';
 import About from '@/components/landing/About';
 import Hero from '@/components/landing/Hero';
@@ -27,6 +29,6 @@ export default function Landing() {
   );
 }
 
-Landing.getLayout = function getLayout(page) {
+Landing.getLayout = function getLayout(page: ReactElement) {
   return <DefaultLayout>{page}</DefaultLayout>;
 };

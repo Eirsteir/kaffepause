@@ -13,7 +13,7 @@ export default function UnauthedAccountMenu() {
 
   return (
     <NavigationMenu>
-      <MenuItem onClick={() => router.push(URLS.SIGNUP)}>
+      <MenuItem onClick={() => router.push(URLS.SIGNIN)}>
         <Typography sx={{ fontWeight: 700 }} variant='subtitle2'>
           Register deg
         </Typography>

@@ -2,6 +2,7 @@ import { getServerSession } from 'next-auth';
 import { getProviders, signIn } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import type { ReactElement } from 'react';
 
 import DefaultLayout from '@/components/layouts/defaultLayout';
 import { authOptions } from '@/pages/api/auth/[...nextauth]';
@@ -102,6 +103,6 @@ export async function getServerSideProps(context) {
   };
 }
 
-Login.getLayout = function getLayout(page) {
+Login.getLayout = function getLayout(page: ReactElement) {
   return <DefaultLayout>{page}</DefaultLayout>;
 };
