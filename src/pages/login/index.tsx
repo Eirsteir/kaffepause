@@ -1,7 +1,9 @@
+import { getServerSession } from 'next-auth';
 import { getProviders, getSession, signIn, useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
+import { authOptions } from '@/pages/api/auth/[...nextauth]';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { CssBaseline, Divider, TextField } from '@mui/material';
@@ -11,13 +13,13 @@ import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 
-export default function Login() {
+export default function Login({ session, providers }) {
   const [isRedirecting, setIsRedirecting] = useState(false);
-  const { data: session } = useSession();
   const router = useRouter();
 
   useEffect(() => {
     if (session && !isRedirecting && router.isReady) {
+      console.log('SESSION', session);
       // display some message to the user that he is being redirected
       setIsRedirecting(true);
       setTimeout(() => {
@@ -84,16 +86,17 @@ export default function Login() {
 }
 
 export async function getServerSideProps(context) {
-  const { req } = context;
-  const session = await getSession({ req }); // TODO: server side session
+  // const session = await getSession({ req }); // TODO: server side session
+  const session = await getServerSession(context.req, context.res, authOptions);
   const providers = await getProviders();
   if (session) {
     return {
-      redirect: { destination: '/' },
+      redirect: { destination: '/', permanent: false },
     };
   }
   return {
     props: {
+      session,
       providers,
     },
   };
