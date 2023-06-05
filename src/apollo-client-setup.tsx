@@ -13,7 +13,6 @@ import { setContext } from '@apollo/client/link/context';
 
 const httpLink = createHttpLink({
   uri: process.env.NEXT_PUBLIC_API_URL,
-  credentials: 'include',
 });
 
 const authLink = setContext(async (_, { headers }) => {
