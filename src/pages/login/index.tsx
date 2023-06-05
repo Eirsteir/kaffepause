@@ -19,7 +19,6 @@ export default function Login({ session, providers }) {
 
   useEffect(() => {
     if (session && !isRedirecting && router.isReady) {
-      console.log('SESSION', session);
       // display some message to the user that he is being redirected
       setIsRedirecting(true);
       setTimeout(() => {

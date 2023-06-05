@@ -62,7 +62,7 @@ export const authOptions: NextAuthOptions = {
     },
   },
   pages: {
-    signIn: URLS.SIGNIN, // Displays signin buttons
+    signIn: URLS.SIGNIN, /
   },
 };
 
