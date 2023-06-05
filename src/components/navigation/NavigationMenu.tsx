@@ -50,6 +50,7 @@ export default function NavigationMenu({
       <Menu
         anchorEl={anchorEl}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+        disableScrollLock={true} // Prevents layout shift
         id='account-menu'
         onClick={handleClose}
         onClose={handleClose}
