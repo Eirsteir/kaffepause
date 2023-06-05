@@ -9,6 +9,14 @@ import { theme } from '@/theme';
 import { ThemeProvider } from '@mui/material/styles';
 import { Analytics } from '@vercel/analytics/react';
 
+import '@fontsource/raleway';
+import '@fontsource/raleway/300.css';
+import '@fontsource/raleway/400.css';
+import '@fontsource/raleway/500.css';
+import '@fontsource/raleway/700.css';
+import '@fontsource/raleway/800.css';
+import '@fontsource/raleway/900.css';
+
 // add requireAuth to AppProps
 type AppPropsWithAuth = AppProps & {
   Component: {

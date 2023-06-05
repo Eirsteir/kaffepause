@@ -6,16 +6,17 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 
 type Props = {
+  noBorder?: boolean;
   children?: React.ReactNode;
 };
 
-export default function BaseNavigation({ children }: Props) {
+export default function BaseNavigation({ noBorder, children }: Props) {
   return (
     <Box sx={{ flexGrow: 1, height: '80px' }}>
       <AppBar
         elevation={0}
         sx={{
-          boxShadow: 'rgba(0,0,0,0.08) 0 1px 1px',
+          boxShadow: noBorder ? '' : 'rgba(0,0,0,0.08) 0 1px 1px',
           height: '80px',
           justifyContent: 'center',
         }}>

@@ -1,11 +1,4 @@
 import { createTheme, ThemeOptions } from '@mui/material/styles';
-import '@fontsource/raleway';
-import '@fontsource/raleway/300.css';
-import '@fontsource/raleway/400.css';
-import '@fontsource/raleway/500.css';
-import '@fontsource/raleway/700.css';
-import '@fontsource/raleway/800.css';
-import '@fontsource/raleway/900.css';
 
 declare module '@mui/material/styles' {
   interface Palette {

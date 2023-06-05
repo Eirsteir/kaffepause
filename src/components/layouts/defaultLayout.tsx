@@ -11,7 +11,10 @@ export default function DefaultLayout({ children }: PropsWithChildren) {
     <>
       <Head>
         <title>kaffepause</title>
-        <meta content='kaffekaffekaffe' name='description' />
+        <meta
+          content='Planlegg sosiale lesepauser med venner'
+          name='description'
+        />
         <meta content='width=device-width, initial-scale=1' name='viewport' />
         <link href='/favicon.ico' rel='icon' />
       </Head>

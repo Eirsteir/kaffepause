@@ -2,7 +2,7 @@ import type { ReactElement } from 'react';
 
 import Divider from '@/components/elements/Divider';
 import About from '@/components/landing/About';
-import Hero from '@/components/landing/Hero';
+import HeadingSection from '@/components/landing/HeadingSection';
 import InfoSection1 from '@/components/landing/InfoSection1';
 import InfoSection2 from '@/components/landing/InfoSection2';
 import InfoSection3 from '@/components/landing/InfoSection3';
@@ -13,7 +13,7 @@ import { Container } from '@mui/material';
 export default function Landing() {
   return (
     <Container maxWidth='lg'>
-      <Hero />
+      <HeadingSection />
       {/* <KeyBenefits /> */}
       <Divider />
       <InfoSection1 />

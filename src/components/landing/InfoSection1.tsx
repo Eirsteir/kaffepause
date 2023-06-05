@@ -1,3 +1,6 @@
+import Image from 'next/image';
+
+import homePic from '@/assets/home.png';
 import { useMediaQuery } from '@mui/material';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -19,12 +22,17 @@ export default function InfoSection1() {
       sx={{ justifyContent: 'space-evenly' }}>
       <Grid container spacing={2}>
         <Grid item lg={6} md={12}>
-          BILDE
+          <Image
+            alt="Screenshot of kaffepause's homepage"
+            height={250}
+            src={homePic}
+            width={390}
+          />
         </Grid>
         <Grid item lg={6} md={12}>
           <Typography
             gutterBottom
-            sx={{ fontSize: breakpoint ? '2.5rem' : '3.5rem' }}
+            sx={{ fontSize: { md: '2.5rem', lg: '3.5rem' } }}
             variant='h2'>
             Bli med vennene dine på kaffepause
           </Typography>

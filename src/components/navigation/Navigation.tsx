@@ -12,7 +12,7 @@ export default function Navigation() {
   }
 
   return (
-    <BaseNavigation>
+    <BaseNavigation noBorder>
       <UnauthedAccountMenu />
     </BaseNavigation>
   );
