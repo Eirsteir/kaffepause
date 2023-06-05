@@ -1,18 +1,11 @@
 import Image from 'next/image';
 
 import homePic from '@/assets/home.png';
-import { useMediaQuery } from '@mui/material';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
-import { useTheme } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 
 export default function InfoSection1() {
-  const theme = useTheme();
-  const breakpoint = useMediaQuery(theme.breakpoints.down('md'), {
-    noSsr: true,
-  });
-
   return (
     <Box
       alignItems='center'
@@ -32,7 +25,7 @@ export default function InfoSection1() {
         <Grid item lg={6} md={12}>
           <Typography
             gutterBottom
-            sx={{ fontSize: { md: '2.5rem', lg: '3.5rem' } }}
+            sx={{ fontSize: { xs: '2.5rem', md: '2.5rem', lg: '3.5rem' } }}
             variant='h2'>
             Bli med vennene dine på kaffepause
           </Typography>

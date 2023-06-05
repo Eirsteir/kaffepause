@@ -31,27 +31,68 @@ const KeyBenefitItem = ({ title, text, Icon }: Props) => (
 
 export default function KeyBenefits() {
   return (
-    <Box sx={{ marginTop: '2rem', padding: '1rem', marginBottom: 20 }}>
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        paddingLeft: '7.5vw',
+        paddingRight: '7.5vw',
+        paddingTop: '5rem',
+        paddingBottom: '3.5rem',
+        textAlign: 'center',
+      }}>
+      <Typography
+        gutterBottom
+        sx={{
+          fontSize: { xs: '2.5rem', md: '2.5rem', lg: '3rem' },
+          marginBottom: '3.5rem',
+        }}
+        variant='h2'>
+        Bruk mindre tid på koordinering
+      </Typography>
       <Grid container spacing={4}>
-        <Grid item sm={4} xs={12}>
+        <Grid item sm={4} xs={6}>
           <KeyBenefitItem
             Icon={<TouchAppOutlinedIcon color='primary' fontSize='large' />}
-            text='Verktøyet er utformet for å være brukervennlig, slik at det er enkelt for alle å planlegge en perfekt kaffepause med venner.'
-            title='Enkelt å bruke'
+            text='Planlegg en pause når det passer deg.'
+            title='Bestem et tidspunkt'
           />
         </Grid>
-        <Grid item sm={4} xs={12}>
+        <Grid item sm={4} xs={6}>
           <KeyBenefitItem
             Icon={<AddTaskOutlinedIcon color='primary' fontSize='large' />}
-            text='Ved å planlegge pausene dine på forhånd, kan du være produktiv og samtidig gjøre mest mulig ut av tiden med venner.'
-            title='Mer produktive pauser'
+            text='Inviter til pause akkurat der du vil, enten det er i kafè, biblioteket eller på linjeforeningskontoret.'
+            title='Velg et sted'
           />
         </Grid>
-        <Grid item sm={4} xs={12}>
+        <Grid item sm={4} xs={6}>
           <KeyBenefitItem
             Icon={<LocalCafeOutlinedIcon color='primary' fontSize='large' />}
-            text='Kaffepauser med venner er en flott måte å slappe av og ta en pause fra studiene. Kaffepause gjør det enkelt å planlegge, så du kan få mest mulig ut av studieøktene dine.'
-            title='Mer moro'
+            text='Med kaffepause kan du invitere enkeltpersoner eller grupper som du vil.'
+            title='Inviter'
+          />
+        </Grid>
+        <Grid item sm={4} xs={6}>
+          <KeyBenefitItem
+            Icon={<LocalCafeOutlinedIcon color='primary' fontSize='large' />}
+            text='Hvis ikke tidspunktet passer for deg, kan du foreslå et nytt ett.'
+            title='Foreslå endringer'
+          />
+        </Grid>
+        <Grid item sm={4} xs={6}>
+          <KeyBenefitItem
+            Icon={<LocalCafeOutlinedIcon color='primary' fontSize='large' />}
+            text='Flytt kollokviegruppen din til kaffepause så kan dere enkelt planlegge pauser sammen.'
+            title='Opprett grupper'
+          />
+        </Grid>
+        <Grid item sm={4} xs={6}>
+          <KeyBenefitItem
+            Icon={<LocalCafeOutlinedIcon color='primary' fontSize='large' />}
+            text='Finn vennene dine på kaffepause eller inviter dem hit og planlegg pauser sammen.'
+            title='Finn venner'
           />
         </Grid>
       </Grid>
