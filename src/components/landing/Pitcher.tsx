@@ -24,6 +24,7 @@ export default function Pitcher() {
         sx={{
           marginTop: '1.5rem',
           marginRight: 'auto',
+          padding: '.5rem 1rem',
         }}
         variant='contained'>
         Kom i gang

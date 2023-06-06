@@ -1,3 +1,6 @@
+import Image from 'next/image';
+
+import CenteredBox from '@/components/elements/CenteredBox';
 import { useMediaQuery } from '@mui/material';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -38,7 +41,14 @@ export default function InfoSection2() {
           </Typography>
         </Grid>
         <Grid item lg={6} md={12}>
-          BILDE
+          <CenteredBox>
+            <Image
+              alt='social coffebreaks'
+              height={300}
+              src='/5295.jpg' // 6316
+              width={500}
+            />
+          </CenteredBox>
         </Grid>
       </Grid>
     </Box>

@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-import homePic from '@/assets/home.png';
+import CenteredBox from '@/components/elements/CenteredBox';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
@@ -15,12 +15,14 @@ export default function InfoSection1() {
       sx={{ justifyContent: 'space-evenly' }}>
       <Grid container spacing={2}>
         <Grid item lg={6} md={12}>
-          <Image
-            alt="Screenshot of kaffepause's homepage"
-            height={250}
-            src={homePic}
-            width={390}
-          />
+          <CenteredBox>
+            <Image
+              alt="Screenshot of kaffepause's homepage"
+              height={300}
+              src='/7566.jpg'
+              width={500}
+            />
+          </CenteredBox>
         </Grid>
         <Grid item lg={6} md={12}>
           <Typography

@@ -21,8 +21,8 @@ export default function Landing() {
       <KeyBenefits />
       <Divider />
       <InfoSection2 />
-      <Divider />
-      <InfoSection3 />
+      {/* <Divider />
+      <InfoSection3 /> */}
       <Divider />
       <About />
       <Divider />
