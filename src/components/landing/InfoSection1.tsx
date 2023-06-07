@@ -19,6 +19,8 @@ export default function InfoSection1() {
             <Image
               alt="Screenshot of kaffepause's homepage"
               height={300}
+              priority
+              sizes='(max-width: 479px) 88vw, (max-width: 767px) 91vw, (max-width: 991px) 85vw, 39vw'
               src='/7566.jpg'
               width={500}
             />

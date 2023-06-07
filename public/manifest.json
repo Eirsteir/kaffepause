@@ -1,0 +1,10 @@
+{
+    "theme_color": "#264653",
+    "background_color": "#fff",
+    "display": "standalone",
+    "scope": "/",
+    "start_url": "/",
+    "name": "Kaffepause",
+    "short_name": "kaffepause",
+    "icons": []
+}
