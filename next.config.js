@@ -1,8 +1,13 @@
 /** @type {import('next').NextConfig} */
 
-const withPWA = require('next-pwa');
+const withPWA = require('next-pwa')({
+  dest: 'public',
+  disable: process.env.NODE_ENV === 'development',
+  register: true,
+  skipWaiting: true,
+});
 
-const nextConfig = withPWA({
+const nextConfig = {
   reactStrictMode: true,
   typescript: {
     ignoreBuildErrors: true,
@@ -11,13 +16,6 @@ const nextConfig = withPWA({
     ignoreDuringBuilds: true,
   },
   swcMinify: true,
-  // pwa
-  pwa: {
-    dest: 'public',
-    register: true,
-    skipWaiting: true,
-    disable: process.env.NODE_ENV === 'development',
-  },
-});
+};
 
-module.exports = nextConfig;
+module.exports = withPWA(nextConfig);
