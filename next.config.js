@@ -12,7 +12,6 @@ const nextConfig = withPWA({
   },
   swcMinify: true,
   // pwa
-  reactStrictMode: true,
   pwa: {
     dest: 'public',
     register: true,
