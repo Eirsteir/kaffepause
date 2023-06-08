@@ -44,9 +44,12 @@ export default function InfoSection2() {
           <CenteredBox>
             <Image
               alt='social coffebreaks'
-              fill
+              height={300}
+              priority
               sizes='(max-width: 479px) 88vw, (max-width: 767px) 91vw, (max-width: 991px) 85vw, 39vw'
-              src='/5295.jpg' // 6316
+              src='/5295.jpg'
+              style={{ width: 'inherit', height: 'inherit' }}
+              width={500}
             />
           </CenteredBox>
         </Grid>
