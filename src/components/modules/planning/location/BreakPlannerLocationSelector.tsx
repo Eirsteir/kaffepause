@@ -1,3 +1,4 @@
+import { useSnackbar } from 'material-ui-snackbar-provider';
 import { useEffect, useMemo, useState } from 'react';
 
 import CenteredBox from '@/components/elements/CenteredBox';
@@ -27,6 +28,8 @@ export default function BreakPlannerLocationSelector({
     [data],
   );
 
+  const snackbar = useSnackbar();
+
   const handleSelect = (location: Location) => {
     setLocation(location);
     onSelect(location);
@@ -37,6 +40,10 @@ export default function BreakPlannerLocationSelector({
       onSelect(location);
     }
   }, [onSelect, location]);
+
+  if (error) {
+    snackbar.showMessage(error.message);
+  }
 
   return (
     <>
@@ -59,11 +66,6 @@ export default function BreakPlannerLocationSelector({
         <Typography variant='caption'>
           *Du kan legge til et nytt sted ved å skrive det inn her
         </Typography>
-        {error && (
-          <Typography sx={{ color: 'red' }} variant='caption'>
-            {error.message}
-          </Typography>
-        )}
       </Box>
     </>
   );

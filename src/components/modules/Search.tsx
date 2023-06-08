@@ -1,3 +1,4 @@
+import { useSnackbar } from 'material-ui-snackbar-provider';
 import { useRouter } from 'next/router';
 import * as React from 'react';
 
@@ -6,7 +7,7 @@ import SearchBar from '@/components/elements/SearchInputField';
 import { useSearchUsers } from '@/hooks/User';
 import { User, UserEdge } from '@/types/User';
 import URLS from '@/URLS';
-import { CircularProgress } from '@mui/material';
+import { ApolloError } from '@apollo/client';
 import Autocomplete from '@mui/material/Autocomplete';
 import Divider from '@mui/material/Divider';
 import Grid from '@mui/material/Grid';
@@ -21,6 +22,8 @@ export default function Search() {
   const [options, setOptions] = React.useState<readonly User[]>([]);
   const [search, { data, loading, error }] = useSearchUsers();
 
+  const snackbar = useSnackbar();
+
   const fetch = React.useMemo(
     () =>
       debounce(
@@ -29,11 +32,12 @@ export default function Search() {
             variables: { query, first: 10 },
             onCompleted: ({ searchUsers }) =>
               callback(searchUsers.edges.map((edge: UserEdge) => edge.node)),
+            onError: (e: ApolloError) => snackbar.showMessage(e.message),
           });
         },
         100,
       ),
-    [search],
+    [search, snackbar],
   );
 
   React.useEffect(() => {

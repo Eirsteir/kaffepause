@@ -1,9 +1,11 @@
+import { useSnackbar } from 'material-ui-snackbar-provider';
 import * as React from 'react';
 
 import BouncingDotsLoader from '@/components/elements/BouncingDotsLoader';
 import LoadingButton from '@/components/elements/LoadingButton';
 import { useAddUserLocation } from '@/hooks/Location';
 import { Location } from '@/types/Location';
+import { ApolloError } from '@apollo/client';
 import Autocomplete, { createFilterOptions } from '@mui/material/Autocomplete';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
@@ -22,7 +24,6 @@ interface LocationSelectCreateOptionDialogProps {
   locations: readonly LocationOptionType[];
   initialLocation: Location | undefined;
   loading: boolean;
-  error: string;
   onSelect: (location: Location) => void;
 }
 
@@ -42,6 +43,8 @@ export default function LocationSelectCreateOptionDialog({
   const [dialogValue, setDialogValue] = React.useState({
     title: '',
   });
+
+  const snackbar = useSnackbar();
 
   const [
     addUserLocation,
@@ -69,8 +72,11 @@ export default function LocationSelectCreateOptionDialog({
         if (data.addUserLocation.success) {
           onSelect(data.addUserLocation.location);
           setHasAddedUserLocation(true);
+        } else {
+          snackbar.showMessage(data.addUserLocation.errors);
         }
       },
+      onError: (e: ApolloError) => snackbar.showMessage(e.message),
     });
   };
 

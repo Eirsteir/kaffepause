@@ -1,3 +1,4 @@
+import { useSnackbar } from 'material-ui-snackbar-provider';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 
@@ -6,6 +7,7 @@ import AddGroupMembersForm from '@/components/groups/AddGroupMembersForm';
 import { useCreateGroup } from '@/hooks/Groups';
 import { User } from '@/types/User';
 import URLS from '@/URLS';
+import { ApolloError } from '@apollo/client';
 import { Button, TextField, Typography } from '@mui/material';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -36,6 +38,8 @@ export default function GroupFormDialog({
   const [name, setName] = useState('');
   const [members, setMembers] = useState<User[]>([]);
 
+  const snackbar = useSnackbar();
+
   const handleAddMember = (value: User | null) => {
     if (value && !members.includes(value)) {
       setMembers([...members, value]);
@@ -53,10 +57,13 @@ export default function GroupFormDialog({
       variables: { name: name, members: members.map((m) => m.uuid) },
       onCompleted: (data) => {
         if (data.createGroup.success) {
-          alert('Gruppe opprettet!');
+          snackbar.showMessage('Gruppe opprettet!');
           router.push(`${URLS.GROUPS}/${data.createGroup.group.uuid}`);
+        } else {
+          snackbar.showMessage(data.createGroup.errors);
         }
       },
+      onError: (e: ApolloError) => snackbar.showMessage(e.message),
     });
   };
 

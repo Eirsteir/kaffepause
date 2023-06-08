@@ -1,3 +1,4 @@
+import { useSnackbar } from 'material-ui-snackbar-provider';
 import * as React from 'react';
 
 import LoadingButton from '@/components/elements/LoadingButton';
@@ -5,6 +6,7 @@ import AddGroupMembersForm from '@/components/groups/AddGroupMembersForm';
 import { useAddGroupMembers, useEditGroupName } from '@/hooks/Groups';
 import { Group } from '@/types/Group';
 import { User } from '@/types/User';
+import { ApolloError } from '@apollo/client';
 import EditIcon from '@mui/icons-material/Edit';
 import { Box, TextField, Typography } from '@mui/material';
 import Button from '@mui/material/Button';
@@ -19,14 +21,18 @@ export default function RenameGroupDialogForm({ group }: { group: Group }) {
   const [name, setName] = React.useState<string>('');
   const [editGroupName, { loading, error }] = useEditGroupName();
 
+  const snackbar = useSnackbar();
+
   const handleSubmit = (event) => {
     event.preventDefault();
     editGroupName({
       variables: { groupUuid: group.uuid, name: name },
       onCompleted: () => {
-        alert('Gruppen ble oppdatert!');
+        snackbar.showMessage('Gruppen ble oppdatert!');
+
         handleClose();
       },
+      onError: (e: ApolloError) => snackbar.showMessage(e.message),
     });
   };
 

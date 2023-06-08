@@ -1,3 +1,4 @@
+import { useSnackbar } from 'material-ui-snackbar-provider';
 import * as React from 'react';
 
 import LoadingButton from '@/components/elements/LoadingButton';
@@ -5,6 +6,7 @@ import AddGroupMembersForm from '@/components/groups/AddGroupMembersForm';
 import { useAddGroupMembers } from '@/hooks/Groups';
 import { Group } from '@/types/Group';
 import { User } from '@/types/User';
+import { ApolloError } from '@apollo/client';
 import AddIcon from '@mui/icons-material/Add';
 import { Box, Typography } from '@mui/material';
 import Button from '@mui/material/Button';
@@ -18,6 +20,8 @@ export default function AddMembersDialogForm({ group }: { group: Group }) {
 
   const [users, setUsers] = React.useState<User[]>([]);
   const [addGroupMembers, { loading, error }] = useAddGroupMembers();
+
+  const snackbar = useSnackbar();
 
   const handleAddMember = (value) => {
     if (value && !users.includes(value)) {
@@ -34,9 +38,10 @@ export default function AddMembersDialogForm({ group }: { group: Group }) {
     addGroupMembers({
       variables: { groupUuid: group.uuid, userUuids: users.map((u) => u.uuid) },
       onCompleted: () => {
-        alert('Brukerne ble lagt til!');
+        snackbar.showMessage('Brukerne ble lagt til i gruppen!');
         handleClose();
       },
+      onError: (e: ApolloError) => snackbar.showMessage(e.message),
     });
   };
 

@@ -27,6 +27,7 @@
     "eslint-config-next": "13.2.3",
     "graphql": "^16.6.0",
     "jsonwebtoken": "^9.0.0",
+    "material-ui-snackbar-provider": "^2.0.0",
     "neo4j-driver": "^5.8.1",
     "next": "13.2.3",
     "next-auth": "^4.22.1",

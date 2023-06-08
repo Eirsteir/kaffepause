@@ -1,4 +1,5 @@
 import '@/styles/globals.css';
+import { SnackbarProvider } from 'material-ui-snackbar-provider';
 import { SessionProvider } from 'next-auth/react';
 import type { AppProps } from 'next/app';
 
@@ -33,15 +34,17 @@ export default function App({
       <ApolloProviderWrapper>
         <SessionProvider session={session}>
           <ThemeProvider theme={theme}>
-            <Layout>
-              {Component.requireAuth ? (
-                <ProtectedLayout>
+            <SnackbarProvider SnackbarProps={{ autoHideDuration: 4000 }}>
+              <Layout>
+                {Component.requireAuth ? (
+                  <ProtectedLayout>
+                    <Component {...pageProps} />
+                  </ProtectedLayout>
+                ) : (
                   <Component {...pageProps} />
-                </ProtectedLayout>
-              ) : (
-                <Component {...pageProps} />
-              )}
-            </Layout>
+                )}
+              </Layout>
+            </SnackbarProvider>
           </ThemeProvider>
         </SessionProvider>
       </ApolloProviderWrapper>

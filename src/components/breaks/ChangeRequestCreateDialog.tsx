@@ -1,4 +1,5 @@
 import { Dayjs } from 'dayjs';
+import { useSnackbar } from 'material-ui-snackbar-provider';
 import { useState } from 'react';
 
 import Divider from '@/components/elements/Divider';
@@ -10,6 +11,7 @@ import { useRequestChange } from '@/hooks/Breaks';
 import { Break } from '@/types/Break';
 import { Location } from '@/types/Location';
 import { User } from '@/types/User';
+import { ApolloError } from '@apollo/client';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -43,6 +45,8 @@ export default function ChangeRequestCreateDialog({
 
   const [requestChange, { loading, error }] = useRequestChange();
 
+  const snackbar = useSnackbar();
+
   const handleSubmit = () => {
     const requestedTime = time.isSame(dayjs(initialTime)) ? null : time;
     const requestedLocationUuid =
@@ -55,9 +59,10 @@ export default function ChangeRequestCreateDialog({
         requestedLocationUuid: requestedLocationUuid,
       },
       onCompleted: () => {
-        alert('Forslag sendt!');
+        snackbar.showMessage('Forslag sendt!');
         handleClose();
       },
+      onError: (e: ApolloError) => snackbar.showMessage(e.message),
     });
   };
 

@@ -1,10 +1,12 @@
 import { Dayjs } from 'dayjs';
+import { useSnackbar } from 'material-ui-snackbar-provider';
 
 import BreakPlannerForm from '@/components/modules/planning/BreakPlannerForm';
 import { useIniateBreak } from '@/hooks/Breaks';
 import { Group } from '@/types/Group';
 import { Location } from '@/types/Location';
 import { User } from '@/types/User';
+import { ApolloError } from '@apollo/client';
 
 interface BreakPlannerCreateFormProps {
   user: User;
@@ -13,14 +15,17 @@ interface BreakPlannerCreateFormProps {
 export default function BreakPlannerCreateForm({
   user,
 }: BreakPlannerCreateFormProps) {
+  const snackbar = useSnackbar();
+
   const [initiateBreak, { loading, error }] = useIniateBreak({
     onCompleted: ({ initiateBreak }) => {
       if (initiateBreak.success) {
-        alert('Vent på svar og gjør deg klar til pause!');
+        snackbar.showMessage('Vent på svar og gjør deg klar til pause!');
       } else {
-        console.log(initiateBreak.error);
+        snackbar.showMessage('Noe gikk galt!');
       }
     },
+    onError: (e: ApolloError) => snackbar.showMessage(e.message),
   });
 
   const handleSubmit = (

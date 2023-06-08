@@ -1,3 +1,4 @@
+import { useSnackbar } from 'material-ui-snackbar-provider';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import * as React from 'react';
@@ -7,6 +8,7 @@ import { useRemoveGroupMember } from '@/hooks/Groups';
 import { Group } from '@/types/Group';
 import { User } from '@/types/User';
 import URLS from '@/URLS';
+import { ApolloError } from '@apollo/client';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import PersonIcon from '@mui/icons-material/Person';
 import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
@@ -118,14 +120,16 @@ export default function GroupMembersList({
   detail?: boolean;
 }) {
   const { data: session } = useSession();
-
   const [removeGroupMember, { loading }] = useRemoveGroupMember();
+
+  const snackbar = useSnackbar();
 
   const onRemoveGroupMember = (member: User) => {
     removeGroupMember({
       variables: { groupUuid: group.uuid, memberUuid: member.uuid },
-      onCompleted: () => alert('Brukeren ble fjernet fra gruppen.'),
-      onError: (error) => alert(error.message),
+      onCompleted: () =>
+        snackbar.showMessage('Brukeren ble fjernet fra gruppen.'),
+      onError: (e: ApolloError) => snackbar.showMessage(e.message),
     });
   };
 
@@ -134,7 +138,7 @@ export default function GroupMembersList({
       return {
         deleteIcon: (
           <GroupMemberMenu
-            isMemberActor={session?.user?.uuid == member.uuid}
+            isMemberActor={session?.user?.id == member.uuid}
             onRemoveMember={() => onRemoveGroupMember(member)}
             user={member}
           />

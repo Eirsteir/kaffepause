@@ -1,11 +1,10 @@
+import FriendActionButton from '@/components/profile/profile-action-buttons/FriendActionButton';
 import ProfileAction from '@/components/profile/profile-action-buttons/ProfileAction';
 import {
   useAcceptFriendRequest,
   useRejectFriendRequest,
 } from '@/hooks/Friends';
 import { User } from '@/types/User';
-
-import FriendActionButton from './FriendActionButton';
 
 type Props = {
   user: User;

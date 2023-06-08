@@ -1,8 +1,7 @@
+import OutgoingFriendRequestActionButton from '@/components/profile/profile-action-buttons/OutgoingFriendRequestActionButton';
 import ProfileAction from '@/components/profile/profile-action-buttons/ProfileAction';
 import { useAddFriend } from '@/hooks/Friends';
 import { User } from '@/types/User';
-
-import OutgoingFriendRequestActionButton from './OutgoingFriendRequestActionButton';
 
 type Props = {
   user: User;

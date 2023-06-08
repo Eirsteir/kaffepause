@@ -1,3 +1,5 @@
+import { useSnackbar } from 'material-ui-snackbar-provider';
+
 import LoadingButton from '@/components/elements/LoadingButton';
 import { ApolloError } from '@apollo/client';
 import { LoadingButtonProps } from '@mui/lab/LoadingButton';
@@ -25,8 +27,14 @@ export default function ProfileAction({
   successState,
   buttonProps,
 }: ProfileActionProps) {
+  const snackbar = useSnackbar();
+
   if (success) {
     return successState;
+  }
+
+  if (error) {
+    snackbar.showMessage(error);
   }
 
   return (
@@ -37,7 +45,6 @@ export default function ProfileAction({
       <LoadingButton loading={loading} onClick={action} {...buttonProps}>
         {actionText}
       </LoadingButton>
-      {error && <p>{error.message}</p>}
     </Box>
   );
 }
