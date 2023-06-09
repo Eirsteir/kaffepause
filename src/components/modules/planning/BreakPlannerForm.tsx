@@ -24,7 +24,6 @@ interface BreakPlannerFormProps {
     invitees: User[],
     recipientGroup: Group,
   ) => void;
-  error: ApolloError;
   loading: boolean;
 }
 
@@ -34,7 +33,6 @@ export default function BreakPlannerForm({
   initialLocation,
   initialInvitees,
   onSubmit,
-  error,
   loading,
 }: BreakPlannerFormProps) {
   const [timeSlot, setTimeSlot] = useState<Dayjs | null>(
@@ -77,8 +75,6 @@ export default function BreakPlannerForm({
         onClick={() => onSubmit(location, timeSlot, invitees, recipientGroup)}
         title='Planlegg pausen'
       />
-
-      {error && <Typography color='error.main'>{error.message}</Typography>}
     </Box>
   );
 }
