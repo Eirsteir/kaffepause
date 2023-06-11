@@ -17,7 +17,6 @@ const IGNORE_BREAK_INVITATION = gql`
                 id
                 uuid
                 name
-                username
                 __typename
               }
             }

@@ -1,12 +1,36 @@
 import jsonwebtoken from 'jsonwebtoken';
 import neo4j from 'neo4j-driver';
-import type { NextAuthOptions } from 'next-auth';
+import type { DefaultSession, NextAuthOptions } from 'next-auth';
 import { JWT } from 'next-auth/jwt';
 import NextAuth from 'next-auth/next';
 import GitHubProvider from 'next-auth/providers/github';
 
 import URLS from '@/URLS';
 import { Neo4jAdapter } from '@next-auth/neo4j-adapter';
+
+/**
+ * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
+ * object and keep type safety.
+ *
+ * @see https://next-auth.js.org/getting-started/typescript#module-augmentation
+ */
+declare module 'next-auth' {
+  interface Session extends DefaultSession {
+    user: {
+      id: string;
+      name: string;
+      image: string;
+      email: string;
+      // ...other properties
+      // role: UserRole;
+    }; // & DefaultSession["user"];
+  }
+
+  // interface User {
+  //   // ...other properties
+  //   // role: UserRole;
+  // }
+}
 
 const driver = neo4j.driver(
   process.env.NEO4J_URI || 'bolt://localhost',
@@ -56,7 +80,7 @@ export const authOptions: NextAuthOptions = {
       }
       return token;
     },
-    async session({ session, token, user }) {
+    async session({ session, token }) {
       session.user.id = token.id;
       return session;
     },

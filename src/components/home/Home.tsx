@@ -11,16 +11,14 @@ import { useTheme } from '@mui/material/styles';
 export default function Home() {
   const { data, loading, error } = useMe();
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'), {
-    noSsr: true,
-  });
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
   return (
     <PageContainer>
       {isMobile && (
-        <Box sx={{ flex: '1 1 0px' }}>
-          <NextBreakActionCard />
-        </Box>
+        // <Box sx={{ flex: '1 1 0px' }}>
+        <NextBreakActionCard />
+        // </Box>
       )}
       <QueryResult data={data} error={error} loading={loading}>
         <BreakPlanner user={data?.me} />

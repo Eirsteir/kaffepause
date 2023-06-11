@@ -17,7 +17,7 @@ export default function BreakPlannerCreateForm({
 }: BreakPlannerCreateFormProps) {
   const snackbar = useSnackbar();
 
-  const [initiateBreak, { loading, error }] = useIniateBreak({
+  const [initiateBreak, { loading }] = useIniateBreak({
     onCompleted: ({ initiateBreak }) => {
       if (initiateBreak.success) {
         snackbar.showMessage('Vent på svar og gjør deg klar til pause!');
@@ -45,11 +45,6 @@ export default function BreakPlannerCreateForm({
   };
 
   return (
-    <BreakPlannerForm
-      error={error}
-      loading={loading}
-      onSubmit={handleSubmit}
-      user={user}
-    />
+    <BreakPlannerForm loading={loading} onSubmit={handleSubmit} user={user} />
   );
 }

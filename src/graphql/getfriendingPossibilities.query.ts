@@ -10,7 +10,7 @@ const GET_FRIENDING_POSSIBILITIES_QUERY = gql`
           uuid
           name
           shortName
-          username
+
           friendshipStatus
           socialContext
         }

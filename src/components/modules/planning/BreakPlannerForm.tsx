@@ -8,16 +8,14 @@ import BreakPlannerTimeSelector from '@/components/modules/planning/time/BreakPl
 import { Group } from '@/types/Group';
 import { Location } from '@/types/Location';
 import { User } from '@/types/User';
-import { ApolloError } from '@apollo/client';
-import { Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 
 interface BreakPlannerFormProps {
   user: User;
-  initialTimeSlot: Dayjs | undefined;
-  initialLocation: Location | undefined;
-  initialInvitees: User[] | undefined;
+  initialTimeSlot?: Dayjs | undefined;
+  initialLocation?: Location | undefined;
+  initialInvitees?: User[] | undefined;
   onSubmit: (
     location: Location,
     startTime: Dayjs,

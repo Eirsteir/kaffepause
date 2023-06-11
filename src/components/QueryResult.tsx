@@ -21,9 +21,7 @@ export const QueryResult = ({
   children,
 }: QueryResultProps): JSX.Element => {
   if (error) {
-    return (
-      <Typography>Det oppsto en feil: {(error as Error).message}</Typography>
-    );
+    return <p>Det oppsto en feil: {(error as Error).message}</p>;
   }
   if (loading) {
     if (loadingComponent) {
@@ -36,9 +34,9 @@ export const QueryResult = ({
       );
     }
   }
-  if (!data) {
+  if (!data && !loading) {
     // 404
-    return <Typography>{emptyText || 'Ingenting å vise...'}</Typography>;
+    return <p>{emptyText || 'Ingenting å vise...'}</p>;
   }
   if (data) {
     return children;
