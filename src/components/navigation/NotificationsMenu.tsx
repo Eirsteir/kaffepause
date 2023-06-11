@@ -101,7 +101,7 @@ export default function NotificationsMenu() {
         PaperProps={{
           elevation: 0,
           sx: {
-            minWidth: 200,
+            minWidth: 250,
             maxWidth: 360,
             overflow: 'visible',
             filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
