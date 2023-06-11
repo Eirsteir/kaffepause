@@ -1,3 +1,4 @@
+import CenteredBox from '@/components/elements/CenteredBox';
 import PageContainer from '@/components/elements/PageContainer';
 import PendingBreakInvitations from '@/components/home/PendingInvitations';
 import BreakPlanner from '@/components/modules/planning/BreakPlanner';
@@ -16,14 +17,16 @@ export default function Home() {
   return (
     <PageContainer>
       {isMobile && (
-        // <Box sx={{ flex: '1 1 0px' }}>
-        <NextBreakActionCard />
-        // </Box>
+        <CenteredBox>
+          <NextBreakActionCard />
+        </CenteredBox>
       )}
-      <QueryResult data={data} error={error} loading={loading}>
-        <BreakPlanner user={data?.me} />
-        <PendingBreakInvitations />
-      </QueryResult>
+      <Box sx={{ minHeight: '80vh' }}>
+        <QueryResult data={data} error={error} loading={loading}>
+          <BreakPlanner user={data?.me} />
+          <PendingBreakInvitations />
+        </QueryResult>
+      </Box>
     </PageContainer>
   );
 }
