@@ -6,9 +6,7 @@ const BREAKS_INVITATION_PRESENTATION_QUERY = gql`
 
   query BreakInvitationsPresentation {
     breakInvitationsPresentation {
-      id
       sections {
-        id
         sectionId
         heading
         isEmpty

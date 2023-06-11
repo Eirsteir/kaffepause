@@ -5,9 +5,7 @@ const BREAKS_PRESENTATION_QUERY = gql`
   ${BREAK_FIELDS}
   query BreaksPresentation {
     breaksPresentation {
-      id
       sections {
-        id
         sectionId
         heading
         isEmpty
