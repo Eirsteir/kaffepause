@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import { useMemo } from 'react';
+import { useSession } from 'next-auth/react';
 
 import PageContainer from '@/components/elements/PageContainer';
 import FriendingPossibilitiesSection from '@/components/profile/FriendingPossibilitiesSection';
@@ -24,9 +25,10 @@ const Divider = () => (
 
 export default function Profile({ userId }: ProfileProps) {
   const { data, loading, error } = useUser(userId); // todo: fix loading state
+  const { data: session } = useSession();
   const actorIsUser = useMemo(
-    () => data?.user?.uuid === userId,
-    [data, userId],
+    () => data?.user?.uuid === session?.user?.id,
+    [data, session],
   );
 
   return (
