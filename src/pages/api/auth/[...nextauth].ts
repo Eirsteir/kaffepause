@@ -4,6 +4,7 @@ import type { DefaultSession, NextAuthOptions } from 'next-auth';
 import { JWT } from 'next-auth/jwt';
 import NextAuth from 'next-auth/next';
 import GitHubProvider from 'next-auth/providers/github';
+import GoogleProvider from 'next-auth/providers/google';
 
 import URLS from '@/URLS';
 import { Neo4jAdapter } from '@next-auth/neo4j-adapter';
@@ -47,11 +48,26 @@ export const authOptions: NextAuthOptions = {
     GitHubProvider({
       clientId: process.env.GITHUB_ID!,
       clientSecret: process.env.GITHUB_SECRET!,
+      allowDangerousEmailAccountLinking: true,
+    }),
+    GoogleProvider({
+      clientId: process.env.GOOGLE_ID!,
+      clientSecret: process.env.GOOGLE_SECRET!,
+      authorization: {
+        // For re-issuing refresh tokens
+        params: {
+          prompt: 'consent',
+          access_type: 'offline',
+          response_type: 'code',
+        },
+      },
+      allowDangerousEmailAccountLinking: true,
     }),
   ],
   adapter: Neo4jAdapter(neo4jSession),
   session: {
     strategy: 'jwt',
+    maxAge: 30 * 24 * 60 * 60, // 30 days
   },
   jwt: {
     encode: ({ secret, token }) => {

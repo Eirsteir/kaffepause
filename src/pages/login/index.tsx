@@ -7,6 +7,7 @@ import type { ReactElement } from 'react';
 import DefaultLayout from '@/components/layouts/defaultLayout';
 import { authOptions } from '@/pages/api/auth/[...nextauth]';
 import GitHubIcon from '@mui/icons-material/GitHub';
+import GoogleIcon from '@mui/icons-material/Google';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { CssBaseline, Divider, TextField } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
@@ -29,10 +30,6 @@ export default function Login({ session, providers }) {
       }, 2000);
     }
   }, [session, isRedirecting, router]);
-
-  const handleSignIn = () => {
-    signIn('github');
-  };
 
   return (
     <Container component='main' maxWidth='sm'>
@@ -62,7 +59,7 @@ export default function Login({ session, providers }) {
           />
           <Button
             fullWidth
-            onClick={handleSignIn}
+            onClick={() => signIn('github')}
             sx={{ mt: 3, mb: 2 }}
             type='submit'
             variant='contained'>
@@ -71,15 +68,26 @@ export default function Login({ session, providers }) {
           <Divider>
             <Typography variant='subtitle2'>eller</Typography>
           </Divider>
-          <Button
-            fullWidth
-            onClick={handleSignIn}
-            startIcon={<GitHubIcon />}
-            sx={{ mt: 3, mb: 2 }}
-            type='submit'
-            variant='outlined'>
-            Fortsett med Github
-          </Button>
+          <Box sx={{ mt: 3 }}>
+            <Button
+              fullWidth
+              onClick={() => signIn('google')}
+              startIcon={<GoogleIcon />}
+              sx={{ mb: 1 }}
+              type='submit'
+              variant='outlined'>
+              Fortsett med Google
+            </Button>
+            <Button
+              fullWidth
+              onClick={() => signIn('github')}
+              startIcon={<GitHubIcon />}
+              sx={{ mb: 1 }}
+              type='submit'
+              variant='outlined'>
+              Fortsett med Github
+            </Button>
+          </Box>
         </Box>
       </Box>
     </Container>
