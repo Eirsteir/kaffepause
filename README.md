@@ -2,6 +2,31 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 
+First, add a `.env.local` file in the project root at add the following: 
+
+```
+NODE_ENV=development
+NEXT_PUBLIC_API_URL=http://localhost:8000/graphql/
+
+NEXT_PUBLIC_BREAK_PLANNER_TIME_SLOT_INVERVAL_IN_MINUTES=15
+
+NEXTAUTH_URL=http://localhost:3000
+NEXTAUTH_SECRET=CKKsPkhIybHLZyajCv2UZeGK/j+5w1oyWVhiY7I6kRY=
+NEXT_PUBLIC_NEXTAUTH_URL=$NEXTAUTH_URL
+ISSUER_URL=https://kaffepause.eiriksteira.com
+
+NEO4J_URI=bolt://localhost
+NEO4J_USERNAME=neo4j
+NEO4J_PASSWORD=kaffepauseadmin
+
+GITHUB_ID=<>
+GITHUB_SECRET=<>
+
+GOOGLE_ID=<>
+GOOGLE_SECRET=<>
+
+```
+
 First, run the development server:
 
 ```bash
