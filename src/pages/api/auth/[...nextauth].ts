@@ -1,8 +1,11 @@
 import jsonwebtoken from 'jsonwebtoken';
+
+import { sendVerificationRequest } from '@/utils';
 import neo4j from 'neo4j-driver';
 import type { DefaultSession, NextAuthOptions } from 'next-auth';
 import { JWT } from 'next-auth/jwt';
 import NextAuth from 'next-auth/next';
+import EmailProvider from 'next-auth/providers/email';
 import GitHubProvider from 'next-auth/providers/github';
 import GoogleProvider from 'next-auth/providers/google';
 
@@ -49,6 +52,12 @@ export const authOptions: NextAuthOptions = {
       clientId: process.env.GITHUB_ID!,
       clientSecret: process.env.GITHUB_SECRET!,
       allowDangerousEmailAccountLinking: true,
+    }),
+    EmailProvider({
+      name: 'email',
+      server: '',
+      from:  process.env.FROM_EMAIL!,
+      sendVerificationRequest,
     }),
     GoogleProvider({
       clientId: process.env.GOOGLE_ID!,

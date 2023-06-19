@@ -48,6 +48,13 @@ export default function Login({ session, providers }) {
           Logg inn eller registrer deg
         </Typography>
         <Box sx={{ mt: 1 }}>
+        <form onSubmit={(e) => {
+                e.preventDefault();
+                const email =  e.target.email.value as string;
+                signIn('email', { email, redirect: false });
+                e.target.reset();
+
+            }}>
           <TextField
             autoComplete='email'
             autoFocus
@@ -59,12 +66,12 @@ export default function Login({ session, providers }) {
           />
           <Button
             fullWidth
-            onClick={() => signIn('github')}
             sx={{ mt: 3, mb: 2 }}
             type='submit'
             variant='contained'>
             Fortsett
           </Button>
+        </form>
           <Divider>
             <Typography variant='subtitle2'>eller</Typography>
           </Divider>

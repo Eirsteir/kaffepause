@@ -1,11 +1,11 @@
 import dayjs, { Dayjs } from 'dayjs';
+import { SendVerificationRequestParams } from "next-auth/providers";
+import { Resend } from 'resend';
+import MagicLinkTemplate from '@/components/emailTemplate';
+
 
 export const getInitialsFromName = (name: string): string => {
-  return name
-    .split(' ')
-    .map((n) => n[0])
-    .join('')
-    .toUpperCase();
+    return 'name';
 };
 
 export const socialTextTruncated = (
@@ -45,4 +45,20 @@ export const generateTimeSlots = (): Dayjs[] => {
   }
 
   return times;
+};
+
+
+
+export const sendVerificationRequest = async (
+  params: SendVerificationRequestParams,
+) => {
+    const resend = new Resend(process.env.RESEND_API_KEY);
+    const { url } = params;
+    const { host } = new URL(url);
+    await resend.sendEmail({
+      from: process.env.EMAIL_FROM!,
+      to: params.identifier,
+      subject: `Sign into ${host} `,
+      react:  MagicLinkTemplate({ host: host, url: url}),
+    });
 };
