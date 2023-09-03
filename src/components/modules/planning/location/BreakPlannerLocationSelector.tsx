@@ -21,14 +21,6 @@ export default function BreakPlannerLocationSelector({
   const [location, setLocation] = useState<Location | undefined>(
     initialLocation,
   );
-  const { loading, error, data } = useLocations();
-  const locations = useMemo(
-    () =>
-      data !== undefined ? data.locations.edges.map((edge) => edge.node) : [],
-    [data],
-  );
-
-  const snackbar = useSnackbar();
 
   const handleSelect = (location: Location) => {
     setLocation(location);
@@ -40,10 +32,6 @@ export default function BreakPlannerLocationSelector({
       onSelect(location);
     }
   }, [onSelect, location]);
-
-  if (error) {
-    snackbar.showMessage(error.message);
-  }
 
   return (
     <>
@@ -58,8 +46,8 @@ export default function BreakPlannerLocationSelector({
       <Box>
         <LocationSelectCreateOptionDialog
           initialLocation={location}
-          loading={loading}
-          locations={locations}
+          // loading={loading}
+          // locations={locations}
           onSelect={handleSelect}
         />
 

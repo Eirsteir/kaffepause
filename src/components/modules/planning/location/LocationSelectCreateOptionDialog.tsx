@@ -3,7 +3,7 @@ import * as React from 'react';
 
 import BouncingDotsLoader from '@/components/elements/BouncingDotsLoader';
 import LoadingButton from '@/components/elements/LoadingButton';
-import { useAddUserLocation } from '@/hooks/Location';
+import { useAddUserLocation, useLocationsLazy } from '@/hooks/Location';
 import { Location } from '@/types/Location';
 import { ApolloError } from '@apollo/client';
 import Autocomplete, { createFilterOptions } from '@mui/material/Autocomplete';
@@ -21,28 +21,54 @@ interface LocationOptionType {
 }
 
 interface LocationSelectCreateOptionDialogProps {
-  locations: readonly LocationOptionType[];
+  // locations: readonly LocationOptionType[];
   initialLocation: Location | undefined;
-  loading: boolean;
+  // loading: boolean;
   onSelect: (location: Location) => void;
 }
 
 const filter = createFilterOptions<LocationOptionType>();
 
 export default function LocationSelectCreateOptionDialog({
-  locations,
+  // locations,
   initialLocation,
-  loading,
+  // loading,
   onSelect,
 }: LocationSelectCreateOptionDialogProps) {
   const [value, setValue] = React.useState<LocationOptionType | null>({
     title: initialLocation?.title ?? '',
   });
   const [open, toggleOpen] = React.useState(false);
+  const [dialogueOpen, setDialogueOpen] = React.useState(false);
 
   const [dialogValue, setDialogValue] = React.useState({
     title: '',
   });
+
+  const [locations, setLocations] = React.useState([]);
+
+  const [getLocations, { error }] = useLocationsLazy();
+  const loading = open && locations.length === 0;
+  const fetchLocations = async () => {
+    if (locations.length === 0) {
+      // Fetch locations when options are empty (i.e., only when the user opens the autocomplete).
+      getLocations({
+        onCompleted: (data) => {
+          const locations2 =
+            data !== undefined
+              ? data.locations.edges.map((edge) => edge.node)
+              : [];
+          setLocations([...locations2]);
+        },
+      });
+    }
+  };
+
+  React.useEffect(() => {
+    if (open) {
+      fetchLocations();
+    }
+  }, [open]);
 
   const snackbar = useSnackbar();
 
@@ -58,6 +84,7 @@ export default function LocationSelectCreateOptionDialog({
       title: '',
     });
     toggleOpen(false);
+    setDialogueOpen(false);
     setHasAddedUserLocation(false);
   };
 
@@ -79,6 +106,12 @@ export default function LocationSelectCreateOptionDialog({
       onError: (e: ApolloError) => snackbar.showMessage(e.message),
     });
   };
+
+  if (error) {
+    snackbar.showMessage(error.message);
+  } else if (addLocationError) {
+    snackbar.showMessage(error.message);
+  }
 
   return (
     <React.Fragment>
@@ -112,16 +145,17 @@ export default function LocationSelectCreateOptionDialog({
         loading={loading}
         loadingText={<BouncingDotsLoader fontSize={8} />}
         onChange={(event, newValue) => {
+          console.log(open);
           if (typeof newValue === 'string') {
             // timeout to avoid instant validation of the dialog's form.
             setTimeout(() => {
-              toggleOpen(true);
+              setDialogueOpen(true);
               setDialogValue({
                 title: newValue,
               });
             });
           } else if (newValue && newValue.inputValue) {
-            toggleOpen(true);
+            setDialogueOpen(true);
             setDialogValue({
               title: newValue.inputValue,
             });
@@ -130,6 +164,7 @@ export default function LocationSelectCreateOptionDialog({
             onSelect(newValue as Location);
           }
         }}
+        onOpen={() => toggleOpen(true)}
         options={locations}
         renderInput={(params) => (
           <>
@@ -159,7 +194,7 @@ export default function LocationSelectCreateOptionDialog({
         value={value}
       />
 
-      <Dialog onClose={handleClose} open={open}>
+      <Dialog onClose={handleClose} open={dialogueOpen}>
         {hasAddedUserLocation ? (
           <>
             <DialogTitle>
