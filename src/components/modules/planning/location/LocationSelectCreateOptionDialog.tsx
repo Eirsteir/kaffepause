@@ -145,7 +145,6 @@ export default function LocationSelectCreateOptionDialog({
         loading={loading}
         loadingText={<BouncingDotsLoader fontSize={8} />}
         onChange={(event, newValue) => {
-          console.log(open);
           if (typeof newValue === 'string') {
             // timeout to avoid instant validation of the dialog's form.
             setTimeout(() => {

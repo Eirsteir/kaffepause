@@ -1,15 +1,13 @@
 import BouncingDotsLoader from '@/components/elements/BouncingDotsLoader';
 import CenteredBox from '@/components/elements/CenteredBox';
-import CircularProgress from '@mui/material/CircularProgress';
-import Typography from '@mui/material/Typography';
 
 type QueryResultProps = {
   loading: boolean;
   loadingComponent?: React.ReactNode;
   error: unknown;
-  emptyText?: string;
+  emptyText?: React.ReactNode;
   data: unknown;
-  children: React.ReactNode | React.ReactNode[];
+  children: React.ReactNode;
 };
 
 export const QueryResult = ({
@@ -19,10 +17,7 @@ export const QueryResult = ({
   emptyText,
   data,
   children,
-}: QueryResultProps): JSX.Element => {
-  if (error) {
-    return <p>Det oppsto en feil: {(error as Error).message}</p>;
-  }
+}: QueryResultProps): React.ReactNode | JSX.Element => {
   if (loading) {
     if (loadingComponent) {
       return loadingComponent;
@@ -34,11 +29,16 @@ export const QueryResult = ({
       );
     }
   }
-  if (!data && !loading) {
-    // 404
-    return <p>{emptyText || 'Ingenting å vise...'}</p>;
+  if (error) {
+    return <p>Det oppsto en feil: {(error as Error).message}</p>;
   }
+
   if (data) {
     return children;
   }
+  if (data === null) {
+    return emptyText;
+  }
+
+  return <></>;
 };
