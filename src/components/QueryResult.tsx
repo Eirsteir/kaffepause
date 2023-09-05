@@ -17,10 +17,10 @@ export const QueryResult = ({
   emptyText,
   data,
   children,
-}: QueryResultProps): React.ReactNode | JSX.Element => {
+}: QueryResultProps) => {
   if (loading) {
     if (loadingComponent) {
-      return loadingComponent;
+      return <div>{loadingComponent}</div>;
     } else {
       return (
         <CenteredBox>
@@ -30,15 +30,12 @@ export const QueryResult = ({
     }
   }
   if (error) {
-    return <p>Det oppsto en feil: {(error as Error).message}</p>;
+    return <div>Det oppsto en feil: {(error as Error).message}</div>;
   }
 
-  if (data) {
-    return children;
-  }
-  if (data === null) {
-    return emptyText;
+  if (!data) {
+    return <div>{emptyText || 'Ingen data tilgjengelig'}</div>;
   }
 
-  return <></>;
+  return <div>{children}</div>;
 };

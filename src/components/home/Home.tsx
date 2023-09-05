@@ -24,8 +24,8 @@ export default function Home() {
       <Box sx={{ minHeight: '80vh' }}>
         <QueryResult data={data} error={error} loading={loading}>
           <BreakPlanner user={data?.me} />
-          <PendingBreakInvitations />
         </QueryResult>
+        <PendingBreakInvitations />
       </Box>
     </PageContainer>
   );
