@@ -34,7 +34,7 @@ export const QueryResult = ({
   }
 
   if (!data) {
-    return <div>{emptyText || 'Ingen data tilgjengelig'}</div>;
+    return <div>{emptyText}</div>;
   }
 
   return <div>{children}</div>;

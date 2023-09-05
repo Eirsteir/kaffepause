@@ -28,16 +28,7 @@ export const useAuthenticatedUser = () => {
   return { isAuthenticated, user: data?.me, loading, error };
 };
 
-export const useMe = () => {
-  const { isAuthenticated } = useIsAuthenticated();
-  return useQuery(ME_QUERY, {
-    skip: !isAuthenticated,
-    onError: (error) => {
-      console.error('me query error: ', error);
-      signOut();
-    },
-  });
-};
+export const useMe = () => useQuery(ME_QUERY);
 
 export const useIsAuthenticated = () => {
   const { status } = useSession();

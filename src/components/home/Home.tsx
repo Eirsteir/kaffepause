@@ -10,7 +10,6 @@ import Box from '@mui/material/Box';
 import { useTheme } from '@mui/material/styles';
 
 export default function Home() {
-  const { data, loading, error } = useMe();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
@@ -22,9 +21,8 @@ export default function Home() {
         </CenteredBox>
       )}
       <Box sx={{ minHeight: '80vh' }}>
-        <QueryResult data={data} error={error} loading={loading}>
-          <BreakPlanner user={data?.me} />
-        </QueryResult>
+        <BreakPlanner />
+
         <PendingBreakInvitations />
       </Box>
     </PageContainer>
