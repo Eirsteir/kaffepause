@@ -26,9 +26,7 @@ export default function UpcomingBreaks() {
 
   return (
     <>
-      <Typography
-        sx={{ paddingTop: '2rem', paddingBottom: '1.5rem' }}
-        variant='h1'>
+      <Typography sx={{ paddingBottom: '1.5rem' }} variant='h1'>
         Kommende pauser
       </Typography>
 

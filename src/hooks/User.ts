@@ -7,6 +7,7 @@ import ME_QUERY from '@/graphql/me.query';
 import SEARCH_USERS from '@/graphql/searchUsers.query';
 import UPDATE_PREFERRED_LOCATION_MUTATION from '@/graphql/updatePreferredLocation.mutation';
 import USER_QUERY from '@/graphql/user.query';
+import FRIENDS_QUERY from '@/graphql/users/friends.query';
 import { User } from '@/types/User';
 import {
   LazyQueryHookOptions,
@@ -105,3 +106,5 @@ export const useUpdatePreferredLocation = (options?) =>
       });
     },
   });
+
+export const useFriends = (options?) => useQuery(FRIENDS_QUERY, options);
