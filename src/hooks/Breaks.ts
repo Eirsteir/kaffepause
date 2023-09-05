@@ -9,6 +9,7 @@ import INITIATE_BREAK_MUTATION from '@/graphql/breaks/initiateBreak.mutation';
 import NEXT_BREAK_QUERY from '@/graphql/breaks/nextBreak.query';
 import PENDING_BREAK_INVITATIONS_QUERY from '@/graphql/breaks/pendingBreakInvitations.query';
 import REQUEST_CHANGE_MUTATION from '@/graphql/breaks/requestChange.mutation';
+import UPCOMING_BREAKS_QUERY from '@/graphql/breaks/upcomingBreaks.query';
 import { useMutation, useQuery } from '@apollo/client';
 
 export const useBreak = (uuid, options?) =>
@@ -18,6 +19,9 @@ export const useBreak = (uuid, options?) =>
   });
 
 export const useBreaksPresentation = () => useQuery(BREAKS_PRESENTATION_QUERY);
+
+export const useUpcomingBreaks = (options?) =>
+  useQuery(UPCOMING_BREAKS_QUERY, options);
 
 export const useBreakInvitationsPresentation = () =>
   useQuery(BREAKS_INVITATION_PRESENTATION_QUERY);

@@ -26,7 +26,7 @@ export default function PendingBreakInvitations() {
   return (
     <>
       <Typography
-        sx={{ paddingTop: '5rem', paddingBottom: '1.5rem' }}
+        sx={{ paddingTop: '2rem', paddingBottom: '1.5rem' }}
         variant='h1'>
         <StyledBadge
           badgeContent=' '
